@@ -1,10 +1,10 @@
 package projects.suffixtree;
 
 import org.junit.Test;
-import projects.bpt.BinaryPatriciaTrie;
 
 import java.util.*;
 
+import static com.sun.tools.internal.ws.wsdl.parser.Util.fail;
 import static org.junit.Assert.*;
 
 //@SuppressWarnings("unused")
