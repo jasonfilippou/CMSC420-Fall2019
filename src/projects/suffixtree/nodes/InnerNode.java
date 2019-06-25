@@ -1,4 +1,4 @@
-package projects.suffixtree;
+package projects.suffixtree.nodes;
 
 public class InnerNode extends Node{
     public int offset;

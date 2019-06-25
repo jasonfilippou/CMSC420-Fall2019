@@ -1,10 +1,14 @@
 package projects.suffixtree;
+import projects.suffixtree.nodes.InnerNode;
+import projects.suffixtree.nodes.LeafNode;
+import projects.suffixtree.nodes.Node;
+
 import java.util.ArrayList;
 import java.util.List;
 /**
  * <p>SuffixTree is a Suffix Tree that allows you to check whether a string is a substring of another string efficiently</p>
  *
- * @author <a href = "mailto:jason.filippou@gmail.com">Jason Filippou</a> &amp; <a href ="mailto:pchiang@cs.umd.edu">Ping Chiang</a>
+ * @author <a href = "https://github.com/JasonFil">Jason Filippou</a> &amp; <a href ="mailto:pchiang@cs.umd.edu">Ping Chiang</a>
  */
 public class SuffixTree {
     protected static final RuntimeException UNIMPL_METHOD = new RuntimeException("Implement this method!");

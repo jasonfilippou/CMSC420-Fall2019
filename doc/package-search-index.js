@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"projects"},{"l":"projects.avlg.java"},{"l":"projects.avlg.java.exceptions"},{"l":"projects.phonebook.java"},{"l":"projects.phonebook.java.hashes"},{"l":"projects.phonebook.java.utils"},{"l":"projects.suffixtree"},{"l":"projects.suffixtree.nodes"}]

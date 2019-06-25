@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import java.util.*;
 
-import static com.sun.tools.internal.ws.wsdl.parser.Util.fail;
 import static org.junit.Assert.*;
 
 //@SuppressWarnings("unused")
@@ -12,7 +11,7 @@ import static org.junit.Assert.*;
 /**
  * A jUnit test suite for {@link SuffixTree}.
  *
- * @author <a href = "mailto:jason.filippou@gmail.com">Jason Filippou</a> &amp; <a href ="mailto:pchiang@cs.umd.edu">Ping Chiang</a>
+ * @author <a href = "https://github.com/JasonFil">Jason Filippou</a> &amp; <a href ="mailto:pchiang@cs.umd.edu">Ping Chiang</a>
 */
 public class ReleaseTests {
 
