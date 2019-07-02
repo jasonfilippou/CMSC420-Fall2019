@@ -10,7 +10,7 @@ import projects.phonebook.java.utils.Probes;
  *
  *  <p><b>**** DO NOT EDIT THIS INTERFACE'S DECLARATION! ****** </b></p>
  * *
- * @author <a href="https://github.com/JasonFil">Jason Filippou</a>
+ * @author <a href="mailto:jason.filippou@gmail.com">Jason Filippou</a>
  */
 public interface HashTable {
 

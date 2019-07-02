@@ -13,7 +13,7 @@ import java.util.Random;
  * <p><b>YOU DO NOT HAVE TO EDIT THIS CLASS! IT HAS BEEN PROVIDED AS A HELPFUL RESOURCE.</b></p>
  *
  * @see PrimeGenerator
- * @author <a href="https://github.com/JasonFil">Jason Filippou</a>
+ * @author <a href="mailto:jason.filippou@gmail.com">Jason Filippou</a>
  */
 public class PrimeGeneratorTests {
 

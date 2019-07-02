@@ -11,7 +11,7 @@ import java.util.Iterator;
  * <p>Duplicate entries <b>are</b> possible in {@link KVPairList}. Additionally, {@link KVPairList}s are
  * <b>not</b> sorted.</p>
  *
- * @author <a href="https://github.com/JasonFil">Jason Filippou</a>
+ * @author <a href="mailto:jason.filippou@gmail.com">Jason Filippou</a>
  *
  * @see KVPair
  * @see KVPairListTests
@@ -129,7 +129,6 @@ public class KVPairList implements Iterable<KVPair>{
         String flag = null;
 
         while(current != null){
-            probeCount++;
             if(current.pair.getKey().equals(key)){ // Found it
                 flag = current.pair.getValue();
                 if(previous != null) {
@@ -146,6 +145,7 @@ public class KVPairList implements Iterable<KVPair>{
                 count--;
                 break;
             }
+            probeCount++;
             previous = current;
             current = current.next;
         }
@@ -165,7 +165,6 @@ public class KVPairList implements Iterable<KVPair>{
         String flag = null;
 
         while(current != null){
-            probeCount++;
             flag = value;
             if(current.pair.getValue().equals(value)){ // Found it
                 if(previous != null) {
@@ -182,6 +181,7 @@ public class KVPairList implements Iterable<KVPair>{
                 count--;
                 break;
             }
+            probeCount++;
             previous = current;
             current = current.next;
         }
@@ -281,11 +281,11 @@ public class KVPairList implements Iterable<KVPair>{
         Node current = head;
         int probeCount = 1;
         while(current != null) {
-            probeCount++;
             if (current.pair.getKey().equals(key)){
                 return new Probes(current.pair.getValue(), probeCount);
             }
             current = current.next;
+            probeCount++;
         }
         return new Probes(null, probeCount);
     }

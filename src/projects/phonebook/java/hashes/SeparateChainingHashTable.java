@@ -51,7 +51,7 @@ public class SeparateChainingHashTable implements HashTable{
     public Probes put(String key, String value) {
         table[hash(key)].addFront(key, value); // For efficient insertions, just drop at front. We have unordered lists.
         count++;
-        return new Probes(value, 0);
+        return new Probes(value, 1);
     }
 
     @Override

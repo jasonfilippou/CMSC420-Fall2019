@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 /**
  * <p>{@link KVPairList} is a small jUnit - based test suite for {@link KVPairList}.</p>
  *
- *  @author <a href="https://github.com/JasonFil">Jason Filippou</a>
+ *  @author <a href="mailto:jason.filippou@gmail.com">Jason Filippou</a>
  *
  * @see KVPairList
  */

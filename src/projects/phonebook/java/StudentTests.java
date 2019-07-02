@@ -5,13 +5,15 @@ import org.junit.Before;
 import org.junit.Test;
 import projects.phonebook.java.hashes.*;
 import projects.phonebook.java.utils.NoMorePrimesException;
+import projects.phonebook.java.utils.Probes;
+import static projects.phonebook.java.hashes.CollisionResolver.*;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import static org.junit.Assert.*;
 
-import static projects.phonebook.java.hashes.CollisionResolver.*;
+
 
 /**
  * <p> {@link StudentTests} is a place for you to write your tests for {@link Phonebook} and all the various
@@ -27,7 +29,7 @@ import static projects.phonebook.java.hashes.CollisionResolver.*;
 public class StudentTests {
 
     private Phonebook pb;
-    private CollisionResolver[] resolvers = {SEPARATE_CHAINING, LINEAR_PROBING, QUADRATIC_PROBING};
+    private CollisionResolver[] resolvers = {SEPARATE_CHAINING, LINEAR_PROBING, ORDERED_LINEAR_PROBING, QUADRATIC_PROBING};
     private HashMap<String, String> testingPhoneBook;
     private static final long SEED = 47;
     private static final Random RNG = new Random(SEED);
@@ -153,4 +155,40 @@ public class StudentTests {
 
     }
 
+    @Test
+    public void testSCProbes() {
+        SeparateChainingHashTable sc = new SeparateChainingHashTable();
+
+        assertEquals(1, sc.put("Arnold", "894-59-0011").probes);
+        assertEquals(1, sc.put("Tiffany", "894-59-0011").probes);
+        assertEquals(1, sc.put("Jessie", "705-12-7500").probes);
+        assertEquals(1, sc.put("Mary", "888-1212-3340").probes);
+
+        assertEquals(2, sc.get("Arnold").probes);
+        assertEquals(1, sc.get("Tiffany").probes);
+        assertEquals(1, sc.get("Jessie").probes);
+        assertEquals(1, sc.get("Mary").probes);
+
+        // Search fail
+        assertEquals(2, sc.get("Jerry").probes);
+
+        assertEquals(2, sc.remove("Arnold").probes);
+        assertEquals(1, sc.remove("Tiffany").probes);
+        assertEquals(1, sc.remove("Jessie").probes);
+        assertEquals(1, sc.remove("Mary").probes);
+
+    }
+
+
+    @Test
+    public void testLProbes() {
+
+        LinearProbingHashTable lp = new LinearProbingHashTable();
+
+        assertEquals(1, lp.put("Arnold", "894-59-0011").probes);
+        assertEquals(1, lp.put("Tiffany", "894-59-0011").probes);
+        assertEquals(2, lp.put("Jessie", "705-12-7500").probes);
+        assertEquals(1, lp.put("Mary", "888-1212-3340").probes);
+
+    }
 }

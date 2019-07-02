@@ -17,7 +17,7 @@ import static projects.phonebook.java.hashes.CollisionResolver.*;
 /**
  * <p> {@link ReleaseTests} is a jUnit-test suite for {@link Phonebook} and {@link HashTable}.</p>
  *
- * @author <a href = "https://github.com/JasonFil">jason.filippou@gmail.com</a>
+ * @author <a href = "mailto:jason.filippou@gmail.com">jason.filippou@gmail.com</a>
  *
  * @see Phonebook
  * @see HashTable
@@ -28,7 +28,7 @@ import static projects.phonebook.java.hashes.CollisionResolver.*;
 public class ReleaseTests {
 
     private Phonebook pb;
-    private CollisionResolver[] resolvers = {SEPARATE_CHAINING, LINEAR_PROBING, QUADRATIC_PROBING};
+    private CollisionResolver[] resolvers = {SEPARATE_CHAINING, LINEAR_PROBING, ORDERED_LINEAR_PROBING, QUADRATIC_PROBING};
     private String[] names = new String[] {"Arnold", "Tiffany", "Jessie", "Mary", "DeAndre", "Charles", "Jacqueline", "Christine", "Paulette", "Nakeesha", "Alexander", "Aditya", "Jason", "Yi", "Helen", "Carl" };
     private String[] numbers = new String[]{"894-590-0011", "810-279-0711", "705-120-7500", "888-121-3340", "367-900-1199", "667-093-4567", "321-990-2801", "104-356-2111", "215-334-6807", "708-890-2234", "590-260-9001", "890-123-0209", "900-701-2902", "921-350-4314", "810-206-9450", "850-102-8974" };
     private HashMap<String, String> testingPhoneBook;
@@ -63,32 +63,92 @@ public class ReleaseTests {
         for(int i = 0; i < names.length; i++) {
             testingPhoneBook.put(names[i], numbers[i]);
         }
+/*      The order of the insertion in the test
+        DeAndre
+        367-900-1199
+        Charles
+        667-093-4567
+        Christine
+        104-356-2111
+        Alexander
+        590-260-9001
+        Carl
+        850-102-8974
+        Paulette
+        215-334-6807
+        Aditya
+        890-123-0209
+        Arnold
+        894-590-0011
+        Jacqueline
+        321-990-2801
+        Yi
+        921-350-4314
+        Tiffany
+        810-279-0711
+        Nakeesha
+        708-890-2234
+        Jason
+        900-701-2902
+        Jessie
+        705-120-7500
+        Helen
+        810-206-9450
+        Mary
+        888-121-3340
+*/
 
-        probesNameIn.put(SEPARATE_CHAINING, new Integer[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+
+
+        // This is setting up the number of probes needed for different hash table and different function calls
+
+        // Some naming convention:
+
+        // In - for put method
+        // Out -- for remove method
+        // Find -- for get method
+
+        // probesName -- for the list with name as the key
+        // probesNumber -- for the list with number as the key
+
+        probesNameIn.put(SEPARATE_CHAINING, new Integer[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1});
         probesNameIn.put(LINEAR_PROBING, new Integer[]{1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 3, 1});
+        probesNameIn.put(ORDERED_LINEAR_PROBING, new Integer[]{1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 3, 1});
         probesNameIn.put(QUADRATIC_PROBING, new Integer[]{1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 3, 2, 1});
 
-        probesNumberIn.put(SEPARATE_CHAINING, new Integer[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+
+
+        probesNumberIn.put(SEPARATE_CHAINING, new Integer[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1});
         probesNumberIn.put(LINEAR_PROBING, new Integer[]{1, 1, 1, 2, 1, 4, 1, 1, 2, 1, 1, 3, 1, 1, 1, 1});
+        probesNumberIn.put(ORDERED_LINEAR_PROBING, new Integer[]{1, 1, 1, 2, 1, 4, 1, 1, 2, 1, 1, 3, 1, 1, 1, 1});
         probesNumberIn.put(QUADRATIC_PROBING, new Integer[]{1, 1, 1, 3, 1, 3, 1, 1, 5, 1, 1, 1, 1, 1, 1, 1});
 
 
-        probesNameOut.put(SEPARATE_CHAINING, new Integer[]{3, 2, 5, 4, 3, 2, 2, 6, 5, 4, 4, 3, 3, 2, 2, 2});
+
+        probesNameOut.put(SEPARATE_CHAINING, new Integer[]{2, 1, 4, 3, 2, 1, 1, 5, 4, 3, 3, 2, 2, 1, 1, 1});
         probesNameOut.put(LINEAR_PROBING, new Integer[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1});
+        probesNameOut.put(ORDERED_LINEAR_PROBING, new Integer[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1});
         probesNameOut.put(QUADRATIC_PROBING, new Integer[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1});
 
-        probesNumberOut.put(SEPARATE_CHAINING, new Integer[]{4, 4, 6, 3, 3, 2, 5, 2, 3, 3, 2, 2, 4, 2, 3, 2});
+
+        probesNumberOut.put(SEPARATE_CHAINING, new Integer[]{3, 3, 5, 2, 2, 1, 4, 1, 2, 2, 1, 1, 3, 1, 2, 1});
         probesNumberOut.put(LINEAR_PROBING, new Integer[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1});
+        probesNumberOut.put(ORDERED_LINEAR_PROBING, new Integer[]{1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1});
         probesNumberOut.put(QUADRATIC_PROBING, new Integer[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1});
 
 
-        probesNumberFind.put(SEPARATE_CHAINING, new Integer[]{3, 2, 5, 4, 3, 2, 2, 6, 5, 4, 4, 3, 3, 2, 2, 2});
-        probesNumberFind.put(LINEAR_PROBING, new Integer[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 3, 1});
-        probesNumberFind.put(QUADRATIC_PROBING, new Integer[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 3 ,2, 1});
+        probesNameFind.put(SEPARATE_CHAINING, new Integer[]{2, 1, 4, 3, 2, 1, 1, 5, 4, 3, 3, 2, 2, 1, 1, 1});
+        probesNameFind.put(LINEAR_PROBING, new Integer[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 3, 1});
+        probesNameFind.put(ORDERED_LINEAR_PROBING, new Integer[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1});
+        probesNameFind.put(QUADRATIC_PROBING, new Integer[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 3, 2, 1});
 
-        probesNameFind.put(SEPARATE_CHAINING, new Integer[]{4, 4, 6, 3, 3, 2, 5, 2, 3, 3, 2, 2, 4, 2, 3, 2});
-        probesNameFind.put(LINEAR_PROBING, new Integer[]{1, 1, 1, 1, 1, 2, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1});
-        probesNameFind.put(QUADRATIC_PROBING, new Integer[]{1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1});
+        probesNumberFind.put(SEPARATE_CHAINING, new Integer[]{3, 3, 5, 2, 2, 1, 4, 1, 2, 2, 1, 1, 3, 1, 2, 1});
+        probesNumberFind.put(LINEAR_PROBING, new Integer[]{1, 1, 1, 1, 1, 2, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1});
+        probesNumberFind.put(ORDERED_LINEAR_PROBING, new Integer[]{1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1});
+        probesNumberFind.put(QUADRATIC_PROBING, new Integer[]{1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1});
+
+
+
     }
 
 
@@ -103,11 +163,9 @@ public class ReleaseTests {
             for(CollisionResolver phonesToNames: resolvers){
                 pb = new Phonebook(namesToPhones, phonesToNames);
                 assertTrue(format("Phonebook should be empty", namesToPhones, phonesToNames), pb.isEmpty());
-                assertNull(format("Any search by name should fail in an empty phonebook.", namesToPhones, phonesToNames), pb.getNumberOf("Jessie").value);
-                assertEquals(format("Number of probes in an empty phonebook should be 1.", namesToPhones, phonesToNames),1, pb.getNumberOf("Jessie").probes);
+                assertNull(format("Any search by name should fail in an empty phonebook.", namesToPhones, phonesToNames), pb.getNumberOf("Jessie"));
 
-                assertNull(format("Any search by phone should fail in an empty phonebook.", namesToPhones, phonesToNames), pb.getOwnerOf("301-478-9012").value);
-                assertEquals(format("Number of probes in an empty phonebook should be 1.", namesToPhones, phonesToNames), 1, pb.getOwnerOf("301-478-9012").probes);
+                assertNull(format("Any search by phone should fail in an empty phonebook.", namesToPhones, phonesToNames), pb.getOwnerOf("301-478-9012"));
             }
         }
     }
@@ -118,33 +176,17 @@ public class ReleaseTests {
         for(CollisionResolver namesToPhones : resolvers){
             for(CollisionResolver phonesToNames: resolvers){
                 pb = new Phonebook(namesToPhones, phonesToNames);
-                ArrayList<Probes> name = new ArrayList<>();
-                ArrayList<Probes> number = new ArrayList<>();
-                Probes[] temp;
+
                 for(Map.Entry<String, String> entry : testingPhoneBook.entrySet()){ // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
                     try {
 
-                        temp = pb.addEntry(entry.getKey(), entry.getValue());
-                        name.add(temp[0]);
-                        number.add(temp[1]);
-                        assertEquals(format("Unexpected string in Probes struct returned by put method", namesToPhones, phonesToNames), entry.getValue(), temp[0].value);
-                        assertEquals(format("Unexpected string in Probes struct returned by put method", namesToPhones, phonesToNames), entry.getKey(), temp[1].value);
+                        pb.addEntry(entry.getKey(), entry.getValue());
 
                     }catch(Throwable t){
                         fail(format("Failed to add entry <" + entry.getKey() + ", " + entry.getValue() + ">. ", namesToPhones, phonesToNames) + errorData(t));
                     }
                 }
                 assertEquals("Phonebook size was different from the one expected.", testingPhoneBook.size(), pb.size());
-
-                for (int i = 0; i < names.length;i++) {
-//                    System.out.println(name.get(i).value);
-//                    System.out.println(numbers[i]);
-//                    assertEquals(testingPhoneBook, name.get(i).value);
-                    assertEquals(format("Unexpected number of probes in Probes struct returned by put method", namesToPhones, phonesToNames), (int)probesNameIn.get(namesToPhones)[i], name.get(i).probes);
-                    assertEquals(format("Unexpected number of probes in Probes struct returned by put method", namesToPhones, phonesToNames),(int)probesNumberIn.get(phonesToNames)[i], number.get(i).probes);
-
-//
-                }
             }
         }
 
@@ -174,9 +216,6 @@ public class ReleaseTests {
         for(CollisionResolver namesToPhones : resolvers){
             for(CollisionResolver phonesToNames: resolvers){
                 pb = new Phonebook(namesToPhones, phonesToNames);
-                ArrayList<Probes> name = new ArrayList<>();
-                ArrayList<Probes> number = new ArrayList<>();
-                Probes[] temp;
 
                 // Insert everything contained in our library container...
                 for(Map.Entry<String, String> entry : testingPhoneBook.entrySet()){
@@ -188,28 +227,13 @@ public class ReleaseTests {
                 // Try to delete every entry and report any Throwables that come your way.
                 for(Map.Entry<String, String> entry : testingPhoneBook.entrySet()){ // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
                     try {
-                        temp = pb.deleteEntry(entry.getKey(), entry.getValue());
-                        name.add(temp[0]);
-                        number.add(temp[1]);
-                        assertEquals(format("Unexpected string in Probes struct returned by delete method", namesToPhones, phonesToNames), entry.getValue(), temp[0].value);
-                        assertEquals(format("Unexpected string in Probes struct returned by delete method", namesToPhones, phonesToNames), entry.getKey(), temp[1].value);
+                        pb.deleteEntry(entry.getKey(), entry.getValue());
 
                     }catch(Throwable t){
                         fail(format("Failed to delete entry <" + entry.getKey() + ", " + entry.getValue() + ">. ", namesToPhones, phonesToNames) + errorData(t));
                     }
                 }
                 assertTrue(format("After deleting all of its entries, the phonebook should be empty!", namesToPhones, phonesToNames), pb.isEmpty());
-
-
-                for (int i = 0; i < names.length;i++) {
-//                    System.out.println(name.get(i).value);
-//                    System.out.println(numbers[i]);
-//                    assertEquals(testingPhoneBook, name.get(i).value);
-                    assertEquals(format("Unexpected number of probes in Probes struct returned by delete method", namesToPhones, phonesToNames), (int)probesNameOut.get(namesToPhones)[i], name.get(i).probes);
-                    assertEquals(format("Unexpected number of probes in Probes struct returned by delete method", namesToPhones, phonesToNames),(int)probesNumberOut.get(phonesToNames)[i], number.get(i).probes);
-
-//
-                }
 
             }
         }
@@ -222,7 +246,6 @@ public class ReleaseTests {
                 pb = new Phonebook(namesToPhones, phonesToNames);
                 ArrayList<String> name = new ArrayList<>();
                 ArrayList<Probes> list = new ArrayList<>();
-                Probes temp;
                 // Insert everything contained in our library container...
                 for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) {
                     pb.addEntry(entry.getKey(), entry.getValue());
@@ -230,12 +253,9 @@ public class ReleaseTests {
                 // Check all applications of getNumberOf()...
                 for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
                     try {
-                        temp = pb.getNumberOf(entry.getKey());
-                        name.add(entry.getKey());
-                        list.add(temp);
                         assertEquals("After inserting <" + entry.getKey() + ", " + entry.getValue() + ">" +
                                         "getNumberOf(" + "\"" + entry.getKey() + "\" returned the wrong number.", entry.getValue(),
-                                temp.value);
+                                pb.getNumberOf(entry.getKey()));
                     } catch (AssertionError ae) { // Separate error logging for AssertionErrors and other Throwables.
                         throw ae;
                     } catch (Throwable t) {
@@ -244,19 +264,6 @@ public class ReleaseTests {
                 }
                 assertEquals("After calling getNumberOf() on all of its contained persons, the phonebook's size should not have" +
                         "changed!", testingPhoneBook.size(), pb.size());
-
-
-                for (int i = 0; i < name.size();i++) {
-//                    System.out.println(name.get(i).value);
-//                    System.out.println(numbers[i]);
-//                    assertEquals(testingPhoneBook, name.get(i).value);
-                    assertEquals("After inserting <" + name.get(i) + ", " + list.get(i).value + ">" +
-                                    "getNumberOf(" + "\"" + name.get(i) + "\" returned the wrong number of probes.", (int)probesNumberFind.get(namesToPhones)[i],
-                            list.get(i).probes);
-//
-                }
-
-
 
             }
         }
@@ -270,24 +277,18 @@ public class ReleaseTests {
                 pb = new Phonebook(namesToPhones, phonesToNames);
                 ArrayList<String> number = new ArrayList<>();
                 ArrayList<Probes> list = new ArrayList<>();
-                Probes temp;
                 // Insert everything contained in our library container...
                 for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) {
                     pb.addEntry(entry.getKey(), entry.getValue());
                 }
 
-                System.out.println("************");
 
                 // Check all applications of getOwnerOf()....
                 for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
                     try {
-                        temp = pb.getOwnerOf(entry.getValue());
-                        number.add(entry.getValue());
-                        list.add(temp);
-                        System.out.println(temp.probes);
                         assertEquals("After inserting <" + entry.getKey() + ", " + entry.getValue() + ">" +
                                         "getOwnerOf(" + "\"" + entry.getValue() + "\" returned the wrong name.", entry.getKey(),
-                                temp.value);
+                                pb.getOwnerOf(entry.getValue()));
                     } catch (AssertionError ae) { // Separate error logging for AssertionErrors and other Throwables.
                         throw ae;
                     } catch (Throwable t) {
@@ -297,16 +298,306 @@ public class ReleaseTests {
                 assertEquals("After calling getOwnerOf() on all of its contained phone numbers, the phonebook's size should not have" +
                         "changed!", testingPhoneBook.size(), pb.size());
 
-                for (int i = 0; i < number.size();i++) {
-//                    System.out.println(name.get(i).value);
-//                    System.out.println(numbers[i]);
-//                    assertEquals(testingPhoneBook, name.get(i).value);
-                    assertEquals("After inserting <" + number.get(i) + ", " + list.get(i).value + ">" +
-                                    "getNumberOf(" + "\"" + number.get(i) + "\" returned the wrong number of probes.", (int)probesNameFind.get(phonesToNames)[i],
-                            list.get(i).probes);
-//
-                }
             }
+        }
+    }
+
+    @Test
+    public void testPutSCProbes() {
+        SeparateChainingHashTable sc = new SeparateChainingHashTable();
+        int count = 0;
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            Probes temp = sc.put(entry.getKey(), entry.getValue());
+            assertEquals("Unexpected number of probes in Seperate chaining", (int)probesNameIn.get(SEPARATE_CHAINING)[count], temp.probes);
+            count++;
+        }
+
+        sc = new SeparateChainingHashTable();
+        count = 0;
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            Probes temp = sc.put(entry.getValue(), entry.getKey());
+            assertEquals("Unexpected number of probes in Seperate chaining", (int)probesNumberIn.get(SEPARATE_CHAINING)[count], temp.probes);
+            count++;
+        }
+    }
+
+
+    @Test
+    public void testPutLProbes() {
+        LinearProbingHashTable lp = new LinearProbingHashTable();
+        int count = 0;
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            Probes temp = lp.put(entry.getKey(), entry.getValue());
+            assertEquals("Unexpected number of probes in Linear probing", (int)probesNameIn.get(LINEAR_PROBING)[count], temp.probes);
+            count++;
+        }
+
+        lp = new LinearProbingHashTable();
+        count = 0;
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            Probes temp = lp.put(entry.getValue(), entry.getKey());
+            assertEquals("Unexpected number of probes in Linear probing", (int)probesNumberIn.get(LINEAR_PROBING)[count], temp.probes);
+            count++;
+        }
+    }
+
+    @Test
+    public void testPutOLProbes() {
+
+        OrderLinearProbingHashTable olp = new OrderLinearProbingHashTable();
+        int count = 0;
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            Probes temp = olp.put(entry.getKey(), entry.getValue());
+            assertEquals("Unexpected number of probes in Ordered Linear probing", (int)probesNameIn.get(ORDERED_LINEAR_PROBING)[count], temp.probes);
+            count++;
+        }
+
+        olp = new OrderLinearProbingHashTable();
+        count = 0;
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            Probes temp = olp.put(entry.getValue(), entry.getKey());
+            assertEquals("Unexpected number of probes in Ordered Linear probing", (int)probesNumberIn.get(ORDERED_LINEAR_PROBING)[count], temp.probes);
+            count++;
+        }
+    }
+
+
+    @Test
+    public void testPutQProbes() {
+        QuadraticProbingHashTable qp = new QuadraticProbingHashTable();
+        int count = 0;
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            Probes temp = qp.put(entry.getKey(), entry.getValue());
+            assertEquals("Unexpected number of probes in Quadratic probing", (int)probesNameIn.get(QUADRATIC_PROBING)[count], temp.probes);
+            count++;
+        }
+
+        qp = new QuadraticProbingHashTable();
+        count = 0;
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            Probes temp = qp.put(entry.getValue(), entry.getKey());
+            assertEquals("Unexpected number of probes in Quadratic probing", (int)probesNumberIn.get(QUADRATIC_PROBING)[count], temp.probes);
+            count++;
+        }
+    }
+
+    @Test
+    public void testRemoveSCProbes() {
+        SeparateChainingHashTable sc = new SeparateChainingHashTable();
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            sc.put(entry.getKey(), entry.getValue());
+        }
+        int count = 0;
+
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            Probes temp = sc.remove(entry.getKey());
+            assertEquals("Unexpected number of probes in Seperate chaining", (int)probesNameOut.get(SEPARATE_CHAINING)[count], temp.probes);
+            count++;
+        }
+
+
+        sc = new SeparateChainingHashTable();
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            sc.put(entry.getValue(), entry.getKey());
+        }
+        count = 0;
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            Probes temp = sc.remove(entry.getValue());
+            assertEquals("Unexpected number of probes in Seperate chaining", (int)probesNumberOut.get(SEPARATE_CHAINING)[count], temp.probes);
+            count++;
+        }
+    }
+
+    @Test
+    public void testRemoveLProbes() {
+        LinearProbingHashTable lp = new LinearProbingHashTable();
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            lp.put(entry.getKey(), entry.getValue());
+        }
+        int count = 0;
+
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            Probes temp = lp.remove(entry.getKey());
+            assertEquals("Unexpected number of probes in Linear probing", (int)probesNameOut.get(LINEAR_PROBING)[count], temp.probes);
+            count++;
+        }
+
+        lp = new LinearProbingHashTable();
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            lp.put(entry.getValue(), entry.getKey());
+        }
+        count = 0;
+
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            Probes temp = lp.remove(entry.getValue());
+            assertEquals("Unexpected number of probes in Linear probing", (int)probesNumberOut.get(LINEAR_PROBING)[count], temp.probes);
+            count++;
+        }
+    }
+
+    @Test
+    public void testRemoveOLProbes() {
+
+        OrderLinearProbingHashTable olp = new OrderLinearProbingHashTable();
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            olp.put(entry.getKey(), entry.getValue());
+        }
+        int count = 0;
+
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            Probes temp = olp.remove(entry.getKey());
+            assertEquals("Unexpected number of probes in Ordered Linear probing", (int)probesNameOut.get(ORDERED_LINEAR_PROBING)[count], temp.probes);
+            count++;
+        }
+
+        olp = new OrderLinearProbingHashTable();
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            olp.put(entry.getValue(), entry.getKey());
+        }
+        count = 0;
+
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            Probes temp = olp.remove(entry.getValue());
+            assertEquals("Unexpected number of probes in Ordered Linear probing", (int)probesNumberOut.get(ORDERED_LINEAR_PROBING)[count], temp.probes);
+            count++;
+        }
+    }
+
+
+    @Test
+    public void testRemoveQProbes() {
+        QuadraticProbingHashTable qp = new QuadraticProbingHashTable();
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            qp.put(entry.getKey(), entry.getValue());
+        }
+        int count = 0;
+
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            Probes temp = qp.remove(entry.getKey());
+            assertEquals("Unexpected number of probes in Quadratic probing", (int)probesNameOut.get(QUADRATIC_PROBING)[count], temp.probes);
+            count++;
+        }
+
+        qp = new QuadraticProbingHashTable();
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            qp.put(entry.getValue(), entry.getKey());
+        }
+        count = 0;
+
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            Probes temp = qp.remove(entry.getValue());
+            assertEquals("Unexpected number of probes in Quadratic probing", (int)probesNumberOut.get(QUADRATIC_PROBING)[count], temp.probes);
+            count++;
+        }
+    }
+
+    @Test
+    public void testFindSCProbes() {
+        SeparateChainingHashTable sc = new SeparateChainingHashTable();
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            sc.put(entry.getKey(), entry.getValue());
+        }
+        int count = 0;
+
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            Probes temp = sc.get(entry.getKey());
+            assertEquals("Unexpected number of probes in Seperate chaining", (int)probesNameFind.get(SEPARATE_CHAINING)[count], temp.probes);
+            count++;
+        }
+
+
+        sc = new SeparateChainingHashTable();
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            sc.put(entry.getValue(), entry.getKey());
+        }
+        count = 0;
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            Probes temp = sc.get(entry.getValue());
+            assertEquals("Unexpected number of probes in Seperate chaining", (int)probesNumberFind.get(SEPARATE_CHAINING)[count], temp.probes);
+            count++;
+        }
+    }
+
+    @Test
+    public void testFindLProbes() {
+        LinearProbingHashTable lp = new LinearProbingHashTable();
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            lp.put(entry.getKey(), entry.getValue());
+        }
+        int count = 0;
+
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            Probes temp = lp.get(entry.getKey());
+            assertEquals("Unexpected number of probes in Linear probing", (int)probesNameFind.get(LINEAR_PROBING)[count], temp.probes);
+            count++;
+        }
+
+        lp = new LinearProbingHashTable();
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            lp.put(entry.getValue(), entry.getKey());
+        }
+        count = 0;
+
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            Probes temp = lp.get(entry.getValue());
+            assertEquals("Unexpected number of probes in Linear probing", (int)probesNumberFind.get(LINEAR_PROBING)[count], temp.probes);
+            count++;
+        }
+    }
+
+    @Test
+    public void testFindOLProbes() {
+
+        OrderLinearProbingHashTable olp = new OrderLinearProbingHashTable();
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            olp.put(entry.getKey(), entry.getValue());
+        }
+        int count = 0;
+
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            Probes temp = olp.remove(entry.getKey());
+            assertEquals("Unexpected number of probes in Ordered Linear probing", (int)probesNameFind.get(ORDERED_LINEAR_PROBING)[count], temp.probes);
+            count++;
+        }
+
+        olp = new OrderLinearProbingHashTable();
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            olp.put(entry.getValue(), entry.getKey());
+        }
+        count = 0;
+
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            Probes temp = olp.remove(entry.getValue());
+            assertEquals("Unexpected number of probes in Ordered Linear probing", (int)probesNumberFind.get(ORDERED_LINEAR_PROBING)[count], temp.probes);
+            count++;
+        }
+    }
+
+
+    @Test
+    public void testFindQProbes() {
+        QuadraticProbingHashTable qp = new QuadraticProbingHashTable();
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            qp.put(entry.getKey(), entry.getValue());
+        }
+        int count = 0;
+
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            Probes temp = qp.get(entry.getKey());
+            assertEquals("Unexpected number of probes in Quadratic probing", (int)probesNameFind.get(QUADRATIC_PROBING)[count], temp.probes);
+            count++;
+        }
+
+        qp = new QuadraticProbingHashTable();
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            qp.put(entry.getValue(), entry.getKey());
+        }
+        count = 0;
+
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            Probes temp = qp.get(entry.getValue());
+            assertEquals("Unexpected number of probes in Quadratic probing", (int)probesNumberFind.get(QUADRATIC_PROBING)[count], temp.probes);
+            count++;
         }
     }
 
@@ -393,4 +684,9 @@ public class ReleaseTests {
         }
 
     }
+
+
+
+
+
 }
