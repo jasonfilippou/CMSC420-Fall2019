@@ -32,10 +32,13 @@ public class QuadraticProbingHashTable implements HashTable{
     /* ***** PRIVATE FIELDS / METHODS PROVIDED TO YOU: DO NOT EDIT! ******/
     /* ****************************************************** ***********/
 
+    private static final KVPair DELETE = new KVPair("", "");
+
     private static final RuntimeException UNIMPL_METHOD = new RuntimeException("Implement this method!");
     private KVPair[] table;
     private PrimeGenerator primeGenerator;
-    private int count = 0;
+    private int count;
+    private boolean softFlag;
     private int hash(String key){
         return (key.hashCode() & 0x7fffffff) % table.length;
     }
@@ -71,6 +74,14 @@ public class QuadraticProbingHashTable implements HashTable{
         primeGenerator = new PrimeGenerator();
         table = new KVPair[primeGenerator.getCurrPrime()];
         count = 0;
+        softFlag = false;
+    }
+
+    public QuadraticProbingHashTable(boolean soft) {
+        primeGenerator = new PrimeGenerator();
+        table = new KVPair[primeGenerator.getCurrPrime()];
+        count = 0;
+        softFlag = soft;
     }
 
     /**
@@ -95,7 +106,8 @@ public class QuadraticProbingHashTable implements HashTable{
             enlarge();
         }
         Probes temp = putHelper(key, value);
-        count++;
+        if (temp.value != null)
+            count++;
         return temp;
     }
 
@@ -103,7 +115,7 @@ public class QuadraticProbingHashTable implements HashTable{
         int originalProbe = hash(key), currentProbe = originalProbe;
         int probeCount = 1;
 
-        while(table[currentProbe] != null) {
+        while(table[currentProbe] != null && (!softFlag || !table[currentProbe].equals(DELETE))) {
             if(table[currentProbe].getKey().equals(key)) {
                 return new Probes(null, probeCount); // won't affect count, which is good.
             }
@@ -119,7 +131,7 @@ public class QuadraticProbingHashTable implements HashTable{
         int originalProbe = hash(key), currentProbe = originalProbe;
         int probeCount = 1;
 
-        while(table[currentProbe] != null) {
+        while(table[currentProbe] != null ) {
             if(table[currentProbe].getKey().equals(key)) {
                 return new Probes(table[currentProbe].getValue(), probeCount);
             }
@@ -146,9 +158,8 @@ public class QuadraticProbingHashTable implements HashTable{
         while(table[currentProbe] != null){
             if(table[currentProbe].getKey().equals(key)){ // Found it! Nullify and then re-insert all others
                 flag = table[currentProbe].getValue();
-                table[currentProbe] = null;
+                table[currentProbe] = DELETE;
                 count--;
-                reinsertAllInCluster(originalProbe , probeCount);
                 break; // No need to continue outer loop.
             }
             currentProbe = (originalProbe + probeCount + (int)(Math.pow((probeCount++), 2))) % table.length;
@@ -156,15 +167,35 @@ public class QuadraticProbingHashTable implements HashTable{
         return new Probes(flag, probeCount);
     }
 
-    private void reinsertAllInCluster(int originalProbe, int probeCount){
-        int currentProbe = (originalProbe + probeCount + (int)(Math.pow((probeCount++), 2))) % table.length;
-        while(table[currentProbe] != null){
-            KVPair toReinsert = table[currentProbe];
-            table[currentProbe] = null;
-            putHelper(toReinsert.getKey(), toReinsert.getValue());
-            currentProbe = (originalProbe + probeCount + (int)(Math.pow((probeCount++), 2))) % table.length;
-        }
-    }
+
+
+//    @Override
+//    public Probes remove(String key) {
+//        int originalProbe = hash(key), currentProbe = originalProbe;
+//        int probeCount = 1;
+//        String flag = null;
+//
+//        while(table[currentProbe] != null){
+//            if(table[currentProbe].getKey().equals(key)){ // Found it! Nullify and then re-insert all others
+//                flag = table[currentProbe].getValue();
+//                table[currentProbe] = null;
+//                count--;
+//                reinsertAllInCluster(originalProbe , probeCount);
+//                break; // No need to continue outer loop.
+//            }
+//            currentProbe = (originalProbe + probeCount + (int)(Math.pow((probeCount++), 2))) % table.length;
+//        }
+//        return new Probes(flag, probeCount);
+//    }
+//    private void reinsertAllInCluster(int originalProbe, int probeCount){
+//        int currentProbe = (originalProbe + probeCount + (int)(Math.pow((probeCount++), 2))) % table.length;
+//        while(table[currentProbe] != null){
+//            KVPair toReinsert = table[currentProbe];
+//            table[currentProbe] = null;
+//            putHelper(toReinsert.getKey(), toReinsert.getValue());
+//            currentProbe = (originalProbe + probeCount + (int)(Math.pow((probeCount++), 2))) % table.length;
+//        }
+//    }
 
     @Override
     public boolean containsKey(String key) {

@@ -5,15 +5,12 @@ import org.junit.Before;
 import org.junit.Test;
 import projects.phonebook.java.hashes.*;
 import projects.phonebook.java.utils.NoMorePrimesException;
-import projects.phonebook.java.utils.Probes;
-import static projects.phonebook.java.hashes.CollisionResolver.*;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import static org.junit.Assert.*;
-
-
+import static projects.phonebook.java.hashes.CollisionResolver.*;
 
 /**
  * <p> {@link StudentTests} is a place for you to write your tests for {@link Phonebook} and all the various

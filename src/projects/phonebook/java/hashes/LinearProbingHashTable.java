@@ -89,7 +89,8 @@ public class LinearProbingHashTable implements HashTable{
             enlarge();
         }
         Probes temp = putHelper(key, value);
-        count++;
+        if (temp.value != null)
+            count++;
         return temp;
     }
 

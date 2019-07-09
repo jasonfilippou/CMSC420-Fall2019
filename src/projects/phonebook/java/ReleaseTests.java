@@ -128,13 +128,12 @@ public class ReleaseTests {
         probesNameOut.put(SEPARATE_CHAINING, new Integer[]{2, 1, 4, 3, 2, 1, 1, 5, 4, 3, 3, 2, 2, 1, 1, 1});
         probesNameOut.put(LINEAR_PROBING, new Integer[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1});
         probesNameOut.put(ORDERED_LINEAR_PROBING, new Integer[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1});
-        probesNameOut.put(QUADRATIC_PROBING, new Integer[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1});
-
+        probesNameOut.put(QUADRATIC_PROBING, new Integer[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 3, 2, 1});
 
         probesNumberOut.put(SEPARATE_CHAINING, new Integer[]{3, 3, 5, 2, 2, 1, 4, 1, 2, 2, 1, 1, 3, 1, 2, 1});
         probesNumberOut.put(LINEAR_PROBING, new Integer[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1});
         probesNumberOut.put(ORDERED_LINEAR_PROBING, new Integer[]{1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1});
-        probesNumberOut.put(QUADRATIC_PROBING, new Integer[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1});
+        probesNumberOut.put(QUADRATIC_PROBING, new Integer[]{1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1});
 
 
         probesNameFind.put(SEPARATE_CHAINING, new Integer[]{2, 1, 4, 3, 2, 1, 1, 5, 4, 3, 3, 2, 2, 1, 1, 1});

@@ -53,7 +53,7 @@ public class OrderLinearProbingHashTable implements HashTable{
         int probeCount = 1;
         KVPair cur = new KVPair(key, value);
         while(table[probe] != null) {
-            if(table[probe].getKey().equals(cur)) {
+            if(table[probe].getKey().equals(cur.getKey())) {
                 return new Probes(null, probeCount);
             }
             if(table[probe].getKey().compareTo(cur.getKey()) > 0) {
