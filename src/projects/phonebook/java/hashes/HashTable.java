@@ -24,6 +24,8 @@ public interface HashTable {
      * @param key The record's key.
      * @param value The record's value.
      * @throws IllegalArgumentException if either argument is null.
+     * @return A {@link Probes} instance which contains the value mapped by key if key is in the table,
+     *  or null otherwise, as well as the number of probes required by the search for key whether successful or unsuccessful.
      */
     Probes put(String key, String value);
 
@@ -31,8 +33,8 @@ public interface HashTable {
      * Get the value associated with key in the {@link HashTable}. If key does not exist in the database
      * or if key = null, this method returns null. This method is expected to run in <em>amortized constant time</em>.
      * @param key The key to search for.
-     * @return The associated value if key is non-null <b>and</b> exists in our database, null
-     * otherwise.
+     @return A {@link Probes} instance which contains the value mapped by key if key is in the table,
+     *  or null otherwise, as well as the number of probes required by the search for key whether successful or unsuccessful.
      */
     Probes get(String key);
 
@@ -40,8 +42,8 @@ public interface HashTable {
      * <b>Return</b> and <b>remove</b> the value associated with key in the {@link HashTable}. If key does not exist in the database
      * or if key = null, this method returns null. This method is expected to run in <em>amortized constant time</em>.
      * @param key The key to search for.
-     * @return The associated value if key is non-null <b>and</b> exists in our database, null
-     * otherwise.
+     * @return A {@link Probes} instance which contains the value mapped by key if key is in the table,
+     *        or null otherwise, as well as the number of probes required by the search for key whether successful or unsuccessful.
      */
     Probes remove(String key);
 

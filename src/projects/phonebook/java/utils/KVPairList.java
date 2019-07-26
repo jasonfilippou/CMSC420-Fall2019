@@ -121,6 +121,8 @@ public class KVPairList implements Iterable<KVPair>{
      * Removes the <b>first</b> entry with key key from the list. If key does not exist in the list,
      * this method has <b>no effect</b>.
      * @param key The &quot; key &quot; {@link String} to match with entries.
+     * @return A {@link Probes} instance containing the value mapped by key if key is in the table or null otherwise
+     *      as well as the number of probes required by the search for key, whether successful or unsuccessful.
      */
     public Probes removeByKey(String key){
         Node current = head;
@@ -157,6 +159,8 @@ public class KVPairList implements Iterable<KVPair>{
      * Removes the <b>first</b> entry with value value from the list. If value does not exist in the list,
      * this method has <b>no effect</b>.
      * @param value The &quot; value &quot; {@link String} to match with entries.
+     * @return A {@link Probes} instance containing the value mapped by key if key is in the table or null otherwise
+     *      as well as the number of probes required by the search for key, whether successful or unsuccessful.
      */
     public Probes removeByValue(String value){
         Node current = head;
