@@ -16,7 +16,7 @@ package projects.phonebook.java.hashes;
  *
  * <p><b>**** DO NOT EDIT THIS ENUM! ****** </b></p>
  *
- * @author <a href="https://github.com/JasonFil">Jason Filippou</a>
+ * @author <a href="mailto:jason.filippou@gmail.com">Jason Filippou</a>
  *
  * @see HashTable
  * @see SeparateChainingHashTable
@@ -26,5 +26,6 @@ package projects.phonebook.java.hashes;
 public enum CollisionResolver {
     SEPARATE_CHAINING,
     LINEAR_PROBING,
+    ORDERED_LINEAR_PROBING,
     QUADRATIC_PROBING
 }

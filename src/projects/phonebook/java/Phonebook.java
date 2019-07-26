@@ -3,6 +3,7 @@ package projects.phonebook.java;
 import projects.phonebook.java.hashes.*;
 import projects.phonebook.java.utils.Probes;
 
+
 /**
  * <p>{@link Phonebook} is an abstraction over phonebooks: databases of &lt; Full Name,
  * Phone Number&gt; pairs. It allows for <b>both</b> phone <b>and</b> name search, both in
@@ -21,7 +22,7 @@ import projects.phonebook.java.utils.Probes;
  *
  * <p><b>**** STUDY, BUT DO NOT EDIT THIS CLASS' SOURCE CODE! </b></p>
  *
- * @author <a href="https://github.com/JasonFil">Jason Filippou</a>
+ * @author <a href="mailto:jason.filippou@gmail.com">Jason Filippou</a>
  * @see HashTable
  * @see SeparateChainingHashTable
  * @see LinearProbingHashTable
@@ -52,6 +53,9 @@ public class Phonebook {
             case LINEAR_PROBING:
                 namesToNumbers = new LinearProbingHashTable();
                 break;
+            case ORDERED_LINEAR_PROBING:
+                namesToNumbers = new OrderLinearProbingHashTable();
+                break;
             case QUADRATIC_PROBING:
                 namesToNumbers = new QuadraticProbingHashTable();
                 break;
@@ -65,6 +69,9 @@ public class Phonebook {
                 break;
             case LINEAR_PROBING:
                 numbersToNames = new LinearProbingHashTable();
+                break;
+            case ORDERED_LINEAR_PROBING:
+                numbersToNames = new OrderLinearProbingHashTable();
                 break;
             case QUADRATIC_PROBING:
                 numbersToNames = new QuadraticProbingHashTable();
@@ -80,8 +87,8 @@ public class Phonebook {
      * @return The phone number associated with name, or null if name is null or if name
      * is not in the {@link Phonebook}.
      */
-    public Probes getNumberOf(String name) {
-        return (name == null) ? null : namesToNumbers.get(name);
+    public String getNumberOf(String name) {
+        return (name == null) ? null : namesToNumbers.get(name).value;
     }
 
     /** Retrieves the full name of the owner of the provided phone number. If the phone number is not in the database,
@@ -90,8 +97,8 @@ public class Phonebook {
      * @return The full name of the owner of number, or null if number is null or if number
      * is not in the {@link Phonebook}.
      */
-    public Probes getOwnerOf(String number) {
-        return (number == null) ? null : numbersToNames.get(number);
+    public String getOwnerOf(String number) {
+        return (number == null) ? null : numbersToNames.get(number).value;
     }
 
     /** Adds the tuple &lt; name, number &gt; in the {@link Phonebook}. If either name or
@@ -100,14 +107,14 @@ public class Phonebook {
      * @param number The phone number of the person.
      * @throws IllegalArgumentException if either name or number is null.
      */
-    public Probes[] addEntry(String name, String number) {
+    public void addEntry(String name, String number) {
         if(name == null || number == null)
             throw new IllegalArgumentException("Provided: name=" + name + " and number= " + number);
         Probes[] p = new Probes[2];
 
         p[0] = namesToNumbers.put(name, number);
         p[1] = numbersToNames.put(number, name);
-        return p;
+//        return p;
     }
 
     /** Deletes the entry characterized by the arguments provided. If either argument is null, or if the
@@ -115,14 +122,14 @@ public class Phonebook {
      * @param name The &quot;owner&quot; part of the &lt; owner, phone number &gt; tuple.
      * @param number The &quot;number&quot; part of the &lt; owner, phone number &gt; tuple.
      */
-    public Probes[] deleteEntry(String name, String number) {
+    public void deleteEntry(String name, String number) {
 //        if(number == null || name == null)
 //            throw new IllegalArgumentException("Provided: name=" + name + " and number= " + number);
         Probes[] p = new Probes[2];
 
         p[0] = namesToNumbers.remove(name);
         p[1] = numbersToNames.remove(number);
-        return p;
+//        return p;
     }
 
     /** Returns the number of entries in the phonebook.
