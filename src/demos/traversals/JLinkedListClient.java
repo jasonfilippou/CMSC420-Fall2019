@@ -7,7 +7,7 @@ import static java.lang.System.*;
 /**<p>{@link JLinkedListClient} is a timing client for {@link JLinkedList}. It also monitors the throwing of
  * potential stack overflow / Out of memory exceptions.</p>
 
- * @author <a href = "mailto:jason.filippou@gmail.com">Jason Filippou</a>
+ * @author <a href = "https://github.com/JasonFil">Jason Filippou</a>
  *
  * @see JLinkedList
  */

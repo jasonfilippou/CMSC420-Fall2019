@@ -14,7 +14,7 @@ import java.util.Iterator;
  *
  * <p><b>YOU ***** MUST ***** IMPLEMENT THIS CLASS!</b></p>
  *
- * @author  <a href = "mailto:jason.filippou@gmail.com">Jason Filippou</a>
+ * @author  <a href = "https://github.com/JasonFil">Jason Filippou</a>
  *
  * @see PriorityQueue
  * @see PriorityQueueNode

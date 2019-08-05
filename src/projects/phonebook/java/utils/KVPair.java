@@ -5,7 +5,7 @@ package projects.phonebook.java.utils;
  *
  * <p><b>Do ***NOT*** edit this class!</b></p>
  *
- * @author <a href = "mailto:jason.filippou@gmail.com">jason.filippou@gmail.com</a>
+ * @author <a href = "https://github.com/JasonFil">jason.filippou@gmail.com</a>
  *
  * @see KVPairList
  */

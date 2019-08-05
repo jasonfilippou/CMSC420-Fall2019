@@ -17,7 +17,7 @@ import static projects.phonebook.java.hashes.CollisionResolver.*;
 /**
  * <p> {@link ReleaseTests} is a jUnit-test suite for {@link Phonebook} and {@link HashTable}.</p>
  *
- * @author <a href = "mailto:jason.filippou@gmail.com">jason.filippou@gmail.com</a>
+ * @author <a href = "https://github.com/JasonFil">jason.filippou@gmail.com</a>
  *
  * @see Phonebook
  * @see HashTable

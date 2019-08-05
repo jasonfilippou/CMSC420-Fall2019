@@ -386,7 +386,7 @@ public class AVLGTree<T extends Comparable<T>> {
 
 
     /**
-     * <p>Establishes whether the AVL-G tree <em>globally</em> satisfies the AB condition. This method is
+     * <p>Establishes whether the AVL-G tree <em>globally</em> satisfies the AVL-G condition. This method is
      * <b>terrifically useful for testing!</b></p>
      * @return true if the tree satisfies the balance requirements of an AVLG tree, false
      * otherwise.
@@ -401,7 +401,6 @@ public class AVLGTree<T extends Comparable<T>> {
      */
     public void clear(){
         root = null;
-        // System.gc();
         count = 0;
     }
 

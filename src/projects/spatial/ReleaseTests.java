@@ -112,10 +112,10 @@ public class ReleaseTests {
      * @param tree A populated {@link KDTree}.
      * @param origin The {@link KDPoint} used as the center of the range query.
      * @param range The maximum {@link KDPoint#distanceSquared(KDPoint, KDPoint)} that any {@link KDPoint} can have
-     * from <tt>origin</tt> in order to satisfy our query.
+     * from origin in order to satisfy our query.
      * @param candidates A varargs array containing the ground truth answers to our range query.
-     * @return <tt>true</tt> iff all the {@link KDPoint}s in <tt>candidates</tt> are at a {link {@link KDPoint#distanceSquared(KDPoint, KDPoint)}
-     * of at most <tt>range</tt> from <tt>origin</tt>.
+     * @return true iff all the {@link KDPoint}s in candidates are at a {link {@link KDPoint#distanceSquared(KDPoint, KDPoint)}
+     * of at most range from origin.
      */
 
     private boolean checkRangeQuery(KDTree tree, KDPoint origin, BigDecimal range, KDPoint... candidates){
@@ -131,8 +131,8 @@ public class ReleaseTests {
      * @param origin The {@link KDPoint} to calculate the nearest neighbors of.
      * @param k The number of nearest neighbors to compute.
      * @param neighbors A {@link List} containing the ground truth response to the query.
-     * @return <tt>true</tt> iff the {@link KDPoint}s in <tt>candidates</tt> are the <tt>k</tt> nearest
-     * points to <tt>origin</tt>, as dictated by {@link KDPoint#distanceSquared(KDPoint)}.
+     * @return true iff the {@link KDPoint}s in candidates are the k nearest
+     * points to origin, as dictated by {@link KDPoint#distanceSquared(KDPoint)}.
      */
 
     private boolean checkKNNQuery(KDTree tree, KDPoint origin, int k, List<KDPoint> neighbors){
@@ -153,8 +153,8 @@ public class ReleaseTests {
      * @param origin The {@link KDPoint} to calculate the nearest neighbors of.
      * @param k The number of nearest neighbors to compute.
      * @param neighbors A varargs array containing the ground truth response to the query.
-     * @return <tt>true</tt> iff the {@link KDPoint}s in <tt>candidates</tt> are the <tt>k</tt> nearest
-     * points to <tt>origin</tt>, as dictated by {@link KDPoint#distanceSquared(KDPoint)}.
+     * @return true iff the {@link KDPoint}s in candidates are the k nearest
+     * points to origin, as dictated by {@link KDPoint#distanceSquared(KDPoint)}.
      */
 
     private boolean checkKNNQuery(KDTree tree, KDPoint origin, int k, KDPoint... neighbors){

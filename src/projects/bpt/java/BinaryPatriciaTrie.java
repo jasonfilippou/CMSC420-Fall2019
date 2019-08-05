@@ -10,7 +10,7 @@ import java.util.List;
  * aspects of Patricia Tries while shedding the storage cost typically associated with Tries that
  * deal with huge alphabets.</p>
  *
- * @author <a href = "mailto:jason.filippou@gmail.com">Jason Filippou</a> &amp; <a href ="mailto:fyang623@gmail.com">Fan Yang</a>
+ * @author <a href = "https://github.com/JasonFil">Jason Filippou</a> &amp; <a href ="mailto:fyang623@gmail.com">Fan Yang</a>
  */
 public class BinaryPatriciaTrie {
 

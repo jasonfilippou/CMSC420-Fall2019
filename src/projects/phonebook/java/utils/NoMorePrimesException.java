@@ -11,7 +11,7 @@ import projects.phonebook.java.hashes.HashTable;
  * @see PrimeGenerator
  * @see HashTable
  *
- * @author <a href="mailto:jason.filippou@gmail.com">Jason Filippou</a>
+ * @author <a href="https://github.com/JasonFil">Jason Filippou</a>
  */
 public class NoMorePrimesException extends RuntimeException {
 

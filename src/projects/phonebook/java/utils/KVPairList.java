@@ -11,7 +11,7 @@ import java.util.Iterator;
  * <p>Duplicate entries <b>are</b> possible in {@link KVPairList}. Additionally, {@link KVPairList}s are
  * <b>not</b> sorted.</p>
  *
- * @author <a href="mailto:jason.filippou@gmail.com">Jason Filippou</a>
+ * @author <a href="https://github.com/JasonFil">Jason Filippou</a>
  *
  * @see KVPair
  * @see KVPairListTests

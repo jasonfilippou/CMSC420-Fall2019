@@ -22,7 +22,7 @@ import projects.phonebook.java.utils.Probes;
  *
  * <p><b>**** STUDY, BUT DO NOT EDIT THIS CLASS' SOURCE CODE! </b></p>
  *
- * @author <a href="mailto:jason.filippou@gmail.com">Jason Filippou</a>
+ * @author <a href="https://github.com/JasonFil">Jason Filippou</a>
  * @see HashTable
  * @see SeparateChainingHashTable
  * @see LinearProbingHashTable

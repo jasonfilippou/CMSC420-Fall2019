@@ -12,7 +12,7 @@ import java.util.Stack;
  * <p>The list isn't even implemented as a generic since its nodes are empty; the class' intent is
  * purely demonstrative of the different ways that we can implement an otherwise simple procedure.</p>
  *
- * @author <a href = "mailto:jason.filippou@gmail.com">Jason Filippou</a>
+ * @author <a href = "https://github.com/JasonFil">Jason Filippou</a>
  */
 public class JLinkedList {
 
