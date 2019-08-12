@@ -83,19 +83,19 @@ public class LinkedMinHeap<T extends Comparable<T>> implements MinHeap<T> {
 	 */
 	@Override
 	public void insert(T element) {
-		Stack<MinHeapNode> path = getPathToPosition(++size);
+		Stack<MinHeapNode> path = getPathToPosition(++size); // Stores the path to the parent node of the new node about to be inserted.
 		MinHeapNode curr = new MinHeapNode(element);
 		try {
 			MinHeapNode parent = path.pop();
 			if (parent.lChild == null) parent.lChild = curr;
 			else parent.rChild = curr;
 
-			while (parent != null && parent.data.compareTo(curr.data) > 0) {
+			while (parent != null && parent.data.compareTo(curr.data) > 0) { // Percolate upward
 				T temp = curr.data;
 				curr.data = parent.data;
 				parent.data = temp;
 				curr = parent;
-				parent = path.isEmpty() ? null : path.pop();
+				parent = path.isEmpty() ? null : path.pop();			// If the stack is empty, we percolated all the way up.
 			}
 		} catch (EmptyStackException e) {
 			root = curr;
