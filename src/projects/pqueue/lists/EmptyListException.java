@@ -12,11 +12,11 @@ package projects.pqueue.lists;
  *
  * <p>You should <b>not</b> edit this class! It is given to you as a resource for your project.</p>
  *
- * @author  <a href="https://github.com/JasonFil">Jason Filippou</a>
- *
  * @see projects.pqueue.lists.EmptyListException
  * @see projects.pqueue.trees.EmptyTreeException
  * @see projects.pqueue.heaps.EmptyHeapException
+ *
+ * @author  <a href="https://github.com/JasonFil">Jason Filippou</a>
  */
 public class EmptyListException extends Exception{
 	public EmptyListException(String msg){

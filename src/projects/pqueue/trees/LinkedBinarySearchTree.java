@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * <p>LinkedBinarySearchTree is an implementation of a BinarySearchTree using links.
+ * <p>{@link LinkedBinarySearchTree} is an implementation of a {@link BinarySearchTree} using links.
  * It is by far the most commonly encountered binary tree implementation. Compared to
  * an array-based implementation, there is always memory waste (even in the case of a perfect binary tree,
  * since the leaf level still has <i>2&#94;(h+1)</i> (where <i>h</i> is the tree's height) pointers
@@ -18,6 +18,8 @@ import java.util.Iterator;
  * @param <T> The {@link java.lang.Comparable} type stored by the container.
  *
  * @author  <a href="https://github.com/JasonFil">Jason Filippou</a>
+ * @see BinarySearchTree
+ * @see Tree
  */
 public class LinkedBinarySearchTree<T extends Comparable<T>>  implements BinarySearchTree<T>{
 

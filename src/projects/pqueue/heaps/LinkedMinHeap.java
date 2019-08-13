@@ -130,9 +130,9 @@ public class LinkedMinHeap<T extends Comparable<T>> implements MinHeap<T> {
 		if (size == 0) throw new EmptyHeapException("removeMax(): Tree is empty.");
 
 		T minElement = root.data;
-		// In a maxheap, the root contains the maximum data.To delete it,
+		// In a minheap, the root contains the minimal datum.To delete it,
 		// we make the last leaf node the new root, and then "push" this 
-		// node downward until the maxheap identity is maintained;
+		// node downward until the minheap identity is maintained;
 		try {
 			Stack<MinHeapNode> path = getPathToPosition(size--);
 			MinHeapNode parent = path.peek(); // Will throw EmptyStackException if stack is empty, handled below.
@@ -143,7 +143,7 @@ public class LinkedMinHeap<T extends Comparable<T>> implements MinHeap<T> {
 				root.data = parent.lChild.data;
 				parent.lChild = null;
 			}
-			// re-order the heap by "pushing down" (data exchange) the new root as appropriate.
+			// Ee-order the heap by "pushing down" (data exchange) the new root as appropriate.
 			MinHeapNode curr = root, child = root.getChildToSwap();
 			while (child != null) {
 				T temp = curr.data;

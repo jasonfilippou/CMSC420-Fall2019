@@ -1,7 +1,7 @@
 package projects.pqueue.trees;
 
 /**
- * <p>A BinarySearchTree is a {@link Tree} with a maximum of 2 children nodes per nodes
+ * <p>A {@link BinarySearchTree} is a {@link Tree} with a maximum of 2 children per node
  * which allows for adding and removing nodes in a sorted manner. As such, it will extend
  * the {@link Tree} interface but it will also restrict the objects it stores to Comparable ones.
  * There are only going to be two new methods in this interface: insert(T) and delete(T).</p>
@@ -17,7 +17,7 @@ package projects.pqueue.trees;
  *
  * @author  <a href="https://github.com/JasonFil">Jason Filippou</a>
  *
- * @param <T> The Comparable type held by the BinarySearchTree.
+ * @param <T> The Comparable type held by this.
  *
  */
 public interface BinarySearchTree<T extends Comparable<T>> extends Tree<T>{

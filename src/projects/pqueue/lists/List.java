@@ -2,18 +2,21 @@ package projects.pqueue.lists;
 import java.util.Iterator;
 
 /**
- * <p>A List is a linear ADT which offers insertion, search and deletion in at most linear time.
+ * <p>{@link List} is a linear ADT which offers insertion, search and deletion in at most linear time.
  * Elements can only be added to the front or the back, never in between.</p>
  * 
- * <p>It is a requirement that the type <i>T</i> is {@link Comparable}, or else we will not be able to
- * implement methods such as {@link #contains(Object)} and {@link #delete(int)}. The interface is {@link Iterable}
- * interface, which means that we can use for-each loops to easily access its elements.</p>
+ * <p>The interface is {@link Iterable}, which means that we can use for-each loops to easily access its elements.
+ * You would benefit from studying how {@link #iterator()} is implemented.</p>
  *
  * <p>You should <b>not</b> edit this class! It is given to you as a resource for your project.</p>
  *
- * @author  <a href="https://github.com/JasonFil">Jason Filippou</a>
- *
  * @param <T> The type of object that the List will hold.
+ *
+ * @see LinkedList
+ * @see DoublyLinkedList
+ * @see #iterator()
+ *
+ * @author  <a href="https://github.com/JasonFil">Jason Filippou</a>
  */
 
 public interface List<T> extends Iterable<T>{
