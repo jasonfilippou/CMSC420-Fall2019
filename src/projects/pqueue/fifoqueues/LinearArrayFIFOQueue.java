@@ -94,10 +94,10 @@ public class LinearArrayFIFOQueue<T> implements FIFOQueue<T> {
 			return false;
 		if(!(other instanceof FIFOQueue<?>))
 			return false;
-		FIFOQueue<T> oqueue = (FIFOQueue<T>)other;
-		if(size() != oqueue.size())
+		FIFOQueue<T> oQueue = (FIFOQueue<T>)other;
+		if(size() != oQueue.size())
 			return false;
-		Iterator<T> ito = oqueue.iterator(), itc = iterator();
+		Iterator<T> ito = oQueue.iterator(), itc = iterator();
 		while(ito.hasNext())
 			if(!ito.next().equals(itc.next()))
 				return false;
@@ -110,14 +110,15 @@ public class LinearArrayFIFOQueue<T> implements FIFOQueue<T> {
 	 */
 	@Override
 	public String toString(){
-		String retVal ="[";
+		StringBuilder accum = new StringBuilder();
+		accum.append("[");
 		for(int i = 0; i < rear; i++){
-			retVal += data[i];
+			accum.append(data[i]);
 			if(i + 1 < rear)// Not second-to-last element
-				retVal += ", ";
+				accum.append(", ");
 		}
-		retVal += "]";
-		return retVal;
+		accum.append( "]");
+		return accum.toString();
 	}
 
 	/** Overriding of the iterator() method, required for Iterables.

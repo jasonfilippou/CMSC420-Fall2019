@@ -1,58 +1,60 @@
 package demos.bags.testcases;
 
-
-
 import demos.bags.*;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.Random;
-import java.util.function.IntConsumer;
 import java.util.stream.IntStream;
-
 import static org.junit.Assert.*;
 
 /**
- * Created by jason on 3/22/17.
+ * <p>Test suite for the various implementations of {@link Bag}. Classes tested:</p>
+ * <ul>
+ *     <li>{@link StaticallyPerturbedBag}</li>
+ *     <li>{@link DynamicallyShuffledBag}</li>
+ *     <li>{@link RandomAccessBag}</li>
+ * </ul>
+ *
+ * @see StaticallyPerturbedBag
+ * @see DynamicallyShuffledBag
+ * @see RandomAccessBag
+ *
+ * @author <a href = "https://github.com/JasonFil">Jason Filippou</a>
  */
 public class BagTests {
 
     private Bag<Integer> staticBag, randomAccessBag, shuffledBag;
     private IntStream thousand;
-    private IntStream tenthousand;
-    private static int NUM_ITERS=10;
+    private IntStream tenThousand;
     private Random r;
-    private static long DEFAULT_SEED=47;
+    private static final int NUM_ITERS=10;
+    private static final long DEFAULT_SEED=47;
 
     @Before
     public void setUp() {
-        staticBag = new StaticallyPerturbedBag<Integer>();
-        randomAccessBag = new RandomAccessBag<Integer>();
-        shuffledBag = new DynamicallyShuffledBag<Integer>();
-
-
+        staticBag = new StaticallyPerturbedBag<>();
+        randomAccessBag = new RandomAccessBag<>();
+        shuffledBag = new DynamicallyShuffledBag<>();
         thousand = IntStream.rangeClosed(1, 1000);
-        tenthousand = IntStream.rangeClosed(1, 10000);
-
-
+        tenThousand = IntStream.rangeClosed(1, 10000);
         r = new Random();
-        r.setSeed(DEFAULT_SEED); // Comment out for actual pseudorandomness
+        r.setSeed(DEFAULT_SEED); // Comment out for actual pseudo-randomness
     }
 
 
     @After
     public void tearDown(){
         staticBag = randomAccessBag = shuffledBag = null;
-        thousand = tenthousand = null;
+        thousand = tenThousand = null;
         r = null;
         System.gc();
     }
 
     @Test
-    public void add() throws Exception {
+    public void testAdd()  {
         try {
             testAdditions(thousand, staticBag);
             thousand = IntStream.rangeClosed(1, 1000); // Can't reuse Streams :(
@@ -63,38 +65,36 @@ public class BagTests {
             // Clear and reset the bags pretty quick
             tearDown();
             setUp();
-
-            testAdditions(tenthousand, staticBag);
-            tenthousand = IntStream.rangeClosed(1, 10000);
-            testAdditions(tenthousand, shuffledBag);
-            tenthousand = IntStream.rangeClosed(1, 10000);
-            testAdditions(tenthousand, randomAccessBag);
+            testAdditions(tenThousand, staticBag);
+            tenThousand = IntStream.rangeClosed(1, 10000);
+            testAdditions(tenThousand, shuffledBag);
+            tenThousand = IntStream.rangeClosed(1, 10000);
+            testAdditions(tenThousand, randomAccessBag);
         }
-        catch(Exception e){
-            fail("Failed  BagTests::add() with message: " + e.getMessage());
+        catch(Throwable t){
+            fail("Caught a " + t.getClass().getSimpleName() + " with message: "
+                    + t.getMessage());
         }
     }
 
-
-    // If you're gonna stream the additions, gotta make the Bag's inner implementation
-    // thread-safe, and declare as such in the documentation.
-    private void testAdditions(IntStream ints, Bag b){
+    private void testAdditions(IntStream ints, Bag<Integer> b){
         try {
-            ints.forEach(l -> b.add(l));
-        } catch(Exception e){
-            System.err.println("Caught an " + e.getClass().getSimpleName());
+            ints.forEach(b::add);
+        } catch(Throwable t){
+            fail("Caught a " + t.getClass().getSimpleName() + " with message: "
+                    + t.getMessage());
         }
     }
 
     @Test
-    public void isEmpty() throws Exception {
+    public void testIsEmpty() {
         assertTrue("Statically Perturbed Bag should be empty.", staticBag.isEmpty());
         assertTrue("Dynamically Shuffled Bag should be empty.", shuffledBag.isEmpty());
         assertTrue("Random Access Bag should be empty.", randomAccessBag.isEmpty());
 
-        assertTrue("Statically Perturbed Bag should should have a size of 0.", staticBag.size() == 0);
-        assertTrue("Dynamically Shuffled Bag should should have a size of 0.", shuffledBag.size() == 0);
-        assertTrue("Random Access Bag should should have a size of 0.", randomAccessBag.size() == 0);
+        assertEquals("Statically Perturbed Bag should should have a size of 0.", 0, staticBag.size());
+        assertEquals("Dynamically Shuffled Bag should should have a size of 0.", shuffledBag.size(), 0);
+        assertEquals("Random Access Bag should should have a size of 0.", randomAccessBag.size(), 0);
 
         staticBag.add(r.nextInt());
         shuffledBag.add(r.nextInt());
@@ -106,45 +106,42 @@ public class BagTests {
         assertFalse("Dynamically Shuffled Bag should not be empty.", shuffledBag.isEmpty());
         assertFalse("Random Access Bag should not be empty.", randomAccessBag.isEmpty());
 
-        assertTrue("Statically Perturbed Bag should should have a size of 1.", staticBag.size() == 1);
-        assertTrue("Dynamically Shuffled Bag should should have a size of 1.", shuffledBag.size() == 1);
-        assertTrue("Random Access Bag should should have a size of 1.", randomAccessBag.size() == 1);
+        assertEquals("Statically Perturbed Bag should should have a size of 1.", 1, staticBag.size());
+        assertEquals("Dynamically Shuffled Bag should should have a size of 1.", 1, shuffledBag.size());
+        assertEquals("Random Access Bag should should have a size of 1.", 1, randomAccessBag.size());
     }
 
     @Test
-    public void shake() throws Exception {
+    public void testShake() {
         // Shake() unit tests are tricky... some things should clearly not happen regardless of the shaking.
         // Let's start with those.
 
         for(int i = 0; i < NUM_ITERS; i++){
-            IntStream.rangeClosed(0, 300).forEach(new IntConsumer() {
-                @Override
-                public void accept(int value) {
-                    staticBag.add(value);
-                    shuffledBag.add(value);
-                    randomAccessBag.add(value);
-                }
+            IntStream.rangeClosed(0, 300).forEach(value -> {
+                staticBag.add(value);
+                shuffledBag.add(value);
+                randomAccessBag.add(value);
             });
             for(int j = 0; j < 300; j++){
                 staticBag.add(j);
                 try {
                     staticBag.shake();
-                } catch(Exception e){
-                    fail("While adding integer " + j + " to staticBag, we received an " + e.getClass() + " with message " + e.getMessage());
+                } catch(Throwable t){
+                    fail("While adding integer " + j + " to staticBag, we received an " + t.getClass().getSimpleName() + " with message " + t.getMessage());
                 }
 
                 staticBag.add(j);
                 try {
                     staticBag.shake();
-                } catch(Exception e){
-                    fail("While adding integer " + j + " to staticBag, we received an " + e.getClass() + " with message " + e.getMessage());
+                } catch(Throwable t){
+                    fail("While adding integer " + j + " to staticBag, we received an " + t.getClass().getSimpleName() + " with message " + t.getMessage());
                 }
 
                 randomAccessBag.add(j);
                 try {
                     randomAccessBag.shake();
-                } catch(Exception e){
-                    fail("While adding integer " + j + " to staticBag, we received an " + e.getClass() + " with message " + e.getMessage());
+                } catch(Throwable t){
+                    fail("While adding integer " + j + " to staticBag, we received an " + t.getClass().getSimpleName() + " with message " + t.getMessage());
                 }
             }
 
@@ -188,16 +185,19 @@ public class BagTests {
     }
 
     @Test
-    public void iterator() throws Exception {
-
-        // Add a bunch of elements to all the bags
+    public void testIterator()  {
 
         for(int i = 0; i > -1000; i--){
             staticBag.add(i);
             shuffledBag.add(i);
             randomAccessBag.add(i);
         }
-
+        // Add 0, -1, -2, ... -999 to all bags
+        IntStream.range(0, 1000).boxed().forEach(v->{
+            staticBag.add(-v);
+            shuffledBag.add(-v);
+            randomAccessBag.add(-v);
+        });
 
         if(!iteratorTraversesOk(staticBag))
             fail("itStatic is not looping correctly.");
@@ -208,8 +208,8 @@ public class BagTests {
         if(!iteratorTraversesOk(randomAccessBag))
             fail("itRandomAccess is not looping correctly.");
 
-        // Make an additional check to make sure that the Iterators produced are fail-fast!
-
+        // Make an additional check to make sure that the
+        // Iterators produced are fail-fast!
         if(!testIteratorFailFast(staticBag))
             fail("itStatic is not fail-fast!");
 
@@ -229,9 +229,9 @@ public class BagTests {
         while(it.hasNext()) {
             try {
                 it.next();
-            } catch (Exception e) {
-                System.err.println("iteratorOk method: received an " + e.getClass() + " with message " +
-                        e.getMessage() + " while accessing next() on Iterator.");
+            } catch (Throwable t) {
+                System.err.println("iteratorOk method: received an " + t.getClass().getSimpleName() + " with message " +
+                        t.getMessage() + " while accessing next() on Iterator.");
                 return false;
             }
         }
@@ -246,9 +246,9 @@ public class BagTests {
             it.next();
         } catch(ConcurrentModificationException ce){
             return true;
-        } catch(Exception e){
-            System.err.println("Caught an exception of type " + e.getClass() + " with message " + e.getMessage() +
-                    ". Was expecting a " + new ConcurrentModificationException().getClass());
+        } catch(Throwable t){
+            System.err.println("Caught an exception of type " + t.getClass().getSimpleName() + " with message " + t.getMessage() +
+                    ". Was expecting a " + ConcurrentModificationException.class);
             return false;
         }
         return false;

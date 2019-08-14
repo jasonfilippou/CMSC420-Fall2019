@@ -255,16 +255,17 @@ public class LinkedList<T> implements List<T> {
 
 	@Override 
 	public String toString(){
-		String retVal = "[";
+		StringBuilder accum = new StringBuilder();
+		accum.append("[");
 		LinkedListNode current = head;
 		while(current != null){
-			retVal += current.getData();
+			accum.append(current.getData());
 			if(current.next != null)
-				retVal += ", ";
+				accum.append(", ");
 			current = current.next;
 		}
-		retVal += "]";
-		return retVal;
+		accum.append("]");
+		return accum.toString();
 	}
 
 	/**

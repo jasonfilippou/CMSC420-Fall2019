@@ -1,8 +1,8 @@
 package demos.bags.clients;
 
 /** A simple enum for colors.
- * @author jason
- * @since  v1.1
+ * @author <a href = "https://github.com/JasonFil">Jason Filippou</a>
+ * @see Ball
  */
 public enum Color {
     BLUE, RED, GREEN, YELLOW, WHITE, BLACK, CYAN, MAGENTA, GRAY, PINK, PURPLE;

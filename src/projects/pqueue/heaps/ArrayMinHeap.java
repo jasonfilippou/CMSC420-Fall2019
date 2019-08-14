@@ -10,7 +10,7 @@ import java.util.ConcurrentModificationException;
 import java.util.NoSuchElementException;
 
 /**
- * <p>ArrayMinHeap is a {@link MinHeap} implemented using an internal array. Since heaps are <b>complete</b>
+ * <p>{@link ArrayMinHeap} is a {@link MinHeap} implemented using an internal array. Since heaps are <b>complete</b>
  * binary trees, using contiguous storage to store them is an excellent idea, since with such storage we avoid
  * wasting bytes per null pointer in a linked implementation.</p>
  *
@@ -23,9 +23,10 @@ import java.util.NoSuchElementException;
  * @see MinHeap
  * @see LinkedMinHeap
  */
-@SuppressWarnings("unchecked")
+
 public class ArrayMinHeap<T extends Comparable<T>> implements MinHeap<T> {
 
+	private static final int INIT_CAPACITY = 10;
 	private Object[] data;
 	private int size;
     private boolean modified;
@@ -35,7 +36,7 @@ public class ArrayMinHeap<T extends Comparable<T>> implements MinHeap<T> {
 	 * capacity.
 	 */
 	public ArrayMinHeap(){
-		data = new Object[10];
+		data = new Object[INIT_CAPACITY];
 		size = 0;
 	}
 
@@ -44,7 +45,7 @@ public class ArrayMinHeap<T extends Comparable<T>> implements MinHeap<T> {
 	 *  @param rootElement the element to create the root with.
 	 */
 	public ArrayMinHeap(T rootElement){
-		data = new Object[10];
+		data = new Object[INIT_CAPACITY];
 		data[0] = rootElement;
 		size = 1;
 	}
@@ -57,7 +58,7 @@ public class ArrayMinHeap<T extends Comparable<T>> implements MinHeap<T> {
 	 */
 	public ArrayMinHeap(MinHeap<T> other){
 		if(other == null){
-			data = new Object[10];
+			data = new Object[INIT_CAPACITY];
 			size = 0;
 		} else {
 			data = new Object[other.size()];
@@ -73,8 +74,10 @@ public class ArrayMinHeap<T extends Comparable<T>> implements MinHeap<T> {
 		if(size == data.length)
 			expandCapacity();
 		data[size++] = element;
+
 		// current = 2*parent + 1 or current = 2*parent + 2
 		int current = size - 1, parent = (current - 1) / 2;
+
 		// While you need to switch, switch
 		while(((T) data[parent]).compareTo((T) data[current]) > 0){
 			Object temp = data[current];
@@ -174,11 +177,6 @@ public class ArrayMinHeap<T extends Comparable<T>> implements MinHeap<T> {
 		return true;
 	}
 
-	@Override
-	public void clear() {
-		data = new Object[10];
-		size = 0;
-	}
 
 	@Override
 	public Iterator<T> iterator() {

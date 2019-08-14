@@ -3,12 +3,15 @@ package demos.bags;
 import java.util.*;
 
 /**
- * A DynamicallyShuffledBag is a {@link Bag} which, very much like a {@link RandomAccessBag}, shakes its contents
+ * A {@link DynamicallyShuffledBag} is a {@link Bag} which, very much like a {@link RandomAccessBag}, shakes its contents
  * completely (pseudo-) randomly. However, it does so by storing the elements in their new order, instead of
- * indexing into the old container with a permuted index set.
+ * indexing into the old container with a permuted index set, like {@link RandomAccessBag}.
+ *
+ * @author <a href = "https://github.com/JasonFil">Jason Filippou</a>
+ *
+ * @see Bag
  * @see RandomAccessBag
  * @see StaticallyPerturbedBag
- * @author jason
  */
 public class DynamicallyShuffledBag<Item> implements Bag<Item>{
 
@@ -19,7 +22,7 @@ public class DynamicallyShuffledBag<Item> implements Bag<Item>{
     /**
      * This constructor is used to initialize the bag with full pseudorandom capabilities for shaking
      * and the default starting capacity.
-     * @since 1.0
+     *
      */
     public DynamicallyShuffledBag() {
         this(DEFAULT_INIT_CAPACITY);
@@ -27,11 +30,11 @@ public class DynamicallyShuffledBag<Item> implements Bag<Item>{
 
 
     /**
-     * This constructor creates a DynamicallyShuffledBag with a provided initial capacity as well
+     * This constructor creates a {@link DynamicallyShuffledBag} instance with a provided initial capacity as well
      * as a client-provided seed. Clients might be interested in reproducing experiments.
      * @param capacity The initial capacity of the Bag.
      * @param seed A caller-provided seed for the random number generator.
-     * @since 1.0
+     *
      */
     public DynamicallyShuffledBag(int capacity, long seed){
         storage = (Item[])(new Object[capacity]);
@@ -39,22 +42,22 @@ public class DynamicallyShuffledBag<Item> implements Bag<Item>{
     }
 
     /**
-     * This constructor creates a DynamicallyShuffledBag with a provided seed for experiment
+     * This constructor creates a {@link DynamicallyShuffledBag} instance with a provided seed for experiment
      * reproducibility.
      * @see #DynamicallyShuffledBag(int, long)
      * @param seed A caller-provided seed for the random number generator.
-     * @since 1.0
+     *
      */
     public DynamicallyShuffledBag(long seed){
         this(DEFAULT_INIT_CAPACITY, seed);
     }
 
     /**
-     * This constructor creates a DynamicallyShuffledBag with the provided default capacity. The bag shakes
+     * This constructor creates a {@link DynamicallyShuffledBag} with the provided default capacity. The bag shakes
      * fully (pseudo-)randomly.
      * @param capacity  The initial capacity for the Bag.
      * @see #DynamicallyShuffledBag(int)
-     * @since 1.0
+     *
      */
     public DynamicallyShuffledBag(int capacity){
         storage = (Item[])(new Object[capacity]);
@@ -63,8 +66,8 @@ public class DynamicallyShuffledBag<Item> implements Bag<Item>{
     /**
      * Adds an <b>Item</b> to the bag.
      *
-     * //@param i The <b>Item</b> to add to the Bag.
-     * @since 1.0
+     *@param i The <b>Item</b> to add to the Bag.
+     *
      */
     @Override
     public void add(Item i) {
@@ -77,8 +80,7 @@ public class DynamicallyShuffledBag<Item> implements Bag<Item>{
     private void expand(){
         int currCap = capacity();
         Item[] newStorage = (Item[])new Object[2*currCap];
-        for(int i = 0; i < currCap; i++)
-            newStorage[i] = storage[i];
+        System.arraycopy(storage, 0, newStorage, 0, currCap);
         storage = newStorage;
     }
 
@@ -88,9 +90,7 @@ public class DynamicallyShuffledBag<Item> implements Bag<Item>{
 
     /**
      * Returns true if there are no elements in the bag.
-     *
-     * @return True if and only if the Bag is empty, False otherwise.
-     * @since 1.0
+     * @return true if and only if the Bag is empty, false otherwise.
      */
     @Override
     public boolean isEmpty() {
@@ -103,7 +103,6 @@ public class DynamicallyShuffledBag<Item> implements Bag<Item>{
      * indexing over the new permuted elements. So it "eats" the cost of permuting the entire collection of elements,
      * but accessing them later should not lead to cache misses. </p>
      * @see RandomAccessBag#shake()
-     * @since 1.0
      */
     @Override
     public void shake() {
@@ -114,8 +113,7 @@ public class DynamicallyShuffledBag<Item> implements Bag<Item>{
 
     /**
      * Returns the number of elements in the bag.
-     *
-     * @since 1.0
+     * @return the number of elements in the bag.
      */
     @Override
     public int size() {
@@ -123,13 +121,12 @@ public class DynamicallyShuffledBag<Item> implements Bag<Item>{
     }
 
     /**
-     * Returns an iterator over elements of type {@code T}.
-     *
+     * Returns an {@link Iterator} over elements of type {@code T}.
      * @return an Iterator.
      */
     @Override
     public Iterator<Item> iterator() {
-        return new Iterator<Item>() {
+        return new Iterator<>() {
             private int index = -1;
             private int initSize = size();
             @Override

@@ -6,10 +6,12 @@ import java.util.*;
  * into the old linear collection of <b>Item</b>s. The goal is to prove that, after shaking, and for a relatively large
  * number of <b>Item</b>s held, looping through the items using the {@link java.util.Iterator} returned by {@link #iterator()}
  * will lead to many cache misses and will thus be slow.
- * @version 1.0
+ *
  * @see StaticallyPerturbedBag
  * @see DynamicallyShuffledBag
- * @author jason
+ * @see Bag
+ *
+ * @author @author <a href = "https://github.com/JasonFil">Jason Filippou</a>
  */
 public class RandomAccessBag<Item> implements Bag<Item>{
 
@@ -43,7 +45,7 @@ public class RandomAccessBag<Item> implements Bag<Item>{
      * Adds an <b>Item</b> to the bag.
      *
      * @param i The <b>Item</b> to add to the Bag.
-     * @since 1.0
+     *
      */
     @Override
     public void add(Item i) {
@@ -68,7 +70,7 @@ public class RandomAccessBag<Item> implements Bag<Item>{
      * Returns true if there are no elements in the bag.
      *
      * @return True if and only if the Bag is empty, False otherwise.
-     * @since 1.0
+     *
      */
     @Override
     public boolean isEmpty() {
@@ -82,7 +84,7 @@ public class RandomAccessBag<Item> implements Bag<Item>{
      * The hope is that this will lead to lots of cache misses. It is also burdened by the generation of original index list
      * as well as the permutation of its elements. Check the Java 8 branch for various optimizations for array handling.</p>
      * @see DynamicallyShuffledBag#shake()
-     * @since 1.0
+     *
      */
     @Override
     public void shake() {
@@ -96,7 +98,7 @@ public class RandomAccessBag<Item> implements Bag<Item>{
     /**
      * Returns the number of elements in the bag.
      *
-     * @since 1.0
+     *
      */
     @Override
     public int size() {
@@ -106,11 +108,11 @@ public class RandomAccessBag<Item> implements Bag<Item>{
     /**
      * Returns an iterator over elements of type {@code T}.
      *
-     * @return an Iterator.
+     * @return an instance of {@link Iterator} over Items.
      */
     @Override
     public Iterator<Item> iterator() {
-        return new Iterator<Item>() {
+        return new Iterator<>() {       // Anonymous inner class.
             private int initSize = size();
             private int itIndex = -1;
             @Override

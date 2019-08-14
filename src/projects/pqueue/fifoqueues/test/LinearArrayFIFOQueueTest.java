@@ -48,11 +48,15 @@ public class LinearArrayFIFOQueueTest {
 
 		// Phase 2: Copy construct a CircularArrayFIFOQueue from a LinearArrayFIFOQueue.
 		FIFOQueue<String> circularArrayFIFOQueueCopy = new CircularArrayFIFOQueue<String>(stringFIFOQueue);
+
+		// The following line will trigger a warning on submit.cs, because we are explicitly requesting the
+		// comparison of ostensibly unrelated types. However, our equals() methods allow for this!
+		// Just check either LinkedFIFOQueue::equals() or LinearArrayFIFOQueue:equals().
 		assertEquals(circularArrayFIFOQueueCopy, stringFIFOQueue);
 
 		// Phase 3: Copy construct a LinkedFIFOQueue from a LinearArrayFIFOQueue.
 		FIFOQueue<String> linkedFIFOQueueCopy = new LinkedFIFOQueue<String>(stringFIFOQueue);
-		assertEquals(linkedFIFOQueueCopy, stringFIFOQueue);
+		assertEquals(linkedFIFOQueueCopy, stringFIFOQueue); // same
 		stringFIFOQueue.clear();
 	}
 	
@@ -99,7 +103,7 @@ public class LinearArrayFIFOQueueTest {
 			integerFIFOQueue.enqueue(i);
 		assertEquals(integerFIFOQueue.size(), 100);
 		try {
-			assertEquals(integerFIFOQueue.first(), new Integer(0));
+			assertEquals(integerFIFOQueue.first(), Integer.valueOf(0));
 		} catch(EmptyFIFOQueueException exc){
 			fail("EmptyFIFOQueueException should not've been thrown.");
 		}

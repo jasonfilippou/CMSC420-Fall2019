@@ -73,14 +73,6 @@ public class ReleaseTests {
         assertEquals("Size of ArrayMinHeap should be 1 after inserting a single element.", 1, stringMinHeap.size());
     }
 
-    @Test
-    public void testArrayMinHeapClear(){
-        prepArrayMinHeapTest();
-        IntStream.of(20, 10, 89, 20, 110).forEach(intMinHeap::insert);
-        intMinHeap.clear();
-        assertTrue("Clearing an ArrayMinHeap should make it empty.", intMinHeap.isEmpty());
-    }
-
 
     @Test
     public void testArrayMinHeapSimpleInsertAndGetMin(){
@@ -117,7 +109,7 @@ public class ReleaseTests {
                 ints.length + ".", ints.length, intMinHeap.size());
         try {
             assertEquals(" ArrayMinHeap.getMin() did not return the correct element.",
-                    new Integer(-1), intMinHeap.getMin());
+                    Integer.valueOf(-1), intMinHeap.getMin());
         } catch (EmptyHeapException e) {
             fail("An EmptyHeapException should not have been thrown by getMin()," +
                     " since the heap was not empty upon call.");
@@ -143,12 +135,11 @@ public class ReleaseTests {
             while(!stringMinHeap.isEmpty())
                 stringMinHeap.deleteMin();
         } catch(EmptyHeapException e){
-            fail("An EmptyHeapException should not have been thrown by deleteMin() here.");
+            fail("While deleting all elements of an ArrayMinHeap instance, an EmptyHeapException was thrown by deleteMin().");
         }
 
         assertEquals("Deleting all the elements of an ArrayMinHeap should make its size zero.", 0, stringMinHeap.size());
         assertTrue("After deleting all the elements of an ArrayMinHeap, it should be considered empty.", stringMinHeap.isEmpty());
-
 
     }
 
@@ -170,12 +161,12 @@ public class ReleaseTests {
 
         try{
             // Take elements off one-by-one, examine min each and every time.
-            assertEquals("On the first deletion, ArrayMinHeap.deleteMin() did not return correct element.",  new Integer(-1), intMinHeap.deleteMin());
-            assertEquals("On the second deletion, ArrayMinHeap.deleteMin() did not return correct element.", new Integer(0), intMinHeap.deleteMin());
-            assertEquals("On the third deletion, ArrayMinHeap.deleteMin() did not return correct element.", new Integer(3), intMinHeap.deleteMin());
-            assertEquals("On the fourth deletion, ArrayMinHeap.deleteMin() did not return correct element.", new Integer(5), intMinHeap.deleteMin());
-            assertEquals("On the fifth deletion, ArrayMinHeap.deleteMin() did not return correct element.", new Integer(8), intMinHeap.deleteMin());
-            assertEquals("On the sixth deletion, ArrayMinHeap.deleteMin() did not return correct element.", new Integer(10), intMinHeap.deleteMin());
+            assertEquals("On the first deletion, ArrayMinHeap.deleteMin() did not return correct element.", Integer.valueOf(-1), intMinHeap.deleteMin());
+            assertEquals("On the second deletion, ArrayMinHeap.deleteMin() did not return correct element.", Integer.valueOf(0), intMinHeap.deleteMin());
+            assertEquals("On the third deletion, ArrayMinHeap.deleteMin() did not return correct element.", Integer.valueOf(3), intMinHeap.deleteMin());
+            assertEquals("On the fourth deletion, ArrayMinHeap.deleteMin() did not return correct element.", Integer.valueOf(5), intMinHeap.deleteMin());
+            assertEquals("On the fifth deletion, ArrayMinHeap.deleteMin() did not return correct element.", Integer.valueOf(8), intMinHeap.deleteMin());
+            assertEquals("On the sixth deletion, ArrayMinHeap.deleteMin() did not return correct element.", Integer.valueOf(10), intMinHeap.deleteMin());
         } catch(EmptyHeapException exc){
             fail("Should not have thrown an EmptyHeapException at this point.");
         }
@@ -274,7 +265,7 @@ public class ReleaseTests {
             fail("When testing for appropriate fail-fast behavior of ArrayMinHeap's Iterator, we received a " +
                     t.getClass().getSimpleName() + " with message: " + t.getMessage() + " instead of a ConcurrentModificationException.");
         }
-        intMinHeap.clear();
+        intMinHeap = new ArrayMinHeap<>();
         it = intMinHeap.iterator(); // Reset iterator
         assertFalse( "Iterator's hasNext() method should return false when " +
                 "the ArrayMinHeap is empty.", it.hasNext());
@@ -291,7 +282,7 @@ public class ReleaseTests {
     public void testLinkedMinHeapClear(){
         prepLinkedMinHeapTest();
         IntStream.of(20, 10, 89, 20, 110).forEach(intMinHeap::insert);
-        intMinHeap.clear();
+        intMinHeap = new LinkedMinHeap<>();
         assertTrue("Clearing an LinkedMinHeap should make it empty.", intMinHeap.isEmpty());
     }
 
@@ -341,7 +332,7 @@ public class ReleaseTests {
                 ints.length + ".", ints.length, intMinHeap.size());
         try {
             assertEquals(" LinkedMinHeap.getMin() did not return the correct element.",
-                    new Integer(-1), intMinHeap.getMin());
+                    Integer.valueOf(-1), intMinHeap.getMin());
         } catch (EmptyHeapException e) {
             fail("An EmptyHeapException should not have been thrown by getMin()," +
                     " since the heap was not empty upon call.");
@@ -394,12 +385,12 @@ public class ReleaseTests {
 
         try{
             // Take elements off one-by-one, examine min each and every time.
-            assertEquals("On the first deletion, LinkedMinHeap.deleteMin() did not return correct element.",  new Integer(-1), intMinHeap.deleteMin());
-            assertEquals("On the second deletion, LinkedMinHeap.deleteMin() did not return correct element.", new Integer(0), intMinHeap.deleteMin());
-            assertEquals("On the third deletion, LinkedMinHeap.deleteMin() did not return correct element.", new Integer(3), intMinHeap.deleteMin());
-            assertEquals("On the fourth deletion, LinkedMinHeap.deleteMin() did not return correct element.", new Integer(5), intMinHeap.deleteMin());
-            assertEquals("On the fifth deletion, LinkedMinHeap.deleteMin() did not return correct element.", new Integer(8), intMinHeap.deleteMin());
-            assertEquals("On the sixth deletion, LinkedMinHeap.deleteMin() did not return correct element.", new Integer(10), intMinHeap.deleteMin());
+            assertEquals("On the first deletion, LinkedMinHeap.deleteMin() did not return correct element.",  Integer.valueOf(-1), intMinHeap.deleteMin());
+            assertEquals("On the second deletion, LinkedMinHeap.deleteMin() did not return correct element.", Integer.valueOf(0), intMinHeap.deleteMin());
+            assertEquals("On the third deletion, LinkedMinHeap.deleteMin() did not return correct element.", Integer.valueOf(3), intMinHeap.deleteMin());
+            assertEquals("On the fourth deletion, LinkedMinHeap.deleteMin() did not return correct element.", Integer.valueOf(5), intMinHeap.deleteMin());
+            assertEquals("On the fifth deletion, LinkedMinHeap.deleteMin() did not return correct element.", Integer.valueOf(8), intMinHeap.deleteMin());
+            assertEquals("On the sixth deletion, LinkedMinHeap.deleteMin() did not return correct element.", Integer.valueOf(10), intMinHeap.deleteMin());
         } catch(EmptyHeapException exc){
             fail("Should not have thrown an EmptyHeapException at this point.");
         }
@@ -492,7 +483,7 @@ public class ReleaseTests {
                     t.getClass().getSimpleName() + " with message: " + t.getMessage() + " instead of a ConcurrentModificationException.");
         }
         assertNotNull("LinkedMinHeap iterator should have thrown a ConcurrentModificationException",cme);
-        intMinHeap.clear();
+        intMinHeap = new LinkedMinHeap<>();
         it = intMinHeap.iterator(); // Reset iterator
         assertFalse( "Iterator's hasNext() method should return false when " +
                 "the LinkedMinHeap is empty.", it.hasNext());
@@ -533,9 +524,9 @@ public class ReleaseTests {
         prepLinearPQTest();
         try {
             greekNamesQueue.enqueue("Alexandrou", 8);
-            greekNamesQueue.clear();
-            assertTrue("After clearing, a LinearPriorityQueue should be empty.", greekNamesQueue.isEmpty());
-            assertEquals("After clearing, a LinearPriorityQueue's size should be 0.", 0, greekNamesQueue.size());
+            greekNamesQueue = new LinearPriorityQueue<>();
+            assertTrue("After resetting it, a LinearPriorityQueue should be empty.", greekNamesQueue.isEmpty());
+            assertEquals("After resetting it, a LinearPriorityQueue's size should be 0.", 0, greekNamesQueue.size());
         } catch (InvalidPriorityException ignored) {
             fail(INVALID_PRIORITY_MSG);
         }
@@ -735,7 +726,7 @@ public class ReleaseTests {
             assertFalse("After looping through all the elements with next(), the iterator's hasNext() method" +
                     " should return false.", it.hasNext());
 
-            greekNamesQueue.clear();
+            greekNamesQueue = new LinearPriorityQueue<>();
 
             // Now we will also check iterations over a queue that has
             // non-singleton FIFO fifoqueues in it
@@ -761,7 +752,6 @@ public class ReleaseTests {
                     " should return false.", it.hasNext());
 
             // Finally, check the proper throwing of a ConcurrentModificationException
-
             it = greekNamesQueue.iterator();
             it.next();
             greekNamesQueue.enqueue("Stamatopoulos", 9);
@@ -799,9 +789,9 @@ public class ReleaseTests {
         prepMinHeapPQTest();
         try {
             greekNamesQueue.enqueue("Alexandrou", 8);
-            greekNamesQueue.clear();
-            assertTrue("After clearing, a MinHeapPriorityQueue should be empty.", greekNamesQueue.isEmpty());
-            assertEquals("After clearing, a MinHeapPriorityQueue's size should be 0.", 0, greekNamesQueue.size());
+            greekNamesQueue = new MinHeapPriorityQueue<>();
+            assertTrue("After resetting it, a MinHeapPriorityQueue should be empty.", greekNamesQueue.isEmpty());
+            assertEquals("After resetting it, a MinHeapPriorityQueue's size should be 0.", 0, greekNamesQueue.size());
         } catch (InvalidPriorityException ignored) {
             fail(INVALID_PRIORITY_MSG);
         }
@@ -1001,7 +991,7 @@ public class ReleaseTests {
             assertFalse("After looping through all the elements with next(), the iterator's hasNext() method" +
                     " should return false.", it.hasNext());
 
-            greekNamesQueue.clear();
+            greekNamesQueue = new MinHeapPriorityQueue<>();
 
             // Now we will also check iterations over a queue that has
             // non-singleton FIFO fifoqueues in it

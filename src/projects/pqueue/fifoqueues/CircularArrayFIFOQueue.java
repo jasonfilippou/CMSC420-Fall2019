@@ -49,7 +49,6 @@ public class CircularArrayFIFOQueue<T> implements FIFOQueue<T> {
 	/** Default constructor initializes data structure with 
 	 * the default capacity of elements.
 	 */
-
 	public CircularArrayFIFOQueue(){
 		data = (T[])(new Object[DEFAULT_CAPACITY]);
 		front = rear = count = 0;

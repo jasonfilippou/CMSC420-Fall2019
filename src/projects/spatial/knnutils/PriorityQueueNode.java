@@ -10,7 +10,7 @@ import java.math.BigDecimal;
  *
  * <p><b>YOU SHOULD ***NOT*** EDIT THIS CLASS!</b> If you do, you risk <b>not passing our tests!</b></p>
  *
- * @author <a href="mailto:jasonfil@cs.umd.edu">Jason Filippou</a>
+ * @author <a href="https://github.com/JasonFil">Jason Filippou</a>
  *
  * @param <T> The type of element contained in the PriorityQueueNode.
  *

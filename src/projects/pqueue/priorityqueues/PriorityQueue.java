@@ -53,9 +53,4 @@ public interface PriorityQueue<T> extends Iterable<T> {
 	 * @return true if the PriorityQueue is empty, false otherwise.
 	 */
 	public boolean isEmpty();
-
-	/**
-	 * Clears the PriorityQueue of all its elements.
-	 */
-	public void clear();
 }

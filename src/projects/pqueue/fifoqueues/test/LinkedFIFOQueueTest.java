@@ -43,17 +43,21 @@ public class LinkedFIFOQueueTest {
 		for(String s: veggies)
 			stringFIFOQueue.enqueue(s);
 
-		// Phase 1: Compare equality between projects.pqueue.fifoqueues of the same type.
+		// Phase 1: Compare equality between FIFOQueue instances of the same (derived) type.
 		FIFOQueue<String> linkedFIFOQueueCopy = new LinkedFIFOQueue<String>(stringFIFOQueue);
 		assertEquals(linkedFIFOQueueCopy, stringFIFOQueue);
 
 		// Phase 2: Copy construct a LinearArrayFIFOQueue from a LinkedFIFOQueue.
 		FIFOQueue<String> linearArrayFIFOQueueCopy = new LinearArrayFIFOQueue<String>(stringFIFOQueue);
+
+		// The following line will trigger a warning on submit.cs, because we are explicitly requesting the
+		// comparison of ostensibly unrelated types. However, our equals() methods allow for this!
+		// Just check either LinkedFIFOQueue::equals() or LinearArrayFIFOQueue:equals().
 		assertEquals(linearArrayFIFOQueueCopy, stringFIFOQueue);
 
 		// Phase 3: Copy construct a CircularArrayFIFOQueue from a LinkedFIFOQueue.
 		FIFOQueue<String> circularArrayFIFOQueueCopy = new LinkedFIFOQueue<String>(stringFIFOQueue);
-		assertEquals(circularArrayFIFOQueueCopy, stringFIFOQueue);
+		assertEquals(circularArrayFIFOQueueCopy, stringFIFOQueue);	// Same point as above.
 		stringFIFOQueue.clear();
 	}
 
@@ -100,7 +104,7 @@ public class LinkedFIFOQueueTest {
 			integerFIFOQueue.enqueue(i);
 		assertEquals(integerFIFOQueue.size(), 100);
 		try {
-			assertEquals(integerFIFOQueue.first(), new Integer(0));
+			assertEquals(integerFIFOQueue.first(), Integer.valueOf(0));
 		} catch(EmptyFIFOQueueException exc){
 			fail("EmptyFIFOQueueException should not've been thrown.");
 		}

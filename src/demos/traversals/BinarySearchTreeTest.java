@@ -35,7 +35,7 @@ public class BinarySearchTreeTest {
   public void tearDown() throws Exception {
     tree = null;
     ints = null;
-    r = null; // TODO: How feasible is it for a weakly compiled language to be able to do tree = ints = r = null? Compiler should intuitively not complain. Recall: Python is weakly typed.
+    r = null;
     System.gc(); // HAHA THIS WILL ACTUALLY DO SOMETHING
   }
 
@@ -190,7 +190,7 @@ public class BinarySearchTreeTest {
     Collections.shuffle(is, r);
     is.forEach(tree::insert);
     Collections.sort(is);
-    Iterator<Integer> it1, it2, it3, it4, it5, it6, it7, it8, it9;
+    Iterator<Integer> it1, it2, it3, it4, it5, it6, it7, it8;
     it1 = tree.rangeSearch(1, 10);
     assertTrue("it1 did not return expected range.", testRange(it1, 1, 10, is));
     it2 = tree.rangeSearch(0, 10);
@@ -207,13 +207,15 @@ public class BinarySearchTreeTest {
     assertTrue("it7 did not return expected range.", testRange(it7, 4, 6, is));
     it8 = tree.rangeSearch(5, 5);
     assertTrue("it8 did not return expected range.", testRange(it8, 5, 5, is));
+    IllegalArgumentException iaExc = null;
     try {
       tree.rangeSearch(6, 4);
-    }catch(IllegalArgumentException ignored){
-      // Do nothing
+    }catch(IllegalArgumentException thrown){
+      iaExc = thrown;
     } catch(Throwable t){
       fail("testRangeSearch(): Caught a " + t.getClass().getSimpleName() + " while supplying an invalid range search to our tree. Message was: " + t.getMessage() + ".");
     }
+    assertNotNull("Expected an IllegalArgumentException to have been thrown when requesting a range from 6 to 4 (in that order)", iaExc);
   }
 
   // Exhaustively search the elements accessed by the iterator
@@ -224,7 +226,7 @@ public class BinarySearchTreeTest {
         return false;
       i++;
     }
-    assert i == max : "i should be the right end of the range after we are done!";
+    assert i == (max + 1) : "i should be one past the right end of the range after we are done!";
     return true;
   }
 

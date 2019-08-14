@@ -1,8 +1,8 @@
 package demos.hashing;
 
 /**
- * Prints the default hashCode() of an {@link Object}.
- * @see Object#hashCode()
+ * <p>Prints the default hashCode() of an {@link Object}.</p>
+ * @see #hashCode()
  */
 public class DefaultHashCode {
     public static void main(String[] args){

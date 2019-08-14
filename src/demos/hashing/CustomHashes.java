@@ -1,8 +1,10 @@
 package demos.hashing;
 
-/**<p>Small demo for the CMSC420 students on appropriately using Object.hashCode()
+/**<p>Small demo for the CMSC420 students on appropriately using {@link #hashCode()}
  * to build an object's hash code.</p>
- * @author <a href="mailto:jasonfil@cs.umd.edu">Jason Filippou</a>
+ *
+ * @author <a href="https://github.com/JasonFil">Jason Filippou</a>
+ * @see #hashCode()
  */
 public class CustomHashes {
 

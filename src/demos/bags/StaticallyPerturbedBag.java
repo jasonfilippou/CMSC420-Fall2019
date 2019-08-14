@@ -11,7 +11,7 @@ import java.util.Iterator;
  * @see RandomAccessBag
  * @author jason
  */
-public class StaticallyPerturbedBag<Item> implements Bag{
+public class StaticallyPerturbedBag<Item> implements Bag<Item>{
 
 
     private int current;
@@ -20,13 +20,17 @@ public class StaticallyPerturbedBag<Item> implements Bag{
     private static int OFFSET=3; // Modular
 
     public StaticallyPerturbedBag(){
-        // The following downcasting is unsafe, but ok for our example.
+        // The following downcasting is generally unsafe, but ok for our example.
         storage = (Item[])new Object[DEFAULT_CAPACITY];
         current =-1;
     }
 
+    /**
+     * Constructor with provided initial capacity.
+     * @param initCapacity
+     */
     public StaticallyPerturbedBag(int initCapacity){
-        storage = (Item[])new Object[initCapacity];
+        storage = (Item[])new Object[initCapacity];     // Same point with above.
         current = -1;
     }
 
@@ -34,7 +38,6 @@ public class StaticallyPerturbedBag<Item> implements Bag{
 
     /** Adds an <b>Item</b> to the bag.
      *@param o The <b>Item</b> to add to the Bag.
-     *@since 1.0
      */
     @Override
     public void add(Object o) {
@@ -57,7 +60,7 @@ public class StaticallyPerturbedBag<Item> implements Bag{
 
     /**Returns true if there are no elements in the bag.
      * @return True if and only if the Bag is empty, False otherwise.
-     * @since 1.0
+     *
      */
     @Override
     public boolean isEmpty() {
@@ -70,7 +73,6 @@ public class StaticallyPerturbedBag<Item> implements Bag{
      * <p>This particular bag will take any element and move it from position i
      * to position (i+OFFSET)%Length. This shouldn't cause many cache misses for the new array, except for those times
      * where we need to wrap around the last cell in the new array.</p>
-     * @since 1.0
      */
 
     @Override
@@ -85,8 +87,7 @@ public class StaticallyPerturbedBag<Item> implements Bag{
 
     /**
      * Returns the number of elements in the bag.
-     *
-     * @since 1.0
+     * @return the number of elements in the bag.
      */
     @Override
     public int size() {

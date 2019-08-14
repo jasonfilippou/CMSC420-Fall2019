@@ -91,10 +91,6 @@ public class LinearPriorityQueue<T> implements PriorityQueue<T> {
 		return dataList.size() == 0;
 	}
 
-	@Override
-	public void clear() {
-		dataList.clear();
-	}
 
 	@Override
 	public Iterator<T> iterator() {

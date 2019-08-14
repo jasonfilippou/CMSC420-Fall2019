@@ -77,10 +77,6 @@ public class MinHeapPriorityQueue<T> implements PriorityQueue<T>{
 		return dataHeap.size() == 0;
 	}
 
-	@Override
-	public void clear() {
-		dataHeap.clear();
-	}
 
 	@Override
 	public Iterator<T> iterator() {

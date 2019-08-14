@@ -8,7 +8,7 @@ import java.util.Iterator;
  *
  * <p>You should <b>not</b> edit this interface! It is given to you as a resource for your project.</p>
  *
- * @author  <a href="mailto:jasonfil@cs.umd.edu">Jason Filippou</a>
+ * @author  <a href="https://github.com/JasonFil">Jason Filippou</a>
  *
  * @param <T> The {@link Comparable} type held by the MinHeap.
  *
@@ -49,17 +49,4 @@ public interface MinHeap<T extends Comparable<T>> extends Iterable<T>{
 	 * @return true if the MinHeap is empty, false otherwise.
 	 */
 	 boolean isEmpty();
-
-	/**
-	 * Clears the MinHeap of all elements.
-	 */
-	 void clear();
-
-	/**
-	 * MinHeaps are endowed with fail-fast {@link Iterator}s which return the elements
-	 * in <b>ascending</b> order.
-	 * @return A <b>fail-fast</b> {@link Iterator} which loops through the MinHeap's contents in ascending
-	 * order.
-	 */
-	Iterator<T> iterator();
 }

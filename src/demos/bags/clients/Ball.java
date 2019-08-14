@@ -2,7 +2,7 @@ package demos.bags.clients;
 
 /**A simple abstraction for a colored ball.
  * @author jason
- * @since 1.1
+ *
  */
 public class Ball {
 
@@ -10,7 +10,7 @@ public class Ball {
 
     /** Simple constructor
      * @param color The color of the ball
-     * @since 1.1
+     *
      */
     public Ball(Color color){
         this.color = color;

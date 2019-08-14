@@ -56,8 +56,8 @@ public class LinkedBinarySearchTreeTest {
 		assertFalse(intTree.isEmpty());
 		assertEquals(intTree.size(), nums.length);
 		try {
-			assertEquals(intTree.getMin(), new Integer(-1));
-			assertEquals(intTree.getMax(), new Integer(9));
+			assertEquals(intTree.getMin(), Integer.valueOf(-1));
+			assertEquals(intTree.getMax(), Integer.valueOf(9));
 		} catch (EmptyTreeException e) {
 			fail("getMin() and/or getMax() reported an empty tree, which shouldn't be the case.");
 		}
@@ -65,8 +65,8 @@ public class LinkedBinarySearchTreeTest {
 		// Try to delete different types of nodes, see what happens.
 		try {
 			intTree.delete(0);
-			assertEquals(intTree.getMin(), new Integer(-1));// Min and Max shouldn't change
-			assertEquals(intTree.getMax(), new Integer(9));
+			assertEquals(intTree.getMin(), Integer.valueOf(-1));// Min and Max shouldn't change
+			assertEquals(intTree.getMax(), Integer.valueOf(9));
 			assertEquals(intTree.size(), nums.length - 1); // 1 less
 		} catch(EmptyTreeException exc){
 			fail("delete() threw an unexpected EmptyTreeException when removing a leaf nodes.");
@@ -74,8 +74,8 @@ public class LinkedBinarySearchTreeTest {
 
 		try {
 			intTree.delete(2); // After removal of 0, 2 is still a pre-leaf. Check what happens.
-			assertEquals(intTree.getMin(), new Integer(-1));// Min and Max shouldn't change
-			assertEquals(intTree.getMax(), new Integer(9));
+			assertEquals(intTree.getMin(), Integer.valueOf(-1));// Min and Max shouldn't change
+			assertEquals(intTree.getMax(), Integer.valueOf(9));
 			assertEquals(intTree.size(), nums.length - 2); // 1 less
 		} catch(EmptyTreeException exc){
 			fail("delete() threw an unexpected EmptyTreeException when removing a pre-leaf nodes.");
@@ -83,8 +83,8 @@ public class LinkedBinarySearchTreeTest {
 
 		try {
 			intTree.delete(-1); // Remove the tree's smallest element. 4 should now be the minimum element.
-			assertEquals(intTree.getMin(), new Integer(4));
-			assertEquals(intTree.getMax(), new Integer(9));
+			assertEquals(intTree.getMin(), Integer.valueOf(4));
+			assertEquals(intTree.getMax(), Integer.valueOf(9));
 			assertEquals(intTree.size(), nums.length - 3); // 1 less
 		} catch(EmptyTreeException exc){
 			fail("delete() threw an unexpected EmptyTreeException when removing a pre-leaf nodes.");
@@ -92,8 +92,8 @@ public class LinkedBinarySearchTreeTest {
 
 		try {
 			intTree.delete(9); // Remove the tree's largest element. 5 (the root) should now be the largest element.
-			assertEquals(intTree.getMin(), new Integer(4));
-			assertEquals(intTree.getMax(), new Integer(5));
+			assertEquals(intTree.getMin(), Integer.valueOf(4));
+			assertEquals(intTree.getMax(), Integer.valueOf(5));
 			assertEquals(intTree.size(), nums.length - 4); // 1 less
 		} catch(EmptyTreeException exc){
 			fail("delete() threw an unexpected EmptyTreeException when removing a leaf nodes.");
@@ -138,7 +138,7 @@ public class LinkedBinarySearchTreeTest {
 		try {
 			// Removing the root should make -2 the new root.
 			intTree.delete(-10);
-			assertEquals(intTree.getRoot(), new Integer(-2));
+			assertEquals(intTree.getRoot(), Integer.valueOf(-2));
 		} catch(EmptyTreeException exc){
 			fail("delete() threw an unexpected EmptyTreeException when removing the root.");
 		}
@@ -195,9 +195,9 @@ public class LinkedBinarySearchTreeTest {
 		// Test the traversals one at a time.
 		preorder = intTree.preorder();
 		assertTrue(preorder.hasNext());
-		assertEquals(preorder.next(), new Integer(0));
-		assertEquals(preorder.next(), new Integer(-1));
-		assertEquals(preorder.next(), new Integer(1));
+		assertEquals(preorder.next(), Integer.valueOf(0));
+		assertEquals(preorder.next(), Integer.valueOf(-1));
+		assertEquals(preorder.next(), Integer.valueOf(1));
 		try {
 			preorder.next(); // Should throw a NoSuchElementException
 			fail("Should've thrown a NoSuchElementException.");
@@ -207,9 +207,9 @@ public class LinkedBinarySearchTreeTest {
 
 		inorder = intTree.inOrder();
 		assertTrue(inorder.hasNext());
-		assertEquals(inorder.next(), new Integer(-1));
-		assertEquals(inorder.next(), new Integer(0));
-		assertEquals(inorder.next(), new Integer(1));
+		assertEquals(inorder.next(), Integer.valueOf(-1));
+		assertEquals(inorder.next(), Integer.valueOf(0));
+		assertEquals(inorder.next(), Integer.valueOf(1));
 		try {
 			inorder.next(); 
 			fail("Should've thrown a NoSuchElementException.");
@@ -217,9 +217,9 @@ public class LinkedBinarySearchTreeTest {
 
 		postorder = intTree.postOrder();
 		assertTrue(postorder.hasNext());
-		assertEquals(postorder.next(), new Integer(-1));
-		assertEquals(postorder.next(), new Integer(1));
-		assertEquals(postorder.next(), new Integer(0));
+		assertEquals(postorder.next(), Integer.valueOf(-1));
+		assertEquals(postorder.next(), Integer.valueOf(1));
+		assertEquals(postorder.next(), Integer.valueOf(0));
 		try {
 			postorder.next(); 
 			fail("Should've thrown a NoSuchElementException.");
@@ -227,9 +227,9 @@ public class LinkedBinarySearchTreeTest {
 
 		levelorder = intTree.levelOrder();
 		assertTrue(levelorder.hasNext());
-		assertEquals(levelorder.next(), new Integer(0));
-		assertEquals(levelorder.next(), new Integer(-1));
-		assertEquals(levelorder.next(), new Integer(1));
+		assertEquals(levelorder.next(), Integer.valueOf(0));
+		assertEquals(levelorder.next(), Integer.valueOf(-1));
+		assertEquals(levelorder.next(), Integer.valueOf(1));
 		try {
 			levelorder.next(); 
 			fail("Should've thrown a NoSuchElementException.");
@@ -260,39 +260,39 @@ public class LinkedBinarySearchTreeTest {
 		
 		// preorder
 		preorder = intTree.preorder();
-		assertEquals(preorder.next(), new Integer(5));
-		assertEquals(preorder.next(), new Integer(-1));
-		assertEquals(preorder.next(), new Integer(2));
-		assertEquals(preorder.next(), new Integer(0));
-		assertEquals(preorder.next(), new Integer(4));
-		assertEquals(preorder.next(), new Integer(9));
+		assertEquals(preorder.next(), Integer.valueOf(5));
+		assertEquals(preorder.next(), Integer.valueOf(-1));
+		assertEquals(preorder.next(), Integer.valueOf(2));
+		assertEquals(preorder.next(), Integer.valueOf(0));
+		assertEquals(preorder.next(), Integer.valueOf(4));
+		assertEquals(preorder.next(), Integer.valueOf(9));
 		
 		// inorder
 		inorder = intTree.inOrder();
-		assertEquals(inorder.next(), new Integer(-1));
-		assertEquals(inorder.next(), new Integer(0));
-		assertEquals(inorder.next(), new Integer(2));
-		assertEquals(inorder.next(), new Integer(4));
-		assertEquals(inorder.next(), new Integer(5));
-		assertEquals(inorder.next(), new Integer(9));
+		assertEquals(inorder.next(), Integer.valueOf(-1));
+		assertEquals(inorder.next(), Integer.valueOf(0));
+		assertEquals(inorder.next(), Integer.valueOf(2));
+		assertEquals(inorder.next(), Integer.valueOf(4));
+		assertEquals(inorder.next(), Integer.valueOf(5));
+		assertEquals(inorder.next(), Integer.valueOf(9));
 		
 		// postorder
 		postorder = intTree.postOrder();
-		assertEquals(postorder.next(), new Integer(0));
-		assertEquals(postorder.next(), new Integer(4));
-		assertEquals(postorder.next(), new Integer(2));
-		assertEquals(postorder.next(), new Integer(-1));
-		assertEquals(postorder.next(), new Integer(9));
-		assertEquals(postorder.next(), new Integer(5));
+		assertEquals(postorder.next(), Integer.valueOf(0));
+		assertEquals(postorder.next(), Integer.valueOf(4));
+		assertEquals(postorder.next(), Integer.valueOf(2));
+		assertEquals(postorder.next(), Integer.valueOf(-1));
+		assertEquals(postorder.next(), Integer.valueOf(9));
+		assertEquals(postorder.next(), Integer.valueOf(5));
 		
 		// levelorder
 		levelorder = intTree.levelOrder();
-		assertEquals(levelorder.next(), new Integer(5));
-		assertEquals(levelorder.next(), new Integer(-1));
-		assertEquals(levelorder.next(), new Integer(9));
-		assertEquals(levelorder.next(), new Integer(2));
-		assertEquals(levelorder.next(), new Integer(0));
-		assertEquals(levelorder.next(), new Integer(4));
+		assertEquals(levelorder.next(), Integer.valueOf(5));
+		assertEquals(levelorder.next(), Integer.valueOf(-1));
+		assertEquals(levelorder.next(), Integer.valueOf(9));
+		assertEquals(levelorder.next(), Integer.valueOf(2));
+		assertEquals(levelorder.next(), Integer.valueOf(0));
+		assertEquals(levelorder.next(), Integer.valueOf(4));
 		intTree.clear();
 	}
 	

@@ -92,13 +92,13 @@ public class LinkedListTest {
 		for(int i = 0; i < 10; i++)
 			integerList.pushBack(i);
 		try {
-			assertEquals(integerList.getFirst(), new Integer(0));
-			assertEquals(integerList.getLast(), new Integer(9));
+			assertEquals(integerList.getFirst(), Integer.valueOf(0));
+			assertEquals(integerList.getLast(), Integer.valueOf(9));
 		} catch (EmptyListException e) {
 			fail("EmptyListException thrown for a non-empty list.");
 		}
 		try {
-			assertEquals(integerList.get(2), new Integer(2));
+			assertEquals(integerList.get(2), Integer.valueOf(2));
 		} catch(EmptyListException e){
 			fail("EmptyListException thrown for a non-empty list.");
 		} catch(IllegalListAccessException ile){
@@ -219,7 +219,7 @@ public class LinkedListTest {
 		}
 		intit = integerList.iterator(); // reset iterator, re-check
 		for(int i = 5; i < 10; i++)
-			assertEquals(intit.next(), new Integer(i));
+			assertEquals(intit.next(), Integer.valueOf(i));
 		
 		stringList.clear();
 		integerList.clear();

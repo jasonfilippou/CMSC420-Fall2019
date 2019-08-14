@@ -14,12 +14,11 @@ import static org.junit.Assert.*;
  * @author  <a href="https://github.com/JasonFil">Jason Filippou</a>
  *
  * @see LinkedListTest
- *
  * @see StaticArrayListTest
  */
 public class DoublyLinkedListTest {
 
-	private final int DEFAULT_CAPACITY = 50;
+	private static final int DEFAULT_CAPACITY = 50;
 	private List<String> stringList = new DoublyLinkedList<String>();
 	private List<Integer> integerList = new DoublyLinkedList<Integer>();
 	
@@ -95,13 +94,13 @@ public class DoublyLinkedListTest {
 		for(int i = 0; i < 10; i++)
 			integerList.pushBack(i);
 		try {
-			assertEquals(integerList.getFirst(), new Integer(0));
-			assertEquals(integerList.getLast(), new Integer(9));
+			assertEquals(integerList.getFirst(), Integer.valueOf(0));
+			assertEquals(integerList.getLast(), Integer.valueOf(9));
 		} catch (EmptyListException e) {
 			fail("EmptyListException thrown for a non-empty list.");
 		}
 		try {
-			assertEquals(integerList.get(2), new Integer(2));
+			assertEquals(integerList.get(2), Integer.valueOf(2));
 		} catch(EmptyListException e){
 			fail("EmptyListException thrown for a non-empty list.");
 		} catch(IllegalListAccessException ile){
@@ -206,7 +205,7 @@ public class DoublyLinkedListTest {
 		} catch(ConcurrentModificationException exc){
 			// Good
 		} catch(Throwable t){// but no other exception should be thrown!
-			fail("Instead of a " + (new ConcurrentModificationException().getClass()) + 
+			fail("Instead of a " + (ConcurrentModificationException.class) +
 					", a " + t.getClass() + " was thrown, with message: " + t.getMessage() + ".");
 		}
 		// Lastly, check to see whether removal via an iterator 
@@ -222,7 +221,7 @@ public class DoublyLinkedListTest {
 		}
 		intit = integerList.iterator(); // reset iterator, re-check
 		for(int i = 5; i < 10; i++)
-			assertEquals(intit.next(), new Integer(i));
+			assertEquals(intit.next(), Integer.valueOf(i));
 		
 		stringList.clear();
 		integerList.clear();

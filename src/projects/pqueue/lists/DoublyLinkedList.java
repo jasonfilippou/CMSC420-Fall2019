@@ -282,15 +282,16 @@ public class DoublyLinkedList<T> extends LinkedList<T>{
 
 	@Override 
 	public String toString(){
-		String retVal = "[";
+		StringBuilder accum = new StringBuilder();
+		accum.append("[");
 		DoublyLinkedNode current = head;
 		while(current.next != head){
-			retVal += current.getData();
-			retVal += ", ";
+			accum.append(current.getData());
+			accum.append(", ");
 			current = current.next;
 		}
-		retVal += current.getData() + "]";
-		return retVal;
+		accum.append(String.format("%s]", current.getData()));	// datum immediately followed by ']'
+		return accum.toString();
 	}
 
 

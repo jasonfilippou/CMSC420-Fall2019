@@ -7,14 +7,14 @@ package projects.pqueue.heaps; // ******* <---  DO NOT ERASE THIS LINE!!!! *****
 import java.util.*;
 
 /**
- * <p>A LinkedMinHeap is a tree (specifically, a <b>complete</b> binary tree) where every node is
+ * <p>A {@link LinkedMinHeap} is a tree (specifically, a <b>complete</b> binary tree) where every node is
  * smaller than or equal to its descendants (as defined by the {@link Comparable#compareTo(Object)} overridings of the type T).
- * Percolation is employed when the root is deleted, and insertions guarantee are performed in a way that guarantees
- * that the heap property is maintained. </p>
+ * Percolation is employed when the root is deleted, and insertions guarantee maintenance of the heap property in logarithmic time. </p>
  *
  * <p>You <b>must</b> edit this class! To receive <b>any</b> credit for the unit tests related to this class,
  * your implementation <b>must</b> be a <i>"linked"</i>, <b>non-contiguous storage</b> (or, at least, not <i>necessarily</i>
- * contiguous storage) implementation based on a binary tree of nodes and references! </p>
+ * contiguous storage) implementation based on a binary tree of nodes and references. Use the skeleton code we have
+ * provided to your advantage, but always remember that the only functionality our tests can test is "public" functionality.</p>
  * 
  * @author --- YOUR NAME HERE! ---
  *
@@ -69,14 +69,6 @@ public class LinkedMinHeap<T extends Comparable<T>> implements MinHeap<T> {
 	public int size() {
 		return size;
 	}
-
-	@Override
-	public void clear() {
-		root = null;
-		size = 0;
-		System.gc();
-	}
-
 
 	/* To insert an element in the heap, we insert it as the last leaf, and then we move the element upward until
 	 * the heap identity is maintained.
