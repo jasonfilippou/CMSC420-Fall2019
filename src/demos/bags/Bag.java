@@ -19,7 +19,7 @@ package demos.bags;
  * @see Bag
  * @see demos.bags.testcases.BagTests
  */
-public interface Bag<Item> extends Iterable<Item>{ // So classes implementing it have to expose a fail-safe iterator.
+public interface Bag<Item> extends Iterable<Item>{ // So classes implementing it have to expose a fail-fast iterator.
 
 
     /** Adds an {@code Item} to the bag.
