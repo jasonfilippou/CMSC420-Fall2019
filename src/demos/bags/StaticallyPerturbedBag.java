@@ -4,12 +4,12 @@ import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
 /**
- * <p>A StaticallyPerturbedBag is a bag where shaking perturbs the elements in a pre-defined way. For this example, the way
- * will be (index + offset) MOD length.</p>
- * <p> The class uses a static array for storing of <b>Item</b>s. </p>
+ * <p>A {@link StaticallyPerturbedBag} is a bag where shaking perturbs the elements in a pre-defined way. For this example, the way
+ * will be (index + offset) MOD length. The class uses a static array for storing of {@code Item}s. </p>
+ * @see Bag
  * @see DynamicallyShuffledBag
  * @see RandomAccessBag
- * @author jason
+ * @author  <a href = "https://github.com/JasonFil">Jason Filippou</a>
  */
 public class StaticallyPerturbedBag<Item> implements Bag<Item>{
 
@@ -27,7 +27,7 @@ public class StaticallyPerturbedBag<Item> implements Bag<Item>{
 
     /**
      * Constructor with provided initial capacity.
-     * @param initCapacity
+     * @param initCapacity The capacity that we want to initialize {@code this} with.
      */
     public StaticallyPerturbedBag(int initCapacity){
         storage = (Item[])new Object[initCapacity];     // Same point with above.
@@ -36,14 +36,14 @@ public class StaticallyPerturbedBag<Item> implements Bag<Item>{
 
     // Let's not spend time on equals(), extended hashcode(), copy constructors...
 
-    /** Adds an <b>Item</b> to the bag.
-     *@param o The <b>Item</b> to add to the Bag.
+    /** Adds an {@code Item} to the bag.
+     *@param item The {@code Item} to add to the Bag.
      */
     @Override
-    public void add(Object o) {
+    public void add(Item item) {
         if(size() == capacity())
             expand();
-        storage[++current] = (Item)o;
+        storage[++current] = item;
     }
 
     private void expand() {

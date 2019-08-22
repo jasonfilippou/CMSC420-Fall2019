@@ -1,6 +1,6 @@
 package demos.hashing;
 
-/**<p>Small demo for the CMSC420 students on appropriately using {@link #hashCode()}
+/**<p>Small demo for CMSC420 on appropriately using {@link #hashCode()}
  * to build an object's hash code.</p>
  *
  * @author <a href="https://github.com/JasonFil">Jason Filippou</a>

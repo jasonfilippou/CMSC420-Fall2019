@@ -12,6 +12,16 @@ projects.bpt.java
 projects.phonebook.java
 projects.phonebook.java.hashes
 projects.phonebook.java.utils
+projects.pqueue
+projects.pqueue.exceptions
+projects.pqueue.fifoqueues
+projects.pqueue.fifoqueues.test
+projects.pqueue.heaps
+projects.pqueue.lists
+projects.pqueue.lists.test
+projects.pqueue.priorityqueues
+projects.pqueue.trees
+projects.pqueue.trees.test
 projects.spatial
 projects.spatial.kdpoint
 projects.spatial.knnutils

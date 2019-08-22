@@ -6,10 +6,9 @@ package demos.bags;
  *  <li>Initialization with a default or a provided capacity. </li>
  *  <li>Querying for emptiness </li>
  *  <li>Adding an element</li>
- *  <li>&quot;Shaking&quot; the bag, which randomly perturbs the elements of the bag. This method will be crucial for our algorithmic
- *  analysis.</li>
+ *  <li>&quot;Shaking&quot; the bag, which randomly perturbs the elements of the bag.</li>
  * </ul>
- * Bags are allowed to grow arbitrarily. One cannot remove elements from a bag.
+ * {@link Bag} instances are allowed to grow arbitrarily large. One cannot remove elements from a bag.
  *
  * @author <a href = "https://github.com/JasonFil">Jason Filippou</a>
  *
@@ -17,18 +16,19 @@ package demos.bags;
  * @see StaticallyPerturbedBag
  * @see DynamicallyShuffledBag
  * @see RandomAccessBag
+ * @see Bag
+ * @see demos.bags.testcases.BagTests
  */
 public interface Bag<Item> extends Iterable<Item>{ // So classes implementing it have to expose a fail-safe iterator.
 
 
-    /** Adds an <b>Item</b> to the bag.
-     *@param i The <b>Item</b> to add to the Bag.
-     *
+    /** Adds an {@code Item} to the bag.
+     * @param item The {@code Item} to add to the Bag.
      */
-    void add(Item i);
+    void add(Item item);
 
-    /**Returns true if there are no elements in the bag.
-     * @return True if and only if the Bag is empty, False otherwise.
+    /** Returns true if there are no elements in the bag.
+     * @return true if and only if the Bag is empty, false otherwise.
      *
      */
     boolean isEmpty();
@@ -47,8 +47,8 @@ public interface Bag<Item> extends Iterable<Item>{ // So classes implementing it
     int size();
 
     /**
-     * <b>Bag</b>s are to override the default toString() so that they can identify themselves.
-     *
+     * {@link Bag} instances should override the default {@link #toString()} so that they can identify themselves in
+     * a user - friendly manner.
      */
     @Override
    String toString();

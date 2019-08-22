@@ -19,6 +19,7 @@ public class DynamicallyShuffledBag<Item> implements Bag<Item>{
     private static int DEFAULT_INIT_CAPACITY = 10;
     private Item[] storage;
     private int current = -1;
+
     /**
      * This constructor is used to initialize the bag with full pseudorandom capabilities for shaking
      * and the default starting capacity.
@@ -28,52 +29,27 @@ public class DynamicallyShuffledBag<Item> implements Bag<Item>{
         this(DEFAULT_INIT_CAPACITY);
     }
 
-
-    /**
-     * This constructor creates a {@link DynamicallyShuffledBag} instance with a provided initial capacity as well
-     * as a client-provided seed. Clients might be interested in reproducing experiments.
-     * @param capacity The initial capacity of the Bag.
-     * @param seed A caller-provided seed for the random number generator.
-     *
-     */
-    public DynamicallyShuffledBag(int capacity, long seed){
-        storage = (Item[])(new Object[capacity]);
-        r = new Random(seed);
-    }
-
-    /**
-     * This constructor creates a {@link DynamicallyShuffledBag} instance with a provided seed for experiment
-     * reproducibility.
-     * @see #DynamicallyShuffledBag(int, long)
-     * @param seed A caller-provided seed for the random number generator.
-     *
-     */
-    public DynamicallyShuffledBag(long seed){
-        this(DEFAULT_INIT_CAPACITY, seed);
-    }
-
     /**
      * This constructor creates a {@link DynamicallyShuffledBag} with the provided default capacity. The bag shakes
      * fully (pseudo-)randomly.
      * @param capacity  The initial capacity for the Bag.
      * @see #DynamicallyShuffledBag(int)
-     *
      */
     public DynamicallyShuffledBag(int capacity){
         storage = (Item[])(new Object[capacity]);
         r = new Random();
     }
     /**
-     * Adds an <b>Item</b> to the bag.
+     * Adds an {@code Item} to the bag.
      *
-     *@param i The <b>Item</b> to add to the Bag.
+     *@param item The {@code Item} to add to the Bag.
      *
      */
     @Override
-    public void add(Item i) {
+    public void add(Item item) {
         if (size() == capacity())
             expand();
-        storage[++current] = i;
+        storage[++current] = item;
 
     }
 

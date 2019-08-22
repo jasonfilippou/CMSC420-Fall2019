@@ -17,6 +17,7 @@
 *.~
 *.bak
 *.save
+*.dmp
 
 ### LaTeX stuff
 *.synctex.gz

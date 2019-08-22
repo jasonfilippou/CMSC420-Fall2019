@@ -5,26 +5,29 @@ import static demos.matrices.java.Dimension.*;
 
 /**<p>MajorOrderTest is a simple app that tests the efficiency
  * of performing operations across rows and columns in Java.</p>
- * @author Jason
+ * @author <a href="https://github.com/JasonFil">Jason Filippou</a>
+ * @see Dimension
  */
 public class MajorOrderTest {
 
-    private static final int N = 100000;
-    private static final int WAIT = 1; // In seconds
+    private static final int N = 10000;
+    private static final long MILLIS_TO_WAIT = 1000;
 
 
     private static final long SEED = 47;
-    private static final Random RNG = new Random(SEED); // Supply long seed if you seek re-producibility of experiments
+    private static final Random RNG = new Random(SEED); // Supplying long seed for the sake of reproducibility of results.
 
 
     /**
-     * <p>main() is the routine that executes the experiment.</p>
+     * <p>{@code main()} is the routine that executes the experiment.</p>
      * @param args Arguments provided by the shell on the command line. This application ignores all command-line arguments.
+     * @throws InterruptedException if {@link Thread#sleep(long)} gets interrupted.
      */
-    public static void main(String[] args){
+    public static void main(String[] args) throws InterruptedException {    // Students: Why do I have to declare this Exception?
 
         double[][] M = randomMatrix(N); // The time this takes is not counted in our experiments, of course
         sumThroughDimension(M, ROWS); // This is
+        Thread.sleep(MILLIS_TO_WAIT);
         sumThroughDimension(M, COLUMNS); // And this is.
         System.out.println("Good - bye!");
     }

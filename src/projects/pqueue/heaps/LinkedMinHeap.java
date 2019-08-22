@@ -12,13 +12,13 @@ import java.util.*;
  * Percolation is employed when the root is deleted, and insertions guarantee maintenance of the heap property in logarithmic time. </p>
  *
  * <p>You <b>must</b> edit this class! To receive <b>any</b> credit for the unit tests related to this class,
- * your implementation <b>must</b> be a <i>"linked"</i>, <b>non-contiguous storage</b> (or, at least, not <i>necessarily</i>
- * contiguous storage) implementation based on a binary tree of nodes and references. Use the skeleton code we have
- * provided to your advantage, but always remember that the only functionality our tests can test is "public" functionality.</p>
+ * your implementation <b>must</b> be a &quot;linked&quot;, <b>non-contiguous storage</b> implementation based on a
+ * binary tree of nodes and references. Use the skeleton code we have provided to your advantage, but always remember
+ * that the only functionality our tests can test is {@code public} functionality.</p>
  * 
  * @author --- YOUR NAME HERE! ---
  *
- * @param <T> The {@link Comparable} type of object held by the LinkedMinHeap.
+ * @param <T> The {@link Comparable} type of object held by {@code this}.
  *
  * @see MinHeap
  * @see ArrayMinHeap

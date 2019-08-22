@@ -5,8 +5,8 @@ import java.util.LinkedList;
 /**
  * <p>An example of unsafe downcasting in Java. {@link LinkedList}s are {@link Iterable}s,
  * while {@link Object}s are <b>not</b>. Therefore, both the constructor casting as well
- * as the casting of {@link #insertIntoList(String, int)} throw
- * {@link ClassCastException}s at runtime.
+ * as the casting of {@link #insertIntoList(String, int)} throw instances of
+ * {@link ClassCastException} at runtime.
  *
  * @author <a href="github.com/JasonFil">Jason Filippou</a>
  */

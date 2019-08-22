@@ -21,6 +21,8 @@ import static org.junit.Assert.*;
  * @see StaticallyPerturbedBag
  * @see DynamicallyShuffledBag
  * @see RandomAccessBag
+ * @see Bag
+ * @see demos.bags.clients.IntegerTimingClient
  *
  * @author <a href = "https://github.com/JasonFil">Jason Filippou</a>
  */
@@ -130,9 +132,9 @@ public class BagTests {
                     fail("While adding integer " + j + " to staticBag, we received an " + t.getClass().getSimpleName() + " with message " + t.getMessage());
                 }
 
-                staticBag.add(j);
+                shuffledBag.add(j);
                 try {
-                    staticBag.shake();
+                    shuffledBag.shake();
                 } catch(Throwable t){
                     fail("While adding integer " + j + " to staticBag, we received an " + t.getClass().getSimpleName() + " with message " + t.getMessage());
                 }
@@ -230,7 +232,7 @@ public class BagTests {
             try {
                 it.next();
             } catch (Throwable t) {
-                System.err.println("iteratorOk method: received an " + t.getClass().getSimpleName() + " with message " +
+                System.out.println("iteratorOk method: received an " + t.getClass().getSimpleName() + " with message " +
                         t.getMessage() + " while accessing next() on Iterator.");
                 return false;
             }
@@ -247,7 +249,7 @@ public class BagTests {
         } catch(ConcurrentModificationException ce){
             return true;
         } catch(Throwable t){
-            System.err.println("Caught an exception of type " + t.getClass().getSimpleName() + " with message " + t.getMessage() +
+            System.out.println("Caught an exception of type " + t.getClass().getSimpleName() + " with message " + t.getMessage() +
                     ". Was expecting a " + ConcurrentModificationException.class);
             return false;
         }

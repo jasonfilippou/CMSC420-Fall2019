@@ -1,12 +1,13 @@
 package demos.hashing;
 
 /**
- * <p>Prints the default hashCode() of an {@link Object}.</p>
+ * <p>Prints the default {@link #hashCode()} of an {@link Object}.</p>
  * @see #hashCode()
+ *
+ * @author <a href="https://github.com/JasonFil">Jason Filippou</a>
  */
 public class DefaultHashCode {
     public static void main(String[] args){
-        Object o = new Object();
-        System.out.println(o.hashCode());
+        System.out.println(new Object().hashCode());
     }
 }

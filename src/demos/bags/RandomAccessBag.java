@@ -2,56 +2,53 @@ package demos.bags;
 
 import java.util.*;
 
-/**A <b>RandomAccessBag</b> is a {@link Bag} which, when {@link #shake()}d, essentially just shakes the index sequence
- * into the old linear collection of <b>Item</b>s. The goal is to prove that, after shaking, and for a relatively large
- * number of <b>Item</b>s held, looping through the items using the {@link java.util.Iterator} returned by {@link #iterator()}
+/**A {@link RandomAccessBag} is a {@link Bag} which, when {@link #shake()}d, essentially just shakes the index sequence
+ * into the old linear collection of {@code Item}s. The goal is to prove that, after shaking, and for a relatively large
+ * number of {@code Item}s held, looping through the items using the {@link java.util.Iterator} returned by {@link #iterator()}
  * will lead to many cache misses and will thus be slow.
  *
  * @see StaticallyPerturbedBag
  * @see DynamicallyShuffledBag
  * @see Bag
  *
- * @author @author <a href = "https://github.com/JasonFil">Jason Filippou</a>
+ * @author <a href = "https://github.com/JasonFil">Jason Filippou</a>
  */
 public class RandomAccessBag<Item> implements Bag<Item>{
 
     private Random r;
     private int current;
     private Item[] storage;
-    private static int DEFAULT_INIT_CAPACITY = 10;
+    private static final int DEFAULT_INIT_CAPACITY = 10;
     private Integer[] indexList; // This will hold the indices into the storage array.
 
 
+    /**
+     * Default constructor. Initializes the {@link RandomAccessBag} with a default capacity.
+     */
     public RandomAccessBag(){
         this(DEFAULT_INIT_CAPACITY);
     }
 
+    /**
+     * A constructor which pre-allocates {@code this} with a provided capacity.
+     * @param capacity The capacity to pre-allocate {@code} this with.
+     */
     public RandomAccessBag(int capacity){
-        storage = (Item[])new Object[capacity];
+        storage = (Item[])new Object[capacity];         // Unchecked, yet safe for the most basic Items.
         r = new Random();
         current = -1;
     }
 
-    public RandomAccessBag(long seed){
-        this(DEFAULT_INIT_CAPACITY, seed);
-    }
-
-    public RandomAccessBag(int capacity, long seed){
-        storage = (Item[])new Object[capacity];
-        r = new Random(seed);
-        current = -1;
-    }
     /**
-     * Adds an <b>Item</b> to the bag.
+     * Adds an {@code Item} to the bag.
      *
-     * @param i The <b>Item</b> to add to the Bag.
-     *
+     * @param item The {@code Item} to add to the Bag.
      */
     @Override
-    public void add(Item i) {
+    public void add(Item item) {
         if(size() == capacity())
             expand();
-        storage[++current] = i;
+        storage[++current] = item;
     }
 
     private void expand(){
@@ -97,8 +94,7 @@ public class RandomAccessBag<Item> implements Bag<Item>{
 
     /**
      * Returns the number of elements in the bag.
-     *
-     *
+     * @return the number of elements in the bag.
      */
     @Override
     public int size() {
@@ -106,9 +102,8 @@ public class RandomAccessBag<Item> implements Bag<Item>{
     }
 
     /**
-     * Returns an iterator over elements of type {@code T}.
-     *
-     * @return an instance of {@link Iterator} over Items.
+     * Returns a {@link Iterator} over elements of type {@code Item}.
+     * @return an instance of {@link Iterator} over {@code Item} instances.
      */
     @Override
     public Iterator<Item> iterator() {
@@ -123,7 +118,7 @@ public class RandomAccessBag<Item> implements Bag<Item>{
             @Override
             public Item next() {
                 if(size() != initSize)
-                    throw new ConcurrentModificationException("StaticallyPerturbedBag was mutated between calls to iterator().next().");
+                    throw new ConcurrentModificationException("StaticallyPerturbedBag was mutated between calls to iterator()::next().");
                 if(indexList != null) // Or, in other words, if the bag has been shaken
                     return storage[indexList[++itIndex]];
                 else
