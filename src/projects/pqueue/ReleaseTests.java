@@ -1,6 +1,5 @@
 package projects.pqueue;
 
-import com.sun.jdi.IntegerType;
 import projects.pqueue.exceptions.InvalidPriorityException;
 import projects.pqueue.heaps.*;
 import projects.pqueue.priorityqueues.*;
