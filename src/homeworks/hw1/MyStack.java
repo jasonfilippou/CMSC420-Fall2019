@@ -120,7 +120,13 @@ public class MyStack<T> implements Iterable<T> {
         return new MyStackIterator();
     }
 
+    // The inner class that implements the Iterator interface. Instances of this class
+    // are returned by iterator().
     private class MyStackIterator implements Iterator<T>{
+
+        public MyStackIterator(){
+            // Currently does nothing.
+        }
 
         /**
          * Returns {@code true} if the iteration has more elements.
@@ -142,6 +148,10 @@ public class MyStack<T> implements Iterable<T> {
          */
         @Override
         public T next() {
+            // To make this Iterator fail-fast, this method should throw
+            // an instance of ConcurrentModificationException if there has been
+            // a modification of the structure *outside* the Iterator *before* it was called.
+            // How can you achieve this?
             return null;
         }
 
