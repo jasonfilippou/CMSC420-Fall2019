@@ -50,7 +50,7 @@ public class MyStack<T> implements Iterable<T> {
      */
     public void push(T element) throws StackOverflowError {
         if (data.size() == maxCapacity)
-            throw new StackOverflowError("Overblew maximum stack capacity of: " + maxCapacity + ".");
+            throw new StackOverflowError("Overflowed maximum stack capacity of: " + maxCapacity + ".");
         data.add(element);
     }
 
@@ -75,7 +75,7 @@ public class MyStack<T> implements Iterable<T> {
     public T peek() throws EmptyStackException {
         if(data.isEmpty())
             throw new EmptyStackException(); // Same question as above.
-        return data.get(data.size() - 1);   //  Same question as above.
+        return data.get(data.size() - 1);   // Same question as above.
     }
 
     /**
@@ -155,7 +155,7 @@ public class MyStack<T> implements Iterable<T> {
             return null;
         }
 
-        /**
+     /**
          * Removes from the underlying collection the last element returned
          * by this iterator (optional operation).  This method can be called
          * only once per call to {@link #next}.
