@@ -116,28 +116,60 @@ public class MyStack<T> implements Iterable<T> {
      * @see IllegalStateException
      * @see NoSuchElementException
      */
-    @Override
     public Iterator<T> iterator() {
+        return new MyStackIterator();
+    }
 
-        return new Iterator<>() {
-            @Override
-            public boolean hasNext() {
-                return false;
-            }
+    private class MyStackIterator implements Iterator<T>{
 
-            @Override
-            public T next() throws ConcurrentModificationException, NoSuchElementException {
-                // To make this Iterator fail-fast, this method should throw
-                // an instance of ConcurrentModificationException if there has been
-                // a modification of the structure *outside* the Iterator *before* it was called.
-                // How can you achieve this?
-                return null;
-            }
+        /**
+         * Returns {@code true} if the iteration has more elements.
+         * (In other words, returns {@code true} if {@link #next} would
+         * return an element rather than throwing an exception.)
+         *
+         * @return {@code true} if the iteration has more elements
+         */
+        @Override
+        public boolean hasNext() {
+            return false;
+        }
 
-            @Override
-            public void remove() throws UnsupportedOperationException, IllegalStateException {
-                throw new UnsupportedOperationException("remove() is *not* supported by this Iterator.");
-            }
-        };
+        /**
+         * Returns the next element in the iteration.
+         *
+         * @return the next element in the iteration
+         * @throws NoSuchElementException if the iteration has no more elements
+         */
+        @Override
+        public T next() {
+            return null;
+        }
+
+        /**
+         * Removes from the underlying collection the last element returned
+         * by this iterator (optional operation).  This method can be called
+         * only once per call to {@link #next}.
+         * <p>
+         * The behavior of an iterator is unspecified if the underlying collection
+         * is modified while the iteration is in progress in any way other than by
+         * calling this method, unless an overriding class has specified a
+         * concurrent modification policy.
+         * <p>
+         * The behavior of an iterator is unspecified if this method is called
+         * after a call to the {@link #forEachRemaining forEachRemaining} method.
+         *
+         * @throws UnsupportedOperationException if the {@code remove}
+         *                                       operation is not supported by this iterator
+         * @throws IllegalStateException         if the {@code next} method has not
+         *                                       yet been called, or the {@code remove} method has already
+         *                                       been called after the last call to the {@code next}
+         *                                       method
+         * @implSpec The default implementation throws an instance of
+         * {@link UnsupportedOperationException} and performs no other action.
+         */
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException("This Iterator does not support remove().");
+        }
     }
 }
