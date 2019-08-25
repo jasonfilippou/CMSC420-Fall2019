@@ -1,2 +1,13 @@
 unnamed package
 homeworks.hw1
+projects
+projects.pqueue
+projects.pqueue.exceptions
+projects.pqueue.fifoqueues
+projects.pqueue.fifoqueues.test
+projects.pqueue.heaps
+projects.pqueue.lists
+projects.pqueue.lists.test
+projects.pqueue.priorityqueues
+projects.pqueue.trees
+projects.pqueue.trees.test
