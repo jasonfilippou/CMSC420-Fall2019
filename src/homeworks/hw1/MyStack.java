@@ -35,7 +35,7 @@ public class MyStack<T> implements Iterable<T> {
                 data = new ArrayList<>(maxCapacity);        // Note the constructor argument; why do we provide it?
                 break;
             case LARGE:
-                data = new LinkedList<>();                  // No constructor argument here; how come?
+                data = new LinkedList<>();
                 break;
             default:
                 throw new RuntimeException("Invalid expected size parameter " + expectedSize + "."); // Why does this not need to be checked?
@@ -51,7 +51,7 @@ public class MyStack<T> implements Iterable<T> {
     public void push(T element) throws StackOverflowError {
         if (data.size() == maxCapacity)
             throw new StackOverflowError("Overblew maximum stack capacity of: " + maxCapacity + ".");
-        data.add(element);          // For which of the two implementations of the field "data" is this call faster?
+        data.add(element);
     }
 
     /**
@@ -63,7 +63,7 @@ public class MyStack<T> implements Iterable<T> {
             throw new EmptyStackException(); // Why do we not need to check this Exception?
         final int LASTELEMENTIDX = data.size() - 1;
         T retVal = data.get(LASTELEMENTIDX);
-        data.remove(LASTELEMENTIDX);
+        data.remove(LASTELEMENTIDX);    // This can throw; why do we not need to wrap it in a try-block or check the Exception?
         return retVal;
     }
 
@@ -74,8 +74,8 @@ public class MyStack<T> implements Iterable<T> {
      */
     public T peek() throws EmptyStackException {
         if(data.isEmpty())
-            throw new EmptyStackException(); // Why do we *not* need to check this Exception?
-        return data.get(data.size() - 1);
+            throw new EmptyStackException(); // Same question as above.
+        return data.get(data.size() - 1);   //  Same question as above.
     }
 
     /**
