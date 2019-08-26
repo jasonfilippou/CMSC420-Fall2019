@@ -5,7 +5,6 @@ package projects.pqueue.heaps; // ******* <---  DO NOT ERASE THIS LINE!!!! *****
  * REASON, YOU SHOULD NOT ERASE IT! YOUR CODE WILL BE UNCOMPILABLE IF YOU DO!
  * ********************************************************************************** */
 import projects.UnimplementedMethodException;
-
 import java.util.*;
 
 /**
@@ -27,16 +26,41 @@ import java.util.*;
  */
 public class LinkedMinHeap<T extends Comparable<T>> implements MinHeap<T> {
 
-	/*
-	 * An inner class representing a minheap's node. YOU *SHOULD* BUILD YOUR
-	 * IMPLEMENTATION ON TOP OF THIS CLASS!
-	 */
+	/* ***********************************************************************
+	 * An inner class representing a minheap's node. YOU *SHOULD* BUILD YOUR *
+	 * IMPLEMENTATION ON TOP OF THIS CLASS!                                  *
+ 	 * ********************************************************************* */
 	private class MinHeapNode {
 		private T data;
-		private MinHeapNode lChild, rChild;   	// minHeapNodes contain references to "offspring" MinHeapNodes.
+		private MinHeapNode lChild, rChild;
+
+        /* *******************************************************************
+         * Write any further data elements or methods for MinHeapNode here...*
+         ********************************************************************* */
+
+
 	}
 
-	private MinHeapNode root;        			// root of your tree.
+	/* *********************************
+	  * Root of your tree: DO NOT ERASE!
+	  * *********************************
+	 */
+	private MinHeapNode root;
+
+
+
+
+    /* *********************************************************************************** *
+     * Write any further private data elements or private methods for LinkedMinHeap here...*
+     * *************************************************************************************/
+
+
+
+
+
+    /* *********************************************************************************************************
+     * Implement the following public methods. You should erase the throwings of UnimplementedMethodExceptions.*
+     ***********************************************************************************************************/
 
 	/**
 	 * Default constructor.
@@ -65,6 +89,30 @@ public class LinkedMinHeap<T extends Comparable<T>> implements MinHeap<T> {
 	public LinkedMinHeap(MinHeap<T> other) {
 		throw new UnimplementedMethodException();
 	}
+
+
+    /**
+     * Standard {@code equals} method. We provide this for you. DO NOT EDIT!
+     * You should notice how the existence of an {@link Iterator} for {@link MinHeap}
+     * allows us to access the elements of the argument reference. This should give you ideas
+     * for {@link #LinkedMinHeap(MinHeap)}.
+     * @return {@code true} If the parameter {@code Object} and the current MinHeap
+     * are identical Objects.
+     *
+     * @see Object#equals(Object)
+     * @see #LinkedMinHeap(MinHeap)
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof MinHeap))
+            return false;
+        Iterator itThis = iterator();
+        Iterator itOther = ((MinHeap) other).iterator();
+        while (itThis.hasNext())
+            if (!itThis.next().equals(itOther.next()))
+                return false;
+        return true;
+    }
 
 	@Override
 	public boolean isEmpty() {
@@ -97,26 +145,4 @@ public class LinkedMinHeap<T extends Comparable<T>> implements MinHeap<T> {
 		throw new UnimplementedMethodException();
 	}
 
-	/**
-	 * Standard {@code equals} method. We provide this for you. DO NOT EDIT!
-	 * You should notice how the existence of an {@link Iterator} for {@link MinHeap}
-	 * allows us to access the elements of the argument reference. This should give you ideas
-	 * for {@link #LinkedMinHeap(MinHeap)}.
-	 * @return {@code true} If the parameter {@code Object} and the current MinHeap
-	 * are identical Objects.
-	 *
-	 * @see Object#equals(Object)
-	 * @see #LinkedMinHeap(MinHeap)
-	 */
-	@Override
-	public boolean equals(Object other) {
-		if (!(other instanceof MinHeap))
-			return false;
-		Iterator itThis = iterator();
-		Iterator itOther = ((MinHeap) other).iterator();
-		while (itThis.hasNext())
-			if (!itThis.next().equals(itOther.next()))
-				return false;
-		return true;
-	}
 }

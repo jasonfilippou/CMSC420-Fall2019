@@ -10,7 +10,8 @@ package projects;
 public class UnimplementedMethodException extends RuntimeException {
 
     /**
-     * Arg-free constructor.
+     * Arg-free constructor stores the standard {@link String} &quot;Implement this method!&quot;.
+     * @see RuntimeException#RuntimeException(String)
      */
     public UnimplementedMethodException() {
         super("Implement this method!");
