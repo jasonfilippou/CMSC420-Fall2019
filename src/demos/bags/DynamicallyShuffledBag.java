@@ -82,9 +82,10 @@ public class DynamicallyShuffledBag<Item> implements Bag<Item>{
      */
     @Override
     public void shake() {
-        Item[] items = Arrays.copyOfRange(storage, 0, current + 1);
-        Collections.shuffle(Arrays.asList(items), r);
-        System.arraycopy(items, 0, storage, 0, items.length);
+        Collections.shuffle(Arrays.asList(storage), r);
+        //Item[] items = Arrays.copyOfRange(storage, 0, current + 1);
+        //Collections.shuffle(Arrays.asList(items), r);
+        //System.arraycopy(items, 0, storage, 0, items.length);
     }
 
     /**
