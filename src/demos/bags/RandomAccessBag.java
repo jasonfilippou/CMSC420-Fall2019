@@ -109,7 +109,7 @@ public class RandomAccessBag<Item> implements Bag<Item>{
     public Iterator<Item> iterator() {
         return new Iterator<>() {       // Anonymous inner class.
             private int initSize = size();
-            private int itIndex = -1;
+            private int itIndex = 0;
             @Override
             public boolean hasNext() {
                 return itIndex < current;
@@ -120,9 +120,9 @@ public class RandomAccessBag<Item> implements Bag<Item>{
                 if(size() != initSize)
                     throw new ConcurrentModificationException("StaticallyPerturbedBag was mutated between calls to iterator()::next().");
                 if(indexList != null) // Or, in other words, if the bag has been shaken
-                    return storage[indexList[++itIndex]];
+                    return storage[indexList[itIndex++]];
                 else
-                    return storage[++itIndex];
+                    return storage[itIndex++];
             }
         };
     }
