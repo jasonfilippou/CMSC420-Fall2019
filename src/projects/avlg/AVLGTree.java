@@ -1,24 +1,29 @@
-package projects.avlg.java;
+package projects.avlg;
 
-import projects.avlg.java.exceptions.EmptyTreeException;
-import projects.avlg.java.exceptions.InvalidBalanceException;
+import projects.avlg.exceptions.EmptyTreeException;
+import projects.avlg.exceptions.InvalidBalanceException;
 
-/** <p>An AVL-G Tree is an AVL Tree with a relaxed balance condition. Its constructor receives a strictly
- * positive parameter which controls the <b>maximum</b> imbalance allowed on any subtree of the tree which
- * it creates. So, for example:</p>
+/** <p>{@link AVLGTree}  is a class representing an <a href="https://en.wikipedia.org/wiki/AVL_tree">AVL Tree</a> with
+ * a relaxed balance condition. Its constructor receives a strictly  positive parameter which controls the <b>maximum</b>
+ * imbalance allowed on any subtree of the tree which it creates. So, for example:</p>
  *  <ul>
  *      <li>An AVL-1 tree is a classic AVL tree, which only allows for perfectly balanced binary
  *      subtrees (imbalance of 0 everywhere), or subtrees with a maximum imbalance of 1 (somewhere). </li>
  *      <li>An AVL-2 tree relaxes the criteria of AVL-1 trees, by also allowing for subtrees
  *      that have an imbalance of 2.</li>
- *      <li>AVL-3 trees allow an imbalance of 3</li>
+ *      <li>AVL-3 trees allow an imbalance of 3.</li>
  *      <li>...</li>
  *  </ul>
  *
  *  <p>The idea behind AVL-G trees is that rotations cost time, so maybe we would be willing to
- *  accept bad search performance now and then if it would mean less rotations.</p>
+ *  accept bad search performance now and then if it would mean less rotations. On the other hand, increasing
+ *  the balance parameter also means that we will be making <b>insertions</b> faster.</p>
  *
  * @author <a href="https://github.com/JasonFil">Jason Filippou</a>
+ *
+ * @see EmptyTreeException
+ * @see InvalidBalanceException
+ * @see StudentTests
  */
 public class AVLGTree<T extends Comparable<T>> {
 

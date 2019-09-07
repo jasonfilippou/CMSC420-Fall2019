@@ -1,11 +1,11 @@
 
-package projects.avlg.java;
+package projects.avlg;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import projects.avlg.java.exceptions.EmptyTreeException;
-import projects.avlg.java.exceptions.InvalidBalanceException;
+import projects.avlg.exceptions.EmptyTreeException;
+import projects.avlg.exceptions.InvalidBalanceException;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,12 +17,12 @@ import java.util.stream.IntStream;
 import static org.junit.Assert.*;
 
 /** <p>A testing suite for the second project of CMSC420, Data Structures,
- * in CS UMD, Spring 2018. The theme of the project is AVL-G Trees.
+ * in CS UMD, Fall 2019. The theme of the project is AVL-G Trees.
  * The structure is tested against {@link Integer}s, with easily tune-able values
  * for <i>G</i> as well as tune-able stress-testing of a pre-defined number of pairwise
  * distinct Integers.</p>
  *
- * <p>The testBalancedInsertionsAVLx() and The testBalancedInsertionsAVLx()
+ * <p>The {@code testBalancedInsertionsAVLx()} and {@code testBalancedInsertionsAVLx()}
  * tests <b>all</b> test against expected behavior of the following eight operations: </p>
  *
  * <ol>
@@ -37,6 +37,10 @@ import static org.junit.Assert.*;
  * </ol>
  *
  * @author <a href="https://github.com/jasonfil">Jason Filippou</a>
+ * @see AVLGTree
+ * @see EmptyTreeException
+ * @see InvalidBalanceException
+ * @see StudentTests
  */
 public class ReleaseTests {
 
