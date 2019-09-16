@@ -278,6 +278,8 @@ public class ReleaseTests {
             // Insert a second node and test everything
 
             Integer secondKey = RNG.nextInt();
+            while(secondKey.equals(firstKey))
+                secondKey = RNG.nextInt();
             t.insert(secondKey); // Will either be left or right of root. No rotations irrespective of parameter G.
             assertFalse("After inserting a second key, the AVL-" +
                             t.getMaxImbalance()+ " tree should still *not* be empty.",
