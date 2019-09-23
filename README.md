@@ -17,7 +17,7 @@ Code base for UMD's CMSC420, Data Structures, Section 0101, Fall 2019.
 
 ### Contact
 
-Contact Jason at [jasonfil@cs.umd.edu](mailto:jasonfil@cs.umd.edu) for questions, or submit a pull request on the [GitHub repository](https://github.com/JasonFil/CMSC420-Spring2019), or use our Piazza forum. You can also look at our ELMS page for our TAs' office hours.
+Contact Jason at [jasonfil@cs.umd.edu](mailto:jasonfil@cs.umd.edu) for questions, or submit a pull request on the [GitHub repository](https://github.com/JasonFil/CMSC420-Fall2019), or use our Piazza forum. You can also look at our ELMS page for our TAs' office hours.
 
 ### License
 
