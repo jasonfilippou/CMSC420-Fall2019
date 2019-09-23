@@ -48,7 +48,10 @@ public class AVLGTree<T extends Comparable<T>> {
     }
 
     /**
-     * Insert key in the tree.
+     * Insert key in the tree. You will <b>not</b> be tested on
+     * duplicates! This means that in a deletion test, any key that has been
+     * inserted and subsequently deleted should <b>not</b> be found in the tree!
+     * s
      * @param key The key to insert in the tree.
      */
     public void insert(T key) {

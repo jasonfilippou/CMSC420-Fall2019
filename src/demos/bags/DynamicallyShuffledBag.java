@@ -17,6 +17,7 @@ public class DynamicallyShuffledBag<Item> implements Bag<Item>{
 
     private Random r;
     private static int DEFAULT_INIT_CAPACITY = 10;
+    private static final long SEED = 47;
     private Item[] storage;
     private int current = -1;
 
@@ -37,7 +38,7 @@ public class DynamicallyShuffledBag<Item> implements Bag<Item>{
      */
     public DynamicallyShuffledBag(int capacity){
         storage = (Item[])(new Object[capacity]);
-        r = new Random();
+        r = new Random(SEED);
     }
     /**
      * Adds an {@code Item} to the bag.
@@ -112,7 +113,12 @@ public class DynamicallyShuffledBag<Item> implements Bag<Item>{
             public Item next() {
                 if(size() != initSize)
                     throw new ConcurrentModificationException("StaticallyPerturbedBag was mutated between calls to iterator().next().");
-                return storage[++index];
+                int i;
+                for(i = index; i < current && storage[i] == null; i++);  // Will just advance i
+                if(i < current)
+                    return storage[i];
+                else
+                    throw new NoSuchElementException("Exhausted elements.");
             }
         };
     }

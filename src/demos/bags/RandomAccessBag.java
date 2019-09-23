@@ -17,6 +17,7 @@ public class RandomAccessBag<Item> implements Bag<Item>{
 
     private Random r;
     private int current;
+    private static final long SEED = 47;
     private Item[] storage;
     private static final int DEFAULT_INIT_CAPACITY = 10;
     private Integer[] indexList; // This will hold the indices into the storage array.
@@ -35,7 +36,7 @@ public class RandomAccessBag<Item> implements Bag<Item>{
      */
     public RandomAccessBag(int capacity){
         storage = (Item[])new Object[capacity];         // Unchecked, yet safe for the most basic Items.
-        r = new Random();
+        r = new Random(SEED);
         current = -1;
     }
 
