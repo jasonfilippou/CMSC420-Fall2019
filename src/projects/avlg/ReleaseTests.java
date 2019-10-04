@@ -55,7 +55,7 @@ public class ReleaseTests {
     private static final Random RNG = new Random(47);
     private static final int MAX_IMBALANCE=10;
     private static final Integer ZERO = 0;
-    private static final int NUMS = 50;
+    private static final int NUMS = 5000;
 
 
     /* *******************************/

@@ -1,11 +1,15 @@
+/* DO NOT ERASE THESE THREE LINES OR YOUR CODE WON'T COMPILE! */
 package projects.avlg;
-
 import projects.avlg.exceptions.EmptyTreeException;
 import projects.avlg.exceptions.InvalidBalanceException;
 
-/** <p>{@link AVLGTree}  is a class representing an <a href="https://en.wikipedia.org/wiki/AVL_tree">AVL Tree</a> with
- * a relaxed balance condition. Its constructor receives a strictly  positive parameter which controls the <b>maximum</b>
- * imbalance allowed on any subtree of the tree which it creates. So, for example:</p>
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+/** <p>An <tt>AVL-G Tree</tt> is an AVL Tree with a relaxed balance condition. Its constructor receives a strictly
+ * positive parameter which controls the <b>maximum</b> imbalance allowed on any subtree of the tree which
+ * it creates. So, for example:</p>
  *  <ul>
  *      <li>An AVL-1 tree is a classic AVL tree, which only allows for perfectly balanced binary
  *      subtrees (imbalance of 0 everywhere), or subtrees with a maximum imbalance of 1 (somewhere). </li>
@@ -16,296 +20,130 @@ import projects.avlg.exceptions.InvalidBalanceException;
  *  </ul>
  *
  *  <p>The idea behind AVL-G trees is that rotations cost time, so maybe we would be willing to
- *  accept bad search performance now and then if it would mean less rotations. On the other hand, increasing
- *  the balance parameter also means that we will be making <b>insertions</b> faster.</p>
+ *  accept bad search performance now and then if it would mean less rotations.</p>
  *
- * @author <a href="https://github.com/JasonFil">Jason Filippou</a>
+ * <p>You <b>must</b> implement this class! You should <b>not</b> move this class' file to
+ * a different position in the code tree. You <b>are</b> allowed to add any classes, enums, interfaces,
+ * abstract classes, packages, etc. that you think you might need.</p>
  *
- * @see EmptyTreeException
- * @see InvalidBalanceException
- * @see StudentTests
+ * @author YOUR NAME HERE!
  */
 public class AVLGTree<T extends Comparable<T>> {
+    public static void main(String[] args) throws Exception{
+        AVLGTree<Integer> tree = new AVLGTree<>(1);
+        List ints = Arrays.asList(IntStream.range(1, 6).boxed().toArray());
+        Collections.shuffle(ints);
+        ints.forEach(intNum -> tree.insert((Integer) intNum));
+        System.out.println(tree.levelOrderTraversal());
 
-    /* *********************************************************************
-     ************************* PRIVATE FIELDS  *****************************
-     **********************************************************************/
+    }
 
+    /***************************************************************************
+     ************** PLACE YOUR PRIVATE METHODS AND FIELDS HERE: ****************
+     ***************************************************************************/
+
+    private int maxImbalance, count;
     private Node root;
-    private int maxImbalance;
-    private int count;
 
-    /* Definition of  private node class */
     private class Node {
+        T key;
+        int height;
+        Node lChild, rChild;
 
-        /* Data members */
-        private int height;
-        private T key;
-        private Node left, right;
-
-
-        /* Constructor */
-        Node(T key) { // This is really only useful for the root.
+        Node(T key){
             this.key = key;
-            left = right = null;
+            this.height = 0;
         }
-    } // End of inner node class definition
 
-    /* *********************************************************************
-     ************************* PRIVATE METHODS *****************************
-     **********************************************************************/
-
-    /* Height of a node. */
-    private int getHeight(Node n) {
-        return (n == null) ? -1 : n.height;
-    }
-
-    /* Retrieve the inorder successor of a given node. Initial invariant:
-     the right subtree of the node is not null. */
-    private Node getInorderSuccessor(Node n) {
-        Node current = n.right;
-        assert current != null : "Inorder successor searches " +
-                "can only happen for nodes with non-null right children.";
-        while (current.left != null)
-            current = current.left; // Go as far left as you can
-        return current;
-    }
-
-    /* Return the balance of the current node, defined as the difference
-     * between the height of the right subtree and the left subtree.
-     *
-     * POSITIVE BALANCE: Left-heavy subtree.
-     * ZERO BALANCE: Perfectly balanced subtree
-     * NEGATIVE BALANCE: Right-heavy subtree.
-     */
-    private int balance(Node n) {
-        return ( n == null) ? 0 : getHeight(n.left) - getHeight(n.right);
-    }
-
-    // TODO: Fix the height updates in those methods.
-    private Node rotateRight(Node n, boolean isInsertion) {
-        Node x = n.left;
-        n.left = x.right;
-        x.right = n;
-       x.height = n.height;
-        if (isInsertion)
-            n.height--;
-        else
-            n.height -= 2;
-        return x;
-    }
-
-    private Node rotateLeft(Node n, boolean isInsertion) {
-        Node x = n.right;
-        n.right = x.left;
-        x.left = n;
-        x.height = n.height;
-        if (isInsertion)
-            n.height--;
-        else
-            n.height -= 2;
-        return x;
-    }
-
-    /* Recursive insertion method. */
-    private Node insert(Node n, T key) {
-        if (n == null)
-            return new Node(key);
-        if (key.compareTo(n.key) < 0) {
-            n.left = insert(n.left, key);
-
-            // Did our insertion cause an imbalance?
-            if (Math.abs(balance(n)) > maxImbalance) {
-                // What was the source of the imbalance? To find it,
-                // we need to understand exactly in which subtree
-                // we inserted the key; left-left or left-right?
-                if (key.compareTo(n.left.key) <= 0) // Right Rotation
-                    n = rotateRight(n, true);
-                else {
-                    n.left = rotateLeft(n.left, true); // LR Rotation
-                    n = rotateRight(n, true);
-                }
-            }
-        } else { // Symmetric cases
-            n.right = insert(n.right, key);
-
-            // Any imbalances caused?
-            if (Math.abs(balance(n)) > maxImbalance) {
-                if (key.compareTo(n.right.key) >= 0) // Left Rotation
-                    n = rotateLeft(n, true);
-                else {
-                    n.right = rotateRight(n.right, true); // RL Rotation
-                    n = rotateLeft(n, true);
-                }
-            }
+        Node(Node other){
+            this.key = other.key;
+            this.height = other.height;
         }
-        // Update the current node's height. This is relevant whether we have rotated or not.
-        int rightHeight = getHeight(n.right);
-        int leftHeight = getHeight(n.left);
-        int maxHeight = (rightHeight > leftHeight) ? rightHeight : leftHeight;
-        n.height = maxHeight + 1;
-        return n;
-    }
 
-    /* Recursive deletion method. Splits cases across leaf deletions
-     * as well as inner node deletions. Most complex method of data structure.
-     */
-    private Node delete(Node n, T key) {
-
-        // Case 0: Node is null. Could not find the node to delete.
-        if(n == null)
-            return null;
-
-        // Case 1: Found the key
-        if (n.key.compareTo(key) == 0) {
-
-            // Case  1.a: Null right subtree; simply return left subtree (might be null)
-            if (n.right == null) {
-                return n.left;
-            // Case 1.b: Non-null right subtree. Gotta find inorder successor, copy
-            // and recursively delete him.
-            } else {
-
-                Node inSucc = getInorderSuccessor(n);
-                assert inSucc != null : "The inorder successor should never be null here!";
-                n.key = inSucc.key;
-                n.right = delete(n.right, n.key); // recursively
-
-                // Maybe the deletion of the node on the right caused a positive imbalance.
-                // If that's the case, we will need to take corrective action, via rotations!
-                if (Math.abs(balance(n)) > maxImbalance) {
-
-                    /* Since it is a deletion from the *right* subtree
-                     * that caused the imbalance, it is n's *left* subtree
-                     * that is causing us grief. To figure out whether we need to do a
-                     * right rotation about n or an LR rotation about n, we need to query
-                     * its left subtree about whether it is left heavy, balanced or right heavy.
-                     */
-                    int leftBalance = balance(n.left);
-
-                    if (leftBalance >= 0) { // Left-leaning or balanced left subtree. Right rotation about n.
-                        n = rotateRight(n, false);
-                    } else { // Right-leaning left subtree. LR rotation about n.
-                        n.left = rotateLeft(n.left, false);
-                        n = rotateRight(n, false);
-                    }
-                }
-
-            }
-        }
-        // Case #2: key might be on the left
-        else if (key.compareTo(n.key) < 0) {
-            n.left = delete(n.left, key);
-
-            // Do we need to re-balance? If so, check the right subtree's balance
-            // to figure out appropriate rotation!
-
-            if (Math.abs(balance(n)) > maxImbalance) {
-
-                int rightBalance = balance(n.right);
-                if (rightBalance <= 0) { // Right-leaning or balanced right subtree. Left rotation about n.
-                    n = rotateLeft(n, false);
-                } else { // Left-leaning right subtree. RL rotation about n.
-                    n.right = rotateRight(n.right, false);
-                    n = rotateLeft(n, false);
-                }
-            }
-        // Case #3: key might be on the right
-        } else {
-            // The rest of this code is the same as the inorder successor deletion case.
-            n.right = delete(n.right, key);
-            if (Math.abs(balance(n)) > maxImbalance) {
-
-                int leftBalance = balance(n.left);
-                if (leftBalance >= 1) { // Left-leaning left subtree. Right rotation about n.
-                    n = rotateRight(n, false);
-                } else { // Right-leaning left subtree. LR rotation about n.
-                    n.left = rotateLeft(n.left, false);
-                    n = rotateRight(n, false);
-                }
-            }
-        }
-        // Before we return the node, we need to adjust its height appropriately,
-        // taking into consideration the heights of its children subtrees.
-        int rightHeight =  getHeight(n.right);
-        int leftHeight = getHeight(n.left);
-        int maxHeight = (rightHeight >= leftHeight) ? rightHeight : leftHeight;
-        n.height = maxHeight + 1;
-        return n;
-    }
-
-
-    /* Check if the subtree obeys the BST property. */
-    private boolean isBST(Node n) {
-        if (n == null || (n.left == null && n.right == null)) { // Empty trees and leaves are trivially BSTs )
-            return true;
-        } else if (n.left != null && n.right == null) { // Non-null left child, null right child
-            if (n.left.key.compareTo(n.key) >= 0)
-                return false;
-            else
-                return isBST(n.left);
-        } else if (n.left == null && n.right != null) { // Null left child, non-null right child.
-            if (n.right.key.compareTo(n.key) < 0)
-                return false;
-            else
-                return isBST(n.right);
-        } else { // Non-null left and right child
-            return isBST(n.left) && isBST(n.right);
+        public String toString(){
+            return key.toString() + " | " + height;
         }
     }
-
-    /* Check if the subtree is balanced, based on the maxImbalance allowed. */
-    private boolean isAVLGBalanced(Node n) {
-        if (n == null || (n.left == null && n.right == null)) // empty subtrees & leaves are trivially balanced
-            return true;
-        return (Math.abs(balance(n)) <= maxImbalance)
-                && isAVLGBalanced(n.left) && isAVLGBalanced(n.right);
-    }
-
 
     /* *********************************************************************
      ************************* PUBLIC (INTERFACE) METHODS *******************
      **********************************************************************/
 
     /**
-     * The class constructor provides the tree with the maximum imbalance allowed.
+     * The class constructor provides the tree with its maximum imbalance allowed.
      * @param maxImbalance The maximum imbalance allowed by the AVL-G Tree.
-     * @throws InvalidBalanceException if maxImbalance is a value smaller than 1.
+     * @throws InvalidBalanceException if <tt>maxImbalance</tt> is a value smaller than 1.
      */
     public AVLGTree(int maxImbalance) throws InvalidBalanceException {
-        if (maxImbalance < 1)
-            throw new InvalidBalanceException("AVLGTree constructor: Imbalance value has to be " +
-                    "at least 1 (provided: " + maxImbalance + ").");
+        if(maxImbalance < 1)
+            throw new InvalidBalanceException("maxImbalance cannot be smaller than 1");
         this.maxImbalance = maxImbalance;
-        count = 0;
+        this.count = 0;
     }
 
     /**
-     * Insert key in the tree.
+     * Insert <tt>key</tt> in the tree.
      * @param key The key to insert in the tree.
      */
     public void insert(T key) {
-        if (isEmpty())
-            root = new Node(key);
-        else
-            root = insert(root, key);
-        count++;
+        root = insert(root, key);
+    }
+
+    private Node insert(Node curr, T key){
+        if(curr == null) {
+            count++;
+            return new Node(key);
+        }
+
+        if(key.compareTo(curr.key) == 0)
+            return curr;
+
+        if(key.compareTo(curr.key) < 0) {
+            curr.lChild = insert(curr.lChild, key);
+            if(getHeight(curr.lChild) - getHeight(curr.rChild) > maxImbalance) {
+                if(key.compareTo(curr.lChild.key) > 0)
+                    curr.lChild = rotateLeft(curr.lChild);
+                curr = rotateRight(curr);
+            }
+        } else {
+            curr.rChild = insert(curr.rChild, key);
+            if(getHeight(curr.rChild) - getHeight(curr.lChild) > maxImbalance) {
+                if (key.compareTo(curr.rChild.key) < 0)
+                    curr.rChild = rotateRight(curr.rChild);
+                curr = rotateLeft(curr);
+            }
+        }
+
+        if(curr.lChild != null)
+            curr.lChild.height = Math.max(getHeight(curr.lChild.lChild), getHeight(curr.lChild.rChild)) + 1;
+        if(curr.rChild != null)
+            curr.rChild.height = Math.max(getHeight(curr.rChild.lChild), getHeight(curr.rChild.rChild)) + 1;
+        curr.height = Math.max(getHeight(curr.lChild), getHeight(curr.rChild)) + 1;
+
+        return curr;
+    }
+
+    private Node rotateRight(Node curr){
+        Node temp = curr.lChild;
+        curr.lChild = temp.rChild;
+        temp.rChild = curr;
+        return temp;
+    }
+
+    private Node rotateLeft(Node curr){
+        Node temp = curr.rChild;
+        curr.rChild = temp.lChild;
+        temp.lChild = curr;
+        return temp;
     }
 
     /**
      * Delete the key from the data structure and return it to the caller.
      * @param key The key to delete from the structure.
-     * @return The key that was removed, or null if the key was not found.
+     * @return The key that was removed, or <tt>null</tt> if the key was not found.
      * @throws EmptyTreeException if the tree is empty.
      */
     public T delete(T key) throws EmptyTreeException {
-        /* While it is surely not the most efficient thing to do, we will first
-         * search for the key in the tree and only delete it if it's found in the tree.
-         * This makes successful deletions slower by a logarithmic parameter, yet
-         * it also makes for cleaner deletion code. It also speeds up unsuccessful
-         * deletions, i.e deletions of keys that are not in the tree (but any reasonable
-         * application would search keys first anyway).
-         */
         if (isEmpty())
             throw new EmptyTreeException("AVLGTree.delete(): Cannot delete from an empty tree.");
         T retVal = search(key);
@@ -316,28 +154,68 @@ public class AVLGTree<T extends Comparable<T>> {
         return retVal; // null or otherwise.
     }
 
+    public Node delete(Node curr, T key) {
+        if(curr == null)
+            return null;
+
+        if(key.compareTo(curr.key) == 0){
+            if(curr.lChild == null)
+                return curr.rChild;
+            if(curr.rChild == null)
+                return curr.lChild;
+            curr.key = getInSuccessor(curr).key;
+            curr.rChild = delete(curr.rChild, curr.key);
+        } else if (key.compareTo(curr.key) < 0) {
+            curr.lChild = delete(curr.lChild, key);
+        } else {
+            curr.rChild = delete(curr.rChild, key);
+        }
+
+        int heightDiff = getHeight(curr.lChild) - getHeight(curr.rChild);
+        if (heightDiff > maxImbalance) {
+            if(getHeight(curr.lChild.rChild) > getHeight(curr.lChild.lChild))
+                curr.lChild = rotateLeft(curr.lChild);
+            curr = rotateRight(curr);
+            curr.lChild.height = Math.max(getHeight(curr.lChild.lChild), getHeight(curr.lChild.rChild)) + 1;
+            curr.rChild.height = Math.max(getHeight(curr.rChild.lChild), getHeight(curr.rChild.rChild)) + 1;
+        } else if (heightDiff < -maxImbalance) {
+            if (getHeight(curr.rChild.lChild) > getHeight(curr.rChild.rChild))
+                curr.rChild = rotateRight(curr.rChild);
+            curr = rotateLeft(curr);
+            curr.lChild.height = Math.max(getHeight(curr.lChild.lChild), getHeight(curr.lChild.rChild)) + 1;
+            curr.rChild.height = Math.max(getHeight(curr.rChild.lChild), getHeight(curr.rChild.rChild)) + 1;
+        }
+        curr.height = Math.max(getHeight(curr.lChild), getHeight(curr.rChild)) + 1;
+        return curr;
+    }
+
+    private Node getInSuccessor(Node n) {
+        Node current = n.rChild;
+        assert current != null : "Inorder successor searches can only happen for nodes with non-null right children.";
+        while (current.lChild != null)
+            current = current.lChild; // Go as far left as you can
+        return current;
+    }
     /**
-     * <p>Search for key in the tree. Return a reference to it if it's in there,
-     * or null otherwise.</p>
+     * <p>Search for <tt>key</tt> in the tree. Return a reference to it if it's in there,
+     * or <tt>null</tt> otherwise.</p>
      * @param key The key to search for.
-     * @return key if key is in the tree, or null otherwise.
+     * @return <tt>key</tt> if <tt>key</tt> is in the tree, or <tt>null</tt> otherwise.
      * @throws EmptyTreeException if the tree is empty.
      */
     public T search(T key) throws EmptyTreeException {
-        if (isEmpty())
-            throw new EmptyTreeException("AVLGTree::search(T key): Tree is empty!");
-        else { // Do it iteratively.
-            Node current = root;
-            while(current != null) {
-                if(current.key.compareTo(key) == 0)
-                    return current.key;
-                else if(current.key.compareTo(key) > 0)
-                    current = current.left;
-                else
-                    current = current.right;
-            }
-            return null;
+        if (isEmpty()) throw new EmptyTreeException("Tree is empty!");
+         // Do it iteratively.
+        Node current = root;
+        while (current != null) {
+            if (current.key.compareTo(key) == 0)
+                return current.key;
+            if (current.key.compareTo(key) > 0)
+                current = current.lChild;
+            else
+                current = current.rChild;
         }
+        return null;
     }
 
     /**
@@ -348,67 +226,90 @@ public class AVLGTree<T extends Comparable<T>> {
         return maxImbalance;
     }
 
-
     /**
      * <p>Return the height of the tree. The height of the tree is defined as the length of the
      * longest path between the root and the leaf level. By definition of path length, a
      * stub tree has a height of 0, and we define an empty tree to have a height of -1.</p>
-     * @return The height of the tree. If the tree is empty, returns -1.
+     * @return The height of the tree.
      */
     public int getHeight() {
         return getHeight(root);
     }
 
+    private int getHeight(Node n) {
+        return (n == null) ? -1 : (n.height);
+    }
+
     /**
      * Query the tree for emptiness. A tree is empty iff it has zero keys stored.
-     * @return true if the tree is empty, false otherwise.
+     * @return <tt>true</tt> if the tree is empty, <tt>false</tt> otherwise.
      */
     public boolean isEmpty() {
         return root == null;
     }
 
     /**
-     * Return the key at the tree's root node.
+     * <p>Return the key at the tree's root node if it exists, or throws an
+     * <tt>EmptyTreeException</tt> otherwise.</p>
+     * @throws EmptyTreeException if the tree is empty.
      * @return The key at the tree's root node.
-     * @throws  EmptyTreeException if the tree is empty.
      */
     public T getRoot() throws EmptyTreeException{
-        if(root == null || isEmpty())
-            throw new EmptyTreeException("AVL-"+maxImbalance + " tree is empty!");
+        if(root == null)
+            throw new EmptyTreeException("The tree is empty");
         return root.key;
     }
 
-
     /**
-     * <p>Establishes whether the AVL-G tree <em>globally</em> satisfies the BST condition. This method is
-     * <b>terrifically useful for testing!</b></p>
-     * @return true if the tree satisfies the Binary Search Tree property,
-     * false otherwise.
+     * <p>Establishes whether the AVL-G tree <em>globally</em> satisfies the BST condition.
+     * This method is <b>terrifically useful for testing!</b></p>
+     * @return <tt>true</tt> if the tree satisfies the Binary Search Tree property,
+     * <tt>false</tt> otherwise.
      */
     public boolean isBST() {
         return isBST(root);
     }
 
+    private boolean isBST(Node curr){
+        if (curr == null || (curr.lChild == null && curr.rChild == null)) // Empty trees and leaves are trivially BSTs )
+            return true;
+        if (curr.lChild != null && curr.rChild == null) // Non-null left child, null right child
+            return curr.lChild.key.compareTo(curr.key) < 0 && isBST(curr.lChild);
+        if (curr.lChild == null) // Null left child, non-null right child.
+            return curr.rChild.key.compareTo(curr.key) >= 0 && isBST(curr.rChild);
+         // Non-null left and right child
+        return curr.lChild.key.compareTo(curr.key) < 0 && curr.rChild.key.compareTo(curr.key) >= 0
+                && isBST(curr.lChild) && isBST(curr.rChild);
+    }
 
     /**
-     * <p>Establishes whether the AVL-G tree <em>globally</em> satisfies the AVL-G condition. This method is
-     * <b>terrifically useful for testing!</b></p>
-     * @return true if the tree satisfies the balance requirements of an AVLG tree, false
-     * otherwise.
+     * <p>Establishes whether the AVL-G tree <em>globally</em> satisfies the AVL-G condition.
+     * This method is <b>terrifically useful for testing!</b></p>
+     * @return <tt>true</tt> if the tree satisfies the Binary Search Tree property,
+     * <tt>false</tt> otherwise.
      */
     public boolean isAVLGBalanced() {
         return isAVLGBalanced(root);
     }
 
+    private boolean isAVLGBalanced(Node curr) {
+        if (curr == null || (curr.lChild == null && curr.rChild == null)) // empty subtrees & leaves are trivially balanced )
+            return true;
+        return isBalanced(curr) && isAVLGBalanced(curr.lChild) && isAVLGBalanced(curr.rChild);
+    }
+
+    private boolean isBalanced(Node curr) {
+        return curr == null || Math.abs(getHeight(curr.lChild) - getHeight(curr.rChild)) <= maxImbalance;
+    }
+
     /**
-     * <p>Empties the AVL-G Tree of all its elements. After a call to this method, the
+     * <p>Empties the <tt>AVLGTree</tt> of all its elements. After a call to this method, the
      * tree should have <b>0</b> elements.</p>
      */
     public void clear(){
-        root = null;
         count = 0;
+        root = null;
     }
-
 
     /**
      * <p>Return the number of elements in the tree.</p>
@@ -416,5 +317,33 @@ public class AVLGTree<T extends Comparable<T>> {
      */
     public int getCount(){
         return count;
+    }
+
+    public List<Node> inOrderTraversal(){
+        List<Node> list = new ArrayList<>();
+        inOrderTraversal(root, list);
+        return list;
+    }
+
+    private void inOrderTraversal(Node curr, List<Node> list){
+        if(curr == null) return;
+        inOrderTraversal(curr.lChild, list);
+        list.add(curr);
+        inOrderTraversal(curr.rChild, list);
+    }
+
+    public List<Node> levelOrderTraversal(){
+        Queue<Node> queue = new LinkedList<>();
+        List<Node> list = new ArrayList<>();
+        queue.add(root);
+        while(!queue.isEmpty()){
+            Node curr = queue.remove();
+            list.add(curr);
+            if(curr.lChild != null)
+                queue.add(curr.lChild);
+            if(curr.rChild != null)
+                queue.add(curr.rChild);
+        }
+        return list;
     }
 }
