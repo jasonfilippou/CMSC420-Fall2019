@@ -174,7 +174,7 @@ public class ArrayMinHeap<T extends Comparable<T>> implements MinHeap<T> {
 		while(itThis.hasNext())
 			if(!itThis.next().equals(itOther.next()))
 				return false;
-		return true;
+		return !itOther.hasNext();
 	}
 
 
