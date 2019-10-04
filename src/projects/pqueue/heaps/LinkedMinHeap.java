@@ -102,17 +102,23 @@ public class LinkedMinHeap<T extends Comparable<T>> implements MinHeap<T> {
      * @see Object#equals(Object)
      * @see #LinkedMinHeap(MinHeap)
      */
-    @Override
-    public boolean equals(Object other) {
-        if (!(other instanceof MinHeap))
-            return false;
-        Iterator itThis = iterator();
-        Iterator itOther = ((MinHeap) other).iterator();
-        while (itThis.hasNext())
-            if (!itThis.next().equals(itOther.next()))
-                return false;
-        return true;
-    }
+	/**
+	 * Standard equals() method.
+	 *
+	 * @return true If the parameter Object and the current MinHeap
+	 * are identical Objects.
+	 */
+	@Override
+	public boolean equals(Object other) {
+		if (!(other instanceof MinHeap))
+			return false;
+		Iterator itThis = iterator();
+		Iterator itOther = ((MinHeap) other).iterator();
+		while (itThis.hasNext())
+			if (!itThis.next().equals(itOther.next()))
+				return false;
+		return !itOther.hasNext();
+	}
 
 	@Override
 	public boolean isEmpty() {

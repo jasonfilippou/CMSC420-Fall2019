@@ -82,14 +82,14 @@ public class ArrayMinHeap<T extends Comparable<T>> implements MinHeap<T> {
 	 */
 	@Override
 	public boolean equals(Object other){
-		if( !(other instanceof MinHeap))
+		if(other == null || !(other instanceof MinHeap))
 			return false;
 		Iterator itThis = iterator();
 		Iterator itOther = ((MinHeap) other).iterator();
 		while(itThis.hasNext())
 			if(!itThis.next().equals(itOther.next()))
 				return false;
-		return true;
+		return !itOther.hasNext();
 	}
 
 
@@ -118,6 +118,11 @@ public class ArrayMinHeap<T extends Comparable<T>> implements MinHeap<T> {
 		throw new UnimplementedMethodException();
 	}
 
+	/**
+	 * Standard equals() method.
+	 * @return true if the current object and the parameter object
+	 * are equal, with the code providing the equality contract.
+	 */
 
 
 	@Override
