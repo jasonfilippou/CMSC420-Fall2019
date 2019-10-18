@@ -1,4 +1,4 @@
-package projects.phonebook.java.utils;
+package projects.phonebook.utils;
 
 public class Probes {
 

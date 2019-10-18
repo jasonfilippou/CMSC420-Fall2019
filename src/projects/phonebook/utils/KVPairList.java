@@ -1,4 +1,4 @@
-package projects.phonebook.java.utils;
+package projects.phonebook.utils;
 
 import java.util.Iterator;
 
@@ -11,7 +11,7 @@ import java.util.Iterator;
  * <p>Duplicate entries <b>are</b> possible in {@link KVPairList}. Additionally, {@link KVPairList}s are
  * <b>not</b> sorted.</p>
  *
- * @author <a href="https://github.com/JasonFil">Jason Filippou</a>
+ * @author <a href="mailto:jason.filippou@gmail.com">Jason Filippou</a>
  *
  * @see KVPair
  * @see KVPairListTests
@@ -121,8 +121,8 @@ public class KVPairList implements Iterable<KVPair>{
      * Removes the <b>first</b> entry with key key from the list. If key does not exist in the list,
      * this method has <b>no effect</b>.
      * @param key The &quot; key &quot; {@link String} to match with entries.
-     * @return A {@link Probes} instance containing the value mapped by key if key is in the table or null otherwise
-     *      as well as the number of probes required by the search for key, whether successful or unsuccessful.
+     * @return The probe object. Contain null if it is an unsuccessful remove,
+     *          otherwise contain the value associated with the key
      */
     public Probes removeByKey(String key){
         Node current = head;
@@ -159,8 +159,8 @@ public class KVPairList implements Iterable<KVPair>{
      * Removes the <b>first</b> entry with value value from the list. If value does not exist in the list,
      * this method has <b>no effect</b>.
      * @param value The &quot; value &quot; {@link String} to match with entries.
-     * @return A {@link Probes} instance containing the value mapped by key if key is in the table or null otherwise
-     *      as well as the number of probes required by the search for key, whether successful or unsuccessful.
+     * @return The probe object. Contain null if it is an unsuccessful remove,
+     *          otherwise contain the value.
      */
     public Probes removeByValue(String value){
         Node current = head;
@@ -169,8 +169,8 @@ public class KVPairList implements Iterable<KVPair>{
         String flag = null;
 
         while(current != null){
-            flag = value;
             if(current.pair.getValue().equals(value)){ // Found it
+                flag = value;
                 if(previous != null) {
                     previous.next = current.next;
                 }
@@ -279,7 +279,7 @@ public class KVPairList implements Iterable<KVPair>{
     /**
      * Simple getter for values based on keys.
      * @param key the &quot;value&quot; {@link String} to search for.
-     * @return The &quot;key&quot; {@link String} or null if key could not be found in this.
+     * @return The probe object containing &quot;value&quot; {@link String} or null if key could not be found in this.
      */
     public Probes getValue(String key){
         Node current = head;
@@ -297,17 +297,19 @@ public class KVPairList implements Iterable<KVPair>{
     /**
      * Simple getter for keys based on values.
      * @param value the value {@link String} to search for.
-     * @return The &quot; key &quot; {@link String} or null if value could not be found in this.
+     * @return The probe obkect containing &quot; key &quot; {@link String} or null if value could not be found in this.
      */
-    public String getKey(String value){
+    public Probes getKey(String value){
         Node current = head;
+        int probeCount = 1;
         while(current != null) {
             if (current.pair.getValue().equals(value)){
-                return current.pair.getKey();
+                return new Probes(current.pair.getKey(), probeCount);
             }
             current = current.next;
+            probeCount++;
         }
-        return null;
+        return new Probes(null, probeCount);
     }
 
 
@@ -349,5 +351,18 @@ public class KVPairList implements Iterable<KVPair>{
                 throw new UnsupportedOperationException("KVPairList Iterator does not implement remove().");
             }
         };
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder ret = new StringBuilder();
+        Node current = head;
+        int i = 0;
+        while(current != null){
+            ret.append(current.pair.getKey() + " ");
+            current = current.next;
+            i++;
+        }
+        return ret.toString() + "\n";
     }
 }

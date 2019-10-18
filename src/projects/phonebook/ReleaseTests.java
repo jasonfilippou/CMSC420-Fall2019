@@ -1,23 +1,23 @@
-package projects.phonebook.java;
+package projects.phonebook;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import projects.phonebook.java.hashes.*;
-import projects.phonebook.java.utils.NoMorePrimesException;
-import projects.phonebook.java.utils.Probes;
+import projects.phonebook.hashes.*;
+import projects.phonebook.utils.NoMorePrimesException;
+import projects.phonebook.utils.Probes;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import static org.junit.Assert.*;
-import static projects.phonebook.java.hashes.CollisionResolver.*;
+import static projects.phonebook.hashes.CollisionResolver.*;
 
 
 /**
  * <p> {@link ReleaseTests} is a jUnit-test suite for {@link Phonebook} and {@link HashTable}.</p>
  *
- * @author <a href = "https://github.com/JasonFil">jason.filippou@gmail.com</a>
+ * @author <a href = "mailto:jason.filippou@gmail.com">jason.filippou@gmail.com</a>
  *
  * @see Phonebook
  * @see HashTable
@@ -38,6 +38,8 @@ public class ReleaseTests {
     private HashMap<CollisionResolver, Integer[]> probesNumberOut = new HashMap<>();
     private HashMap<CollisionResolver, Integer[]> probesNumberFind = new HashMap<>();
     private HashMap<CollisionResolver, Integer[]> probesNameFind = new HashMap<>();
+    private HashMap<CollisionResolver, Integer[]> softprobesNameOut = new HashMap<>();
+    private HashMap<CollisionResolver, Integer[]> softprobesNumberOut = new HashMap<>();
     private static final long SEED = 47;
     private static final Random RNG = new Random(SEED);
     private static final int NUMS = 1000;
@@ -45,6 +47,45 @@ public class ReleaseTests {
     private int hash(String key){
         return key.hashCode() & 0x7fffffff;
     }
+
+    private String[] list0mod13 = new String[]{"Terry", "Alexander", "Moey"};
+    private String[] list1mod13 = new String[]{"Mary", "Jacqueline"};
+    private String[] list2mod13 = new String[]{"Arnold", "Christine"};
+    private String[] list3mod13 = new String[]{"Nakeesha", "Tiffany", "Mon"};
+    private String[] list4mod13 = new String[]{"Charles", "Yi", "Ray"};
+    private String[] list5mod13 = new String[]{"Tian", "Aditya", "Jessj"};
+    private String[] list6mod13 = new String[]{"Jessie", "Jessk"};
+    private String[] list7mod13 = new String[]{};
+    private String[] list8mod13 = new String[]{};
+    private String[] list9mod13 = new String[]{"DeAndre", "Paulette", "Jason", "Helen", "Jing"};
+    private String[] list10mod13 = new String[]{};
+    private String[] list11mod13 = new String[]{"Amg"};
+    private String[] list12mod13 = new String[]{"God", "Carl", "Money", "Monkey"};
+
+    private String[] list0mod23 = new String[]{};
+    private String[] list1mod23 = new String[]{"Tiffany", "Helen"};
+    private String[] list2mod23 = new String[]{"Alexander"};
+    private String[] list3mod23 = new String[]{"Paulette", "Jason", "Money"};
+    private String[] list4mod23 = new String[]{"Nakeesha", "Ray"};
+    private String[] list5mod23 = new String[]{"Jing"};
+    private String[] list6mod23 = new String[]{"Amg"};
+    private String[] list7mod23 = new String[]{};
+    private String[] list8mod23 = new String[]{"Moey"};
+    private String[] list9mod23 = new String[]{"Aditya", "Jessj"};
+    private String[] list10mod23 = new String[]{"Jessk"};
+    private String[] list11mod23 = new String[]{"Charles"};
+    private String[] list12mod23 = new String[]{"Yi", "God"};
+    private String[] list13mod23 = new String[]{};
+    private String[] list14mod23 = new String[]{"Arnold", "Tian"};
+    private String[] list15mod23 = new String[]{"Mon"};
+    private String[] list16mod23 = new String[]{};
+    private String[] list17mod23 = new String[]{"Christine", "Carl"};
+    private String[] list18mod23 = new String[]{"Terry", "DeAndre", "Monkey"};
+    private String[] list19mod23 = new String[]{};
+    private String[] list20mod23 = new String[]{};
+    private String[] list21mod23 = new String[]{"Mary", "Jacqueline", "Jessie"};
+    private String[] list22mod23 = new String[]{};
+
 
 
     private String format(String error, CollisionResolver namesToPhones, CollisionResolver phonesToNames){
@@ -58,7 +99,9 @@ public class ReleaseTests {
     @Before
     public void setUp(){
 
+
         testingPhoneBook = new HashMap<>();
+
 
         for(int i = 0; i < names.length; i++) {
             testingPhoneBook.put(names[i], numbers[i]);
@@ -128,12 +171,12 @@ public class ReleaseTests {
         probesNameOut.put(SEPARATE_CHAINING, new Integer[]{2, 1, 4, 3, 2, 1, 1, 5, 4, 3, 3, 2, 2, 1, 1, 1});
         probesNameOut.put(LINEAR_PROBING, new Integer[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1});
         probesNameOut.put(ORDERED_LINEAR_PROBING, new Integer[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1});
-        probesNameOut.put(QUADRATIC_PROBING, new Integer[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 3, 2, 1});
+        probesNameOut.put(QUADRATIC_PROBING, new Integer[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1});
 
         probesNumberOut.put(SEPARATE_CHAINING, new Integer[]{3, 3, 5, 2, 2, 1, 4, 1, 2, 2, 1, 1, 3, 1, 2, 1});
         probesNumberOut.put(LINEAR_PROBING, new Integer[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1});
         probesNumberOut.put(ORDERED_LINEAR_PROBING, new Integer[]{1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1});
-        probesNumberOut.put(QUADRATIC_PROBING, new Integer[]{1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1});
+        probesNumberOut.put(QUADRATIC_PROBING, new Integer[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1});
 
 
         probesNameFind.put(SEPARATE_CHAINING, new Integer[]{2, 1, 4, 3, 2, 1, 1, 5, 4, 3, 3, 2, 2, 1, 1, 1});
@@ -146,7 +189,13 @@ public class ReleaseTests {
         probesNumberFind.put(ORDERED_LINEAR_PROBING, new Integer[]{1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1});
         probesNumberFind.put(QUADRATIC_PROBING, new Integer[]{1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1});
 
+        softprobesNameOut.put(LINEAR_PROBING, new Integer[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 3, 1});
+        softprobesNameOut.put(ORDERED_LINEAR_PROBING, new Integer[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 1, 1, 2, 1, 1});
+        softprobesNameOut.put(QUADRATIC_PROBING, new Integer[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 3, 2, 1});
 
+        softprobesNumberOut.put(LINEAR_PROBING, new Integer[]{1, 1, 1, 1, 1, 2, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1});
+        softprobesNumberOut.put(ORDERED_LINEAR_PROBING, new Integer[]{1, 1, 1, 2, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1});
+        softprobesNumberOut.put(QUADRATIC_PROBING, new Integer[]{1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1});
 
     }
 
@@ -192,7 +241,7 @@ public class ReleaseTests {
 
     }
 
- /*   @Test
+    @Test
     public void testQPDeletions(){
         QuadraticProbingHashTable qp = new QuadraticProbingHashTable();
         for(Map.Entry<String, String> entry : testingPhoneBook.entrySet()){
@@ -207,7 +256,7 @@ public class ReleaseTests {
                     prevCount - 1, qp.size());
         }
         assertEquals("After deleting all elements, count should be 0.", 0, qp.size());
-    }*/
+    }
 
     @Test
     public void testPBDeletions(){
@@ -358,6 +407,7 @@ public class ReleaseTests {
             assertEquals("Unexpected number of probes in Ordered Linear probing", (int)probesNumberIn.get(ORDERED_LINEAR_PROBING)[count], temp.probes);
             count++;
         }
+
     }
 
 
@@ -393,7 +443,6 @@ public class ReleaseTests {
             assertEquals("Unexpected number of probes in Seperate chaining", (int)probesNameOut.get(SEPARATE_CHAINING)[count], temp.probes);
             count++;
         }
-
 
         sc = new SeparateChainingHashTable();
         for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
@@ -684,8 +733,257 @@ public class ReleaseTests {
 
     }
 
+    @Test
+    public void testLPResizingWithSoftDeletion() {
 
 
+        String[] list = new String[] {"God", "Carl", "Money", "Monkey", "DeAndre", "Paulette", "Jason"};
+
+        HashTable lp = new LinearProbingHashTable();
+        HashTable slp = new LinearProbingHashTable(true);
+
+        for (int i = 0;i < list.length;i++) {
+
+            lp.put(list[i], Integer.toString(i));
+            slp.put(list[i], Integer.toString(i));
+
+        }
+
+
+        lp.remove("Money");
+        lp.remove("Monkey");
+        slp.remove("Money");
+        slp.remove("Monkey");
+
+        assertEquals(13, lp.capacity());
+        assertEquals(13, slp.capacity());
+        assertEquals(5, lp.size());
+        assertEquals(5, slp.size());
+
+        lp.put("Charles", "C");
+        slp.put("Charles", "C");
+        assertEquals(13, lp.capacity());
+        assertEquals(13, slp.capacity());
+        assertEquals(6, lp.size());
+        assertEquals(6, slp.size());
+
+        lp.put("Yi", "Y");
+        slp.put("Yi", "Y");
+        assertEquals(13, lp.capacity());
+        assertEquals(13, slp.capacity());
+        assertEquals(7, lp.size());
+        assertEquals(7, slp.size());
+
+    }
+
+    @Test
+    public void testComplicatedQP() {
+
+        String[] list = new String[] {"DeAndre", "Paulette", "Jason", "Helen"};
+
+        HashTable qp = new QuadraticProbingHashTable();
+        HashTable sqp = new QuadraticProbingHashTable(true);
+
+        for (int i = 0;i < list.length;i++) {
+
+            qp.put(list[i], Integer.toString(i));
+            sqp.put(list[i], Integer.toString(i));
+
+        }
+        // Insertion order now: Helen, Jason, Paulette, DeAndre, Jing
+
+        qp.put("Tian", "T");
+        sqp.put("Tian", "T");
+
+        qp.remove("Jason");
+        sqp.remove("Jason");
+
+
+        assertTrue(qp.containsKey("Helen"));
+        assertTrue(sqp.containsKey("Helen"));
+
+        assertFalse(qp.containsKey("Jason"));
+        assertFalse(sqp.containsKey("Jason"));
+
+        assertTrue(qp.containsKey("Paulette"));
+        assertTrue(sqp.containsKey("Paulette"));
+
+        assertTrue(qp.containsKey("DeAndre"));
+        assertTrue(sqp.containsKey("DeAndre"));
+
+        assertFalse(qp.containsKey("Jing"));
+        assertFalse(sqp.containsKey("Jing"));
+
+        assertTrue(qp.containsKey("Tian"));
+        assertTrue(sqp.containsKey("Tian"));
+
+
+        qp.put("Aditya", "A");
+        sqp.put("Aditya", "A");
+        qp.put("Jessj", "J");
+        sqp.put("Jessj", "J");
+        qp.remove("Aditya");
+        sqp.remove("Aditya");
+
+        assertTrue(qp.containsKey("Helen"));
+        assertTrue(sqp.containsKey("Helen"));
+        assertTrue(qp.containsKey("Paulette"));
+        assertTrue(sqp.containsKey("Paulette"));
+        assertTrue(qp.containsKey("DeAndre"));
+        assertTrue(sqp.containsKey("DeAndre"));
+        assertTrue(qp.containsKey("Tian"));
+        assertTrue(sqp.containsKey("Tian"));
+        assertFalse(qp.containsKey("Aditya"));
+        assertFalse(sqp.containsKey("Aditya"));
+        assertTrue(qp.containsKey("Jessj"));
+        assertTrue(sqp.containsKey("Jessj"));
+
+    }
+
+
+    @Test
+    public void testRemoveSoftLProbes() {
+        LinearProbingHashTable lp = new LinearProbingHashTable(true);
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            lp.put(entry.getKey(), entry.getValue());
+        }
+        int count = 0;
+
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            Probes temp = lp.remove(entry.getKey());
+            assertEquals("Unexpected number of probes in Linear probing with soft deletion", (int)softprobesNameOut.get(LINEAR_PROBING)[count], temp.probes);
+            count++;
+        }
+
+
+        lp = new LinearProbingHashTable(true);
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            lp.put(entry.getValue(), entry.getKey());
+        }
+        count = 0;
+
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            Probes temp = lp.remove(entry.getValue());
+            assertEquals("Unexpected number of probes in Linear probing with soft deletion", (int)softprobesNumberOut.get(LINEAR_PROBING)[count], temp.probes);
+            count++;
+        }
+
+    }
+
+    @Test
+    public void testRemoveSoftOLProbes() {
+
+        OrderLinearProbingHashTable olp = new OrderLinearProbingHashTable(true);
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            olp.put(entry.getKey(), entry.getValue());
+        }
+        int count = 0;
+
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            Probes temp = olp.remove(entry.getKey());
+            assertEquals("Unexpected number of probes in Ordered Linear probing with soft deletion", (int)softprobesNameOut.get(ORDERED_LINEAR_PROBING)[count], temp.probes);
+            count++;
+        }
+
+
+        olp = new OrderLinearProbingHashTable(true);
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            olp.put(entry.getValue(), entry.getKey());
+        }
+        count = 0;
+
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            Probes temp = olp.remove(entry.getValue());
+            assertEquals("Unexpected number of probes in Ordered Linear probing with soft deletion", (int)softprobesNumberOut.get(ORDERED_LINEAR_PROBING)[count], temp.probes);
+            count++;
+        }
+
+    }
+
+
+    @Test
+    public void testRemoveSoftQProbes() {
+        QuadraticProbingHashTable qp = new QuadraticProbingHashTable(true);
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            qp.put(entry.getKey(), entry.getValue());
+        }
+        int count = 0;
+
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            Probes temp = qp.remove(entry.getKey());
+            assertEquals("Unexpected number of probes in Quadratic probing with soft deletion", (int)softprobesNameOut.get(QUADRATIC_PROBING)[count], temp.probes);
+            count++;
+        }
+
+        qp = new QuadraticProbingHashTable(true);
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            qp.put(entry.getValue(), entry.getKey());
+        }
+        count = 0;
+
+        for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
+            Probes temp = qp.remove(entry.getValue());
+            assertEquals("Unexpected number of probes in Quadratic probing with soft deletion", (int)softprobesNumberOut.get(QUADRATIC_PROBING)[count], temp.probes);
+            count++;
+        }
+    }
+
+
+    @Test
+    public void testResizeSoftOLProbes() {
+
+        OrderLinearProbingHashTable olp = new OrderLinearProbingHashTable(true);
+        String[] add1 = new String[]{"Tiffany", "Helen", "Alexander", "Paulette", "Jason", "Money", "Nakeesha", "Ray", "Jing", "Amg"};
+        String[] remove1 = new String[]{"Helen", "Alexander", "Paulette", "Jason", "Money", "Nakeesha", "Ray", "Jing", "Amg"};
+        String[] add2 = new String[]{"Christine", "Carl"};
+
+        for(String s: add1) {
+            olp.put(s, s);
+        }
+
+        for (String s: remove1) {
+            olp.remove(s);
+        }
+
+        for(String s: add2) {
+            olp.put(s, s);
+        }
+
+        assertEquals("After additions and deletions, and additions again, the capacity should be 23, but get " + olp.capacity() + ".", 23, olp.capacity());
+
+        assertEquals("After resizing, you my have not deleted the tombstone.", 1, olp.put("Terry", "new").probes);
+
+        assertEquals("After additions and deletions, and additions again, resize should be triggered and the capacity should be shrink to 7, but get " + olp.capacity() + ".", 7, olp.capacity());
+
+    }
+
+    @Test
+    public void testResizeSoftQProbes() {
+
+        QuadraticProbingHashTable qp = new QuadraticProbingHashTable(true);
+        String[] add1 = new String[]{"Tiffany", "Helen", "Alexander", "Paulette", "Jason", "Money", "Nakeesha", "Ray", "Jing", "Amg"};
+        String[] remove1 = new String[]{"Helen", "Alexander", "Paulette", "Jason", "Money", "Nakeesha", "Ray", "Jing", "Amg"};
+        String[] add2 = new String[]{"Christine", "Carl"};
+
+        for(String s: add1) {
+            qp.put(s, s);
+        }
+
+        for (String s: remove1) {
+            qp.remove(s);
+        }
+
+        for(String s: add2) {
+            qp.put(s, s);
+        }
+
+        assertEquals("After additions and deletions, and additions again, the capacity should be 23, but get " + qp.capacity() + ".", 23, qp.capacity());
+
+        assertEquals("After resizing, you my have not deleted the tombstone.", 1, qp.put("Terry", "new").probes);
+
+        assertEquals("After additions and deletions, and additions again, resize should be triggered and the capacity should be shrink to 7, but get " + qp.capacity() + ".", 7, qp.capacity());
+
+    }
 
 
 }

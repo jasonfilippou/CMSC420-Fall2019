@@ -1,8 +1,8 @@
-package projects.phonebook.java.hashes;
+package projects.phonebook.hashes;
 
-import projects.phonebook.java.utils.KVPair;
-import projects.phonebook.java.utils.PrimeGenerator;
-import projects.phonebook.java.utils.Probes;
+import projects.phonebook.utils.KVPair;
+import projects.phonebook.utils.PrimeGenerator;
+import projects.phonebook.utils.Probes;
 
 /**
  * <p>{@link QuadraticProbingHashTable} is an Openly Addressed {@link HashTable} which uses <b>Quadratic
@@ -32,8 +32,6 @@ public class QuadraticProbingHashTable implements HashTable{
     /* ***** PRIVATE FIELDS / METHODS PROVIDED TO YOU: DO NOT EDIT! ******/
     /* ****************************************************** ***********/
 
-    private static final KVPair DELETE = new KVPair("", "");
-
     private static final RuntimeException UNIMPL_METHOD = new RuntimeException("Implement this method!");
     private KVPair[] table;
     private PrimeGenerator primeGenerator;
@@ -46,16 +44,29 @@ public class QuadraticProbingHashTable implements HashTable{
     /*  YOU SHOULD ALSO IMPLEMENT THE FOLLOWING 2 METHODS ACCORDING TO THE SPECS
      * PROVIDED IN THE PROJECT WRITEUP, BUT KEEP THEM PRIVATE!  */
 
+    private int getUsedSpace() {
+        int count = 0;
+        for (int i = 0; i < table.length; i++) {
+            if (table[i] != null)
+                count++;
+        }
+        return count;
+    }
+
     private void enlarge(){
         KVPair[] oldTable = table;
+        int size = table.length;
+
+        while (size() < ((float)size / 2))
+            size = primeGenerator.getPreviousPrime();
+
         table = new KVPair[primeGenerator.getNextPrime()];
         reinsertAll(oldTable);
-
     }
 
     private void reinsertAll(KVPair[] oldTable){
         for(int i = 0; i < oldTable.length; i++){
-            if(oldTable[i] != null){
+            if(oldTable[i] != null && !oldTable[i].equals(DELETE)){
                 count--; // Because the call to put() will artificially increase the table's count.
                 put(oldTable[i].getKey(), oldTable[i].getValue());
             }
@@ -102,12 +113,15 @@ public class QuadraticProbingHashTable implements HashTable{
         if(key == null || value == null) {
             throw new IllegalArgumentException("Values given: key = " + key + ", value = " + value);
         }
-        if(size() >= ((float)capacity() / 2)){
+        if(getUsedSpace() >= ((float)capacity() / 2)){
             enlarge();
         }
-        Probes temp = putHelper(key, value);
-        if (temp.value != null)
-            count++;
+        Probes temp = get(key);
+        if (temp.value != null) {
+            return temp;
+        }
+        temp = putHelper(key, value);
+        count++;
         return temp;
     }
 
@@ -146,8 +160,8 @@ public class QuadraticProbingHashTable implements HashTable{
      * or if key = null, this method returns null. This method is expected to run in <em>amortized constant time</em>.
      *
      * @param key The key to search for.
-     * @return The associated value if key is non-null <b>and</b> exists in our database, null
-     * otherwise.
+     * @return The {@link projects.phonebook.utils.Probes} with associated value and the number of probe used. If the key is null, return value null
+     * and 0 as number of probes; if the key dones't exists in the database, return null and the number of probes used.
      */
     @Override
     public Probes remove(String key) {
@@ -158,7 +172,14 @@ public class QuadraticProbingHashTable implements HashTable{
         while(table[currentProbe] != null){
             if(table[currentProbe].getKey().equals(key)){ // Found it! Nullify and then re-insert all others
                 flag = table[currentProbe].getValue();
-                table[currentProbe] = DELETE;
+                if (softFlag) {
+                    table[currentProbe] = DELETE;
+                } else {
+                    table[currentProbe] = null;
+                    KVPair[] old = table;
+                    table = new KVPair[old.length];
+                    reinsertAll(old);
+                }
                 count--;
                 break; // No need to continue outer loop.
             }
@@ -167,35 +188,6 @@ public class QuadraticProbingHashTable implements HashTable{
         return new Probes(flag, probeCount);
     }
 
-
-
-//    @Override
-//    public Probes remove(String key) {
-//        int originalProbe = hash(key), currentProbe = originalProbe;
-//        int probeCount = 1;
-//        String flag = null;
-//
-//        while(table[currentProbe] != null){
-//            if(table[currentProbe].getKey().equals(key)){ // Found it! Nullify and then re-insert all others
-//                flag = table[currentProbe].getValue();
-//                table[currentProbe] = null;
-//                count--;
-//                reinsertAllInCluster(originalProbe , probeCount);
-//                break; // No need to continue outer loop.
-//            }
-//            currentProbe = (originalProbe + probeCount + (int)(Math.pow((probeCount++), 2))) % table.length;
-//        }
-//        return new Probes(flag, probeCount);
-//    }
-//    private void reinsertAllInCluster(int originalProbe, int probeCount){
-//        int currentProbe = (originalProbe + probeCount + (int)(Math.pow((probeCount++), 2))) % table.length;
-//        while(table[currentProbe] != null){
-//            KVPair toReinsert = table[currentProbe];
-//            table[currentProbe] = null;
-//            putHelper(toReinsert.getKey(), toReinsert.getValue());
-//            currentProbe = (originalProbe + probeCount + (int)(Math.pow((probeCount++), 2))) % table.length;
-//        }
-//    }
 
     @Override
     public boolean containsKey(String key) {
@@ -229,4 +221,36 @@ public class QuadraticProbingHashTable implements HashTable{
     public int capacity() {
         return  table.length;
     }
+
+//    @Override
+//    public void printTable() {
+//        System.out.println("***---***");
+//        for (int i = 0; i < table.length; i++) {
+//            if (table[i] == null)
+//                System.out.println(i + " NULL");
+//            else if (table[i].equals(DELETE))
+//                System.out.println(i + " TOMBSTONE");
+//            else
+//                System.out.println(i + " " + table[i].getKey());
+//        }
+//        System.out.println("***---***");
+//    }
+
+    @Override
+    public String toString() {
+        StringBuilder ret = new StringBuilder();
+        ret.append("***---***\n");
+        for (int i = 0; i < table.length; i++) {
+            if (table[i] == null)
+                ret.append(i + " NULL\n");
+            else if (table[i].equals(DELETE))
+                ret.append(i + " TOMBSTONE\n");
+            else
+                ret.append(i + " " + table[i].getKey() + "\n");
+        }
+        ret.append("***---***");
+        return ret.toString();
+    }
+
+
 }

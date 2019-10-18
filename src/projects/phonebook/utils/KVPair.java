@@ -1,11 +1,11 @@
-package projects.phonebook.java.utils;
+package projects.phonebook.utils;
 
 /**
  * <p>{@link KVPair} is a simple abstraction of a  &lt;{@link String}, {@link String}&lt; pair.</p>
  *
  * <p><b>Do ***NOT*** edit this class!</b></p>
  *
- * @author <a href = "https://github.com/JasonFil">jason.filippou@gmail.com</a>
+ * @author <a href = "mailto:jason.filippou@gmail.com">jason.filippou@gmail.com</a>
  *
  * @see KVPairList
  */

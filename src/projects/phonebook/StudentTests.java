@@ -1,16 +1,19 @@
-package projects.phonebook.java;
+package projects.phonebook;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import projects.phonebook.java.hashes.*;
-import projects.phonebook.java.utils.NoMorePrimesException;
+import projects.phonebook.hashes.*;
+import projects.phonebook.utils.NoMorePrimesException;
+import projects.phonebook.utils.Probes;
+//import sun.plugin.perf.PluginRollup;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import static org.junit.Assert.*;
-import static projects.phonebook.java.hashes.CollisionResolver.*;
+
+import static projects.phonebook.hashes.CollisionResolver.*;
 
 /**
  * <p> {@link StudentTests} is a place for you to write your tests for {@link Phonebook} and all the various
@@ -162,12 +165,15 @@ public class StudentTests {
         assertEquals(1, sc.put("Mary", "888-1212-3340").probes);
 
         assertEquals(2, sc.get("Arnold").probes);
+        assertEquals("894-59-0011", sc.get("Arnold").value);
         assertEquals(1, sc.get("Tiffany").probes);
         assertEquals(1, sc.get("Jessie").probes);
         assertEquals(1, sc.get("Mary").probes);
 
         // Search fail
         assertEquals(2, sc.get("Jerry").probes);
+        assertEquals(2, sc.remove("Jerry").probes);
+        assertEquals(null, sc.remove("Jerry").value);
 
         assertEquals(2, sc.remove("Arnold").probes);
         assertEquals(1, sc.remove("Tiffany").probes);
@@ -187,5 +193,53 @@ public class StudentTests {
         assertEquals(2, lp.put("Jessie", "705-12-7500").probes);
         assertEquals(1, lp.put("Mary", "888-1212-3340").probes);
 
+
+        assertEquals(1, lp.get("Arnold").probes);
+        assertEquals("894-59-0011", lp.get("Arnold").value);
+        assertEquals(1, lp.get("Tiffany").probes);
+        assertEquals(2, lp.get("Jessie").probes);
+        assertEquals(1, lp.get("Mary").probes);
+
+        // Search fail
+        assertEquals(2, lp.get("Jerry").probes);
+        assertEquals(2, lp.remove("Jerry").probes);
+        assertEquals(null, lp.remove("Jerry").value);
+
+        assertEquals(2, lp.remove("Jessie").probes);
+        assertEquals(1, lp.remove("Arnold").probes);
+        assertEquals(1, lp.remove("Tiffany").probes);
+        assertEquals(1, lp.remove("Mary").probes);
+
+
+
     }
+
+    @Test
+    public void testResizeSoftLProbes() {
+
+        LinearProbingHashTable lp = new LinearProbingHashTable(true);
+        String[] add1 = new String[]{"Tiffany", "Helen", "Alexander", "Paulette", "Jason", "Money", "Nakeesha", "Ray", "Jing", "Amg"};
+        String[] remove1 = new String[]{"Helen", "Alexander", "Paulette", "Jason", "Money", "Nakeesha", "Ray", "Jing", "Amg"};
+        String[] add2 = new String[]{"Christine", "Carl"};
+
+        for(String s: add1) {
+            lp.put(s, s);
+        }
+
+        for (String s: remove1) {
+            lp.remove(s);
+        }
+
+        for(String s: add2) {
+            lp.put(s, s);
+        }
+
+        assertEquals("After additions and deletions, and additions again, the capacity should be 23, but get " + lp.capacity() + ".", 23, lp.capacity());
+
+        lp.put("Terry", "new");
+        assertEquals("After additions and deletions, and additions again, resize should be triggered and the capacity should be shrink to 7, but get " + lp.capacity() + ".", 7, lp.capacity());
+
+    }
+
+
 }

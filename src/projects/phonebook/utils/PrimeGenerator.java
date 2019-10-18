@@ -1,6 +1,6 @@
-package projects.phonebook.java.utils;
+package projects.phonebook.utils;
 
-import projects.phonebook.java.hashes.HashTable;
+import projects.phonebook.hashes.HashTable;
 
 /**
  * <p>{@link PrimeGenerator} is a simple <b>immutable</b> class which stores and retrieves <b>prime numbers</b>. Since
@@ -131,8 +131,8 @@ public class PrimeGenerator {
 
     /**
      * Retrieves the prime number pointed to by internal storage. Without any calls to {@link #getNextPrime()} or {@link
-     * #getPreviousPrime()}, this method returns 13 (i.e, a new {@link PrimeGenerator} instance returns 13 through this method).
-     * @return The current prime number, 13 by default.
+     * #getPreviousPrime()}, this method returns 7 (i.e, a new {@link PrimeGenerator} instance returns 13 through this method).
+     * @return The current prime number, 7 by default.
      */
     public int getCurrPrime(){
 

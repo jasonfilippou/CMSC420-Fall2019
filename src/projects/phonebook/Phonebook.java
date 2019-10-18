@@ -1,8 +1,9 @@
-package projects.phonebook.java;
+package projects.phonebook;
 
-import projects.phonebook.java.hashes.*;
-import projects.phonebook.java.utils.Probes;
+import projects.phonebook.hashes.*;
+import projects.phonebook.utils.Probes;
 
+import java.util.ArrayList;
 
 /**
  * <p>{@link Phonebook} is an abstraction over phonebooks: databases of &lt; Full Name,
@@ -22,7 +23,7 @@ import projects.phonebook.java.utils.Probes;
  *
  * <p><b>**** STUDY, BUT DO NOT EDIT THIS CLASS' SOURCE CODE! </b></p>
  *
- * @author <a href="https://github.com/JasonFil">Jason Filippou</a>
+ * @author <a href="mailto:jason.filippou@gmail.com">Jason Filippou</a>
  * @see HashTable
  * @see SeparateChainingHashTable
  * @see LinearProbingHashTable

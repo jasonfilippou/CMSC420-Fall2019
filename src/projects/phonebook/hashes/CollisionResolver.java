@@ -1,4 +1,4 @@
-package projects.phonebook.java.hashes;
+package projects.phonebook.hashes;
 
 /**
  * <p>{@link CollisionResolver} is an enum which provides named constants for
@@ -16,7 +16,7 @@ package projects.phonebook.java.hashes;
  *
  * <p><b>**** DO NOT EDIT THIS ENUM! ****** </b></p>
  *
- * @author <a href="https://github.com/JasonFil">Jason Filippou</a>
+ * @author <a href="mailto:jason.filippou@gmail.com">Jason Filippou</a>
  *
  * @see HashTable
  * @see SeparateChainingHashTable

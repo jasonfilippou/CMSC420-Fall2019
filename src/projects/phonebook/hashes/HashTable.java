@@ -1,6 +1,7 @@
-package projects.phonebook.java.hashes;
+package projects.phonebook.hashes;
 
-import projects.phonebook.java.utils.Probes;
+import projects.phonebook.utils.KVPair;
+import projects.phonebook.utils.Probes;
 
 /**
  * <p>{@link HashTable} is an abstraction over hash tables which store {@link String} keys and map to 
@@ -10,9 +11,13 @@ import projects.phonebook.java.utils.Probes;
  *
  *  <p><b>**** DO NOT EDIT THIS INTERFACE'S DECLARATION! ****** </b></p>
  * *
- * @author <a href="https://github.com/JasonFil">Jason Filippou</a>
+ * @author <a href="mailto:jason.filippou@gmail.com">Jason Filippou</a>
  */
 public interface HashTable {
+
+
+
+    KVPair DELETE = new KVPair("", "");
 
     /**
      * Inserts the pair &lt;key, value&gt; into this. The container should <b>not</b> allow for null
@@ -24,8 +29,7 @@ public interface HashTable {
      * @param key The record's key.
      * @param value The record's value.
      * @throws IllegalArgumentException if either argument is null.
-     * @return A {@link Probes} instance which contains the value mapped by key if key is in the table,
-     *  or null otherwise, as well as the number of probes required by the search for key whether successful or unsuccessful.
+     * @return The {@link projects.phonebook.utils.Probes} with the value added and the number of probes it makes.
      */
     Probes put(String key, String value);
 
@@ -33,8 +37,8 @@ public interface HashTable {
      * Get the value associated with key in the {@link HashTable}. If key does not exist in the database
      * or if key = null, this method returns null. This method is expected to run in <em>amortized constant time</em>.
      * @param key The key to search for.
-     @return A {@link Probes} instance which contains the value mapped by key if key is in the table,
-     *  or null otherwise, as well as the number of probes required by the search for key whether successful or unsuccessful.
+     * @return The {@link projects.phonebook.utils.Probes} with associated value and the number of probe used. If the key is null, return value null
+     * and 0 as number of probes; if the key dones't exists in the database, return null and the number of probes used.
      */
     Probes get(String key);
 
@@ -42,8 +46,8 @@ public interface HashTable {
      * <b>Return</b> and <b>remove</b> the value associated with key in the {@link HashTable}. If key does not exist in the database
      * or if key = null, this method returns null. This method is expected to run in <em>amortized constant time</em>.
      * @param key The key to search for.
-     * @return A {@link Probes} instance which contains the value mapped by key if key is in the table,
-     *        or null otherwise, as well as the number of probes required by the search for key whether successful or unsuccessful.
+     * @return The {@link projects.phonebook.utils.Probes} with associated value and the number of probe used. If the key is null, return value null
+     * and 0 as number of probes; if the key dones't exists in the database, return null and the number of probes used.
      */
     Probes remove(String key);
 
@@ -78,4 +82,5 @@ public interface HashTable {
      * @return the number of cells in the table.
      */
     int capacity();
+
 }

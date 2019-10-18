@@ -1,6 +1,6 @@
-package projects.phonebook.java.hashes;
+package projects.phonebook.hashes;
 
-import projects.phonebook.java.utils.*;
+import projects.phonebook.utils.*;
 
 /**<p>{@link SeparateChainingHashTable} is a {@link HashTable} that implements <b>Separate Chaining</b>
  * as its collision resolution strategy, i.e the collision chains are implemented as actual
@@ -131,5 +131,26 @@ public class SeparateChainingHashTable implements HashTable{
                 put(kvpair.getKey(), kvpair.getValue());
             }
         }
+    }
+
+//    @Override
+//    public void printTable() {
+//        System.out.println("***---***");
+//        for (int i = 0; i < table.length; i++) {
+//            table[i].print();
+//        }
+//        System.out.println("***---***");
+//    }
+
+
+    @Override
+    public String toString() {
+        StringBuilder ret = new StringBuilder();
+        ret.append("***---***\n");
+        for (int i = 0; i < table.length; i++) {
+            ret.append(i + " " + table[i].toString());
+        }
+        ret.append("***---***");
+        return ret.toString();
     }
 }
