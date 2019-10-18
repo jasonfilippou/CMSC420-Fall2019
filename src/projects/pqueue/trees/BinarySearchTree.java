@@ -33,7 +33,7 @@ public interface BinarySearchTree<T extends Comparable<T>> extends Tree<T>{
 	 * Removes the specified element from the tree and returns it.
 	 * @param element The element to be removed.
 	 * @throws EmptyTreeException If the tree is empty.
-	 * @return the removed element or null if the element is not there.
+	 * @return the removed element or {@code null} if the element is not there.
 	 */
 	T delete(T element) throws EmptyTreeException;
 	

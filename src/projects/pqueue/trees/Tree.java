@@ -27,7 +27,7 @@ public interface Tree<T> extends Iterable<T> {
     /**
      * Queries the tree for emptiness.
      *
-     * @return {@code true} if the tree contains no elements, false otherwise.
+     * @return {@code true} if the tree contains no elements, {@code false} otherwise.
      */
     boolean isEmpty();
 
@@ -43,7 +43,7 @@ public interface Tree<T> extends Iterable<T> {
      * Find the element in the tree. Throws an exception if it doesn't find it.
      *
      * @param element The element to be found
-     * @return A reference to the element in the tree and null if it's not there.
+     * @return A reference to the element in the tree and {@code null} if it's not there.
      * @throws EmptyTreeException if the tree is empty.
      */
     T find(T element) throws EmptyTreeException;

@@ -266,7 +266,7 @@ public class DoublyLinkedList<T> extends LinkedList<T>{
 			else{
 				head.previous.next = head.next;
 				head.next.previous = head.previous;
-				head = head.next; // Could be null, signifying that only one element was contained in the list.			
+				head = head.next; // Could be {@code null}, signifying that only one element was contained in the list.
 			}
 			size--;
 			return;

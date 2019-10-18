@@ -100,7 +100,7 @@ public class AVLGTree<T extends Comparable<T>> {
 
     /**
      * Query the tree for emptiness. A tree is empty iff it has zero keys stored.
-     * @return {@code true} if the tree is empty, false otherwise.
+     * @return {@code true} if the tree is empty, {@code false} otherwise.
      */
     public boolean isEmpty() {
         throw new UnimplementedMethodException();       // ERASE THIS LINE AFTER YOU IMPLEMENT THIS METHOD!
@@ -120,7 +120,7 @@ public class AVLGTree<T extends Comparable<T>> {
      * <p>Establishes whether the AVL-G tree <em>globally</em> satisfies the BST condition. This method is
      * <b>terrifically useful for testing!</b></p>
      * @return {@code true} if the tree satisfies the Binary Search Tree property,
-     * false otherwise.
+     * {@code false} otherwise.
      */
     public boolean isBST() {
         throw new UnimplementedMethodException();       // ERASE THIS LINE AFTER YOU IMPLEMENT THIS METHOD!
@@ -130,7 +130,7 @@ public class AVLGTree<T extends Comparable<T>> {
     /**
      * <p>Establishes whether the AVL-G tree <em>globally</em> satisfies the AVL-G condition. This method is
      * <b>terrifically useful for testing!</b></p>
-     * @return {@code true} if the tree satisfies the balance requirements of an AVLG tree, false
+     * @return {@code true} if the tree satisfies the balance requirements of an AVLG tree, {@code false}
      * otherwise.
      */
     public boolean isAVLGBalanced() {

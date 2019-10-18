@@ -11,7 +11,7 @@ import java.util.Iterator;
  * It is by far the most commonly encountered binary tree implementation. Compared to
  * an array-based implementation, there is always memory waste (even in the case of a perfect binary tree,
  * since the leaf level still has <i>2&#94;(h+1)</i> (where <i>h</i> is the tree's height) pointers
- * to null.</p>
+ * to {@code null}.</p>
  *
  * <p>You should <b>not</b> edit this class! It is given to you as a resource for your project.</p>
  *
@@ -267,7 +267,7 @@ public class LinkedBinarySearchTree<T extends Comparable<T>>  implements BinaryS
 			T retVal = null;
 			if(data.compareTo(element) == 0)
 				retVal = data;
-			else // Check recursively over elements. Could be null, eventually.
+			else // Check recursively over elements. Could be {@code null}, eventually.
 				if(element.compareTo(data) < 0 && left != null)
 					retVal=left.find(element);
 				else if(element.compareTo(data) > 0 && right != null)
@@ -304,15 +304,15 @@ public class LinkedBinarySearchTree<T extends Comparable<T>>  implements BinaryS
 			LinkedBSTNode retVal = this;
 			if(element.compareTo(data) == 0){// Current nodes should be removed
 
-				// Case #1: LinkedBSTNode is a leaf: return null.
+				// Case #1: LinkedBSTNode is a leaf: return {@code null}.
 				if(left == null && right == null)
 					retVal = null;
 
-				// Case #2: LinkedBSTNode is a pre-leaf with left child null: return the right child.
+				// Case #2: LinkedBSTNode is a pre-leaf with left child {@code null}: return the right child.
 				else if(left == null && right != null)
 					retVal = right;
 
-				// Case #3: LinkedBSTNode is a pre-leaf with right child null: return the left child.
+				// Case #3: LinkedBSTNode is a pre-leaf with right child {@code null}: return the left child.
 				else if(left != null && right == null)
 					retVal = left;
 
@@ -325,7 +325,7 @@ public class LinkedBinarySearchTree<T extends Comparable<T>>  implements BinaryS
 					retVal.right = right;
 				}
 			} else if(element.compareTo(data) < 0){// Element on the left sub-tree
-				if(left != null) // if left is null, then the element is simply not in the tree.
+				if(left != null) // if left is {@code null}, then the element is simply not in the tree.
 					left = left.remove(element);
 			} else{ // Element on the right sub-tree
 				if(right != null) // same

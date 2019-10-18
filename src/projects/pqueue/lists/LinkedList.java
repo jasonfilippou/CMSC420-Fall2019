@@ -28,7 +28,7 @@ public class LinkedList<T> implements List<T> {
 	// them will make querying for the size more efficient.
 	protected int size; 
 
-	/** Constructor only initializes the head nodes reference to null.*/
+	/** Constructor only initializes the head nodes reference to {@code null}.*/
 	public LinkedList(){
 		head = null; 
 		size = 0;
@@ -205,7 +205,7 @@ public class LinkedList<T> implements List<T> {
 			throw new IllegalListAccessException("delete(int): Index " + index + " is not a valid list index.");
 		// Special case of removing the getFirst element of the list:
 		if(index == 0){
-			head = head.next; // Could be null, signifying that only one element was contained in the list.			
+			head = head.next; // Could be {@code null}, signifying that only one element was contained in the list.
 			size--;
 			modificationFlag = true;
 			return;
@@ -240,7 +240,7 @@ public class LinkedList<T> implements List<T> {
 	@Override
 	public void clear() {
 		// Because the list is singly linked, there are no cyclic references. Therefore,
-		// setting the head reference to null will cause all of the other references to be
+		// setting the head reference to {@code null} will cause all of the other references to be
 		// detected by the garbage collector as disposable.
 		head = null;
 		System.gc(); // *Hint* to the JVM that it should run garbage collection.

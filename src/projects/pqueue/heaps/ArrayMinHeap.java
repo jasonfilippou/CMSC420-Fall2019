@@ -11,7 +11,7 @@ import java.util.Iterator;
 /**
  * <p>{@link ArrayMinHeap} is a {@link MinHeap} implemented using an internal array. Since heaps are <b>complete</b>
  * binary trees, using contiguous storage to store them is an excellent idea, since with such storage we avoid
- * wasting bytes per null pointer in a linked implementation.</p>
+ * wasting bytes per {@code null} pointer in a linked implementation.</p>
  *
  * <p>You <b>must</b> edit this class! To receive <b>any</b> credit for the unit tests related to this class,
  * your implementation <b>must</b> be a <b>contiguous storage</b> implementation based on a linear {@link java.util.Collection}

@@ -121,7 +121,7 @@ public class KVPairList implements Iterable<KVPair>{
      * Removes the <b>first</b> entry with key key from the list. If key does not exist in the list,
      * this method has <b>no effect</b>.
      * @param key The &quot; key &quot; {@link String} to match with entries.
-     * @return The probe object. Contain null if it is an unsuccessful remove,
+     * @return The probe object. Contain {@code null} if it is an unsuccessful remove,
      *          otherwise contain the value associated with the key
      */
     public Probes removeByKey(String key){
@@ -159,7 +159,7 @@ public class KVPairList implements Iterable<KVPair>{
      * Removes the <b>first</b> entry with value value from the list. If value does not exist in the list,
      * this method has <b>no effect</b>.
      * @param value The &quot; value &quot; {@link String} to match with entries.
-     * @return The probe object. Contain null if it is an unsuccessful remove,
+     * @return The probe object. Contain {@code null} if it is an unsuccessful remove,
      *          otherwise contain the value.
      */
     public Probes removeByValue(String value){
@@ -227,8 +227,8 @@ public class KVPairList implements Iterable<KVPair>{
      * more than one occurrences of &lt; key, value &gt; in the list: this method searches for <b>at least one</b>.
      * @param key The key {@link String} in the pair.
      * @param value The value {@link String} in the pair.
-     * @return true if, and only if, the pair &lt; key, value &gt; exists at least once in the {@link KVPairList},
-     *              false otherwise.
+     * @return {@code true} if, and only if, the pair &lt; key, value &gt; exists at least once in the {@link KVPairList},
+     *              {@code false} otherwise.
      */
     public boolean containsKVPair(String key, String value){
         Node current = head;
@@ -245,8 +245,8 @@ public class KVPairList implements Iterable<KVPair>{
      * and reports if it found it. There might be   more than one occurrences of &lt; key, value &gt; in the list: this method
      * searches for <b>at least one</b>.
      * @param key The &quot;key&quot;{@link String} in the pair.
-     * @return true if, and only if, the pair &lt; key, value &gt; exists at least once in the {@link KVPairList},
-     *              false otherwise.
+     * @return {@code true} if, and only if, the pair &lt; key, value &gt; exists at least once in the {@link KVPairList},
+     *              {@code false} otherwise.
      */
     public boolean containsKey(String key){
         Node current = head;
@@ -263,8 +263,8 @@ public class KVPairList implements Iterable<KVPair>{
      * and reports if it found it. There might be   more than one occurrences of &lt; key, value &gt; in the list: this method
      * searches for <b>at least one</b>.
      * @param value The &quot; value &quot; {@link String} in the pair.
-     * @return true if, and only if, the pair &lt; key, value &gt; exists at least once in the {@link KVPairList},
-     *              false otherwise.
+     * @return {@code true} if, and only if, the pair &lt; key, value &gt; exists at least once in the {@link KVPairList},
+     *              {@code false} otherwise.
      */
     public boolean containsValue(String value){
         Node current = head;
@@ -279,7 +279,7 @@ public class KVPairList implements Iterable<KVPair>{
     /**
      * Simple getter for values based on keys.
      * @param key the &quot;value&quot; {@link String} to search for.
-     * @return The probe object containing &quot;value&quot; {@link String} or null if key could not be found in this.
+     * @return The probe object containing &quot;value&quot; {@link String} or {@code null} if key could not be found in this.
      */
     public Probes getValue(String key){
         Node current = head;
@@ -297,7 +297,7 @@ public class KVPairList implements Iterable<KVPair>{
     /**
      * Simple getter for keys based on values.
      * @param value the value {@link String} to search for.
-     * @return The probe obkect containing &quot; key &quot; {@link String} or null if value could not be found in this.
+     * @return The probe obkect containing &quot; key &quot; {@link String} or {@code null} if value could not be found in this.
      */
     public Probes getKey(String value){
         Node current = head;
@@ -323,7 +323,7 @@ public class KVPairList implements Iterable<KVPair>{
 
     /**
      * Queries the {@link KVPairList} for emptiness.
-     * @return true if, and only if, the {@link KVPairList} has a {@link #size()} of 0 (zero), false otherwise.
+     * @return {@code true} if, and only if, the {@link KVPairList} has a {@link #size()} of 0 (zero), {@code false} otherwise.
      */
     public boolean isEmpty(){
         return size() == 0;

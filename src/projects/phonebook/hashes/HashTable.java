@@ -1,6 +1,5 @@
 package projects.phonebook.hashes;
 
-import projects.phonebook.utils.KVPair;
 import projects.phonebook.utils.Probes;
 
 /**
@@ -12,49 +11,51 @@ import projects.phonebook.utils.Probes;
  *  <p><b>**** DO NOT EDIT THIS INTERFACE'S DECLARATION! ****** </b></p>
  * *
  * @author <a href="mailto:jason.filippou@gmail.com">Jason Filippou</a>
+ *
+ * @see OpenlyAddressedHashTable
+ * @see SeparateChainingHashTable
+ * @see LinearProbingHashTable
+ * @see OrderedLinearProbingHashTable
+ * @see QuadraticProbingHashTable
  */
 public interface HashTable {
 
-
-
-    KVPair DELETE = new KVPair("", "");
-
     /**
-     * Inserts the pair &lt;key, value&gt; into this. The container should <b>not</b> allow for null
+     * Inserts the pair &lt;key, value&gt; into this. The container should <b>not</b> allow for {@code null}
      * keys and values, and we <b>will</b> test if you are throwing a {@link IllegalArgumentException} from your code
-     * if this method is given null arguments! It is important that we establish that no null entries
+     * if this method is given {@code null} arguments! It is important that we establish that no {@code null} entries
      * can exist in our database because the semantics of {@link #get(String)} and {@link #remove(String)} are that they
-     * return null if, and only if, their key parameter is null. This method is expected to run in <em>amortized
+     * return {@code null} if, and only if, their key parameter is {@code null}. This method is expected to run in <em>amortized
      * constant time</em>.
      * @param key The record's key.
      * @param value The record's value.
-     * @throws IllegalArgumentException if either argument is null.
+     * @throws IllegalArgumentException if either argument is {@code null}.
      * @return The {@link projects.phonebook.utils.Probes} with the value added and the number of probes it makes.
      */
     Probes put(String key, String value);
 
     /**
      * Get the value associated with key in the {@link HashTable}. If key does not exist in the database
-     * or if key = null, this method returns null. This method is expected to run in <em>amortized constant time</em>.
+     * or if key = {@code null}, this method returns {@code null}. This method is expected to run in <em>amortized constant time</em>.
      * @param key The key to search for.
-     * @return The {@link projects.phonebook.utils.Probes} with associated value and the number of probe used. If the key is null, return value null
-     * and 0 as number of probes; if the key dones't exists in the database, return null and the number of probes used.
+     * @return The {@link projects.phonebook.utils.Probes} with associated value and the number of probe used. If the key is {@code null}, return value {@code null}
+     * and 0 as number of probes; if the key dones't exists in the database, return {@code null} and the number of probes used.
      */
     Probes get(String key);
 
     /**
      * <b>Return</b> and <b>remove</b> the value associated with key in the {@link HashTable}. If key does not exist in the database
-     * or if key = null, this method returns null. This method is expected to run in <em>amortized constant time</em>.
+     * or if key = {@code null}, this method returns {@code null}. This method is expected to run in <em>amortized constant time</em>.
      * @param key The key to search for.
-     * @return The {@link projects.phonebook.utils.Probes} with associated value and the number of probe used. If the key is null, return value null
-     * and 0 as number of probes; if the key dones't exists in the database, return null and the number of probes used.
+     * @return The {@link projects.phonebook.utils.Probes} with associated value and the number of probe used. If the key is {@code null}, return value {@code null}
+     * and 0 as number of probes; if the key dones't exists in the database, return {@code null} and the number of probes used.
      */
     Probes remove(String key);
 
     /**
      * Queries the {@link HashTable} about the existence of the key key in its internal storage. This method is expected to run in <em>amortized constant time</em>.
      * @param key The key to search for.
-     * @return true if key is the key of some record in our hash table, false otherwise.
+     * @return {@code true} if key is the key of some record in our hash table, {@code false} otherwise.
      */
     boolean containsKey(String key);
 
@@ -63,7 +64,7 @@ public interface HashTable {
      * containsValue() is expected to be an <b>inefficient</b> operation. This is to be expected, since this {@link HashTable} hashes \
      * keys, not values.
      * @param value The value to search for.
-     * @return true if key is the key of some record in our hash table, false otherwise.
+     * @return {@code true} if key is the key of some record in our hash table, {@code false} otherwise.
      */
     boolean containsValue(String value);
 
@@ -82,5 +83,4 @@ public interface HashTable {
      * @return the number of cells in the table.
      */
     int capacity();
-
 }

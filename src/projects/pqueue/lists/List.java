@@ -68,7 +68,7 @@ public interface List<T> extends Iterable<T>{
 	/**
 	 * Removes <b>one</b> instance of element from the list.
 	 * @param element the element to be removed.
-	 * @return {@code true} if the element was removed, false otherwise.
+	 * @return {@code true} if the element was removed, {@code false} otherwise.
 	 */
 	public boolean delete(T element);
 	
@@ -81,7 +81,7 @@ public interface List<T> extends Iterable<T>{
 	/**
 	 * Removes <b>all</b> instances of element from the list.
 	 * @param element The element to be removed.
-	 * @return {@code true} if the element was removed at least once, false otherwise.
+	 * @return {@code true} if the element was removed at least once, {@code false} otherwise.
 	 */
 	public boolean deleteAll(T element);
 	
@@ -99,7 +99,7 @@ public interface List<T> extends Iterable<T>{
 	
 	/**
 	 * Queries the list for emptiness.
-	 * @return {@code true} if the list is empty, false otherwise.
+	 * @return {@code true} if the list is empty, {@code false} otherwise.
 	 */
 	public boolean isEmpty();
 	

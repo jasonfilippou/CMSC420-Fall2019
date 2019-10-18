@@ -3,13 +3,11 @@ package projects.phonebook;
 import projects.phonebook.hashes.*;
 import projects.phonebook.utils.Probes;
 
-import java.util.ArrayList;
-
 /**
  * <p>{@link Phonebook} is an abstraction over phonebooks: databases of &lt; Full Name,
  * Phone Number&gt; pairs. It allows for <b>both</b> phone <b>and</b> name search, both in
  * <em>amortized constant</em> time. The efficiency of either search will be dependent on
- * the nature of the underlying hash table. No null entries are allowed. </p>
+ * the nature of the underlying hash table. No {@code null} entries are allowed. </p>
  *
  * <p>{@link Phonebook} only allows for <b>unique</b> Person / Phone pairs. That is, every person will have
  * <b>exactly one</b> phone number associated with them, and every phone number will be associated with
@@ -55,13 +53,13 @@ public class Phonebook {
                 namesToNumbers = new LinearProbingHashTable();
                 break;
             case ORDERED_LINEAR_PROBING:
-                namesToNumbers = new OrderLinearProbingHashTable();
+                namesToNumbers = new OrderedLinearProbingHashTable();
                 break;
             case QUADRATIC_PROBING:
                 namesToNumbers = new QuadraticProbingHashTable();
                 break;
             default:
-                throw new RuntimeException("Encountered unsupported Collision Resolver " + namesToNumbersHash  + "." );
+                throw new RuntimeException("Encountered unsupported CollisionResolver argument: " + namesToNumbersHash  + "." );
         }
 
         switch(numbersToNamesHash){
@@ -72,7 +70,7 @@ public class Phonebook {
                 numbersToNames = new LinearProbingHashTable();
                 break;
             case ORDERED_LINEAR_PROBING:
-                numbersToNames = new OrderLinearProbingHashTable();
+                numbersToNames = new OrderedLinearProbingHashTable();
                 break;
             case QUADRATIC_PROBING:
                 numbersToNames = new QuadraticProbingHashTable();
@@ -83,9 +81,9 @@ public class Phonebook {
     }
 
     /** Retrieves the phone number associated with the provided full name. If the name is not in the database,
-     * this method returns null.
+     * this method returns {@code null}.
      * @param name The full name of the owner of the phone number that is being searched for.
-     * @return The phone number associated with name, or null if name is null or if name
+     * @return The phone number associated with name, or {@code null} if name is {@code null} or if name
      * is not in the {@link Phonebook}.
      */
     public String getNumberOf(String name) {
@@ -93,9 +91,9 @@ public class Phonebook {
     }
 
     /** Retrieves the full name of the owner of the provided phone number. If the phone number is not in the database,
-     * this method returns null.
+     * this method returns {@code null}.
      * @param number The phone number whose owner is being searched for.
-     * @return The full name of the owner of number, or null if number is null or if number
+     * @return The full name of the owner of number, or {@code null} if number is {@code null} or if number
      * is not in the {@link Phonebook}.
      */
     public String getOwnerOf(String number) {
@@ -106,31 +104,26 @@ public class Phonebook {
      * number are already in the collection, then the entire entry is <b>updated</b>.
      * @param name The full name of the number's owner.
      * @param number The phone number of the person.
-     * @throws IllegalArgumentException if either name or number is null.
+     * @throws IllegalArgumentException if either name or number is {@code null}.
      */
     public void addEntry(String name, String number) {
         if(name == null || number == null)
             throw new IllegalArgumentException("Provided: name=" + name + " and number= " + number);
-        Probes[] p = new Probes[2];
-
-        p[0] = namesToNumbers.put(name, number);
-        p[1] = numbersToNames.put(number, name);
-//        return p;
+        namesToNumbers.put(name, number);
+        numbersToNames.put(number, name);
     }
 
-    /** Deletes the entry characterized by the arguments provided. If either argument is null, or if the
+    /** Deletes the entry characterized by the arguments provided. If either argument is {@code null}, or if the
      * entry is <b>not</b> contained by this {@link Phonebook} instance, this method has <b>no effect</b>.
      * @param name The &quot;owner&quot; part of the &lt; owner, phone number &gt; tuple.
      * @param number The &quot;number&quot; part of the &lt; owner, phone number &gt; tuple.
+     * @throws IllegalArgumentException if either name or number is {@code null}.
      */
     public void deleteEntry(String name, String number) {
-//        if(number == null || name == null)
-//            throw new IllegalArgumentException("Provided: name=" + name + " and number= " + number);
-        Probes[] p = new Probes[2];
-
-        p[0] = namesToNumbers.remove(name);
-        p[1] = numbersToNames.remove(number);
-//        return p;
+        if(number == null || name == null)
+            throw new IllegalArgumentException("Provided: name=" + name + " and number= " + number);
+        namesToNumbers.remove(name);
+        numbersToNames.remove(number);
     }
 
     /** Returns the number of entries in the phonebook.
@@ -145,7 +138,7 @@ public class Phonebook {
     }
 
     /** Queries the phonebook for emptiness.
-     * @return true if, and only if, there are 0 entries in this {@link Phonebook}, false otherwise.
+     * @return {@code true} if, and only if, there are 0 entries in this {@link Phonebook}, {@code false} otherwise.
      */
     public boolean isEmpty() {
         return size() == 0;

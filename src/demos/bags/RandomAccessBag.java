@@ -67,7 +67,7 @@ public class RandomAccessBag<Item> implements Bag<Item>{
     /**
      * Returns {@code true} if there are no elements in the bag.
      *
-     * @return {@code true} if and only if the Bag is empty, False otherwise.
+     * @return {@code true} if and only if the Bag is empty, {@code false} otherwise.
      *
      */
     @Override

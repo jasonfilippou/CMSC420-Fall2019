@@ -153,7 +153,7 @@ public class CircularArrayFIFOQueue<T> implements FIFOQueue<T> {
 					data[data.length - 1] = data[i]; // Cover wrap around case.,,
 				else
 					data[i - 1] = data[i]; 
-			//data[(current + 1) % data.length] = null;
+			//data[(current + 1) % data.length] = {@code null};
 			rear = (rear == 0) ? data.length - 1 : rear - 1;
 			current = (current == 0) ? data.length - 1 : current - 1; 
 			count--;

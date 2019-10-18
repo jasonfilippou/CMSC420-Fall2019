@@ -1,5 +1,6 @@
 package projects.phonebook.hashes;
 
+import projects.UnimplementedMethodException;
 import projects.phonebook.utils.*;
 
 /**<p>{@link SeparateChainingHashTable} is a {@link HashTable} that implements <b>Separate Chaining</b>
@@ -18,80 +19,65 @@ import projects.phonebook.utils.*;
  */
 public class SeparateChainingHashTable implements HashTable{
 
+    /* ****************************************************************** */
+    /* ***** PRIVATE FIELDS / METHODS PROVIDED TO YOU: DO NOT EDIT! ***** */
+    /* ****************************************************************** */
 
-    /* *******************************************************************/
-    /* ***** PRIVATE FIELDS / METHODS PROVIDED TO YOU: DO NOT EDIT! ******/
-    /* ****************************************************** ***********/
-
-    private static final RuntimeException UNIMPL_METHOD = new RuntimeException("Implement this method!");
     private KVPairList[] table;
     private int count;
     private PrimeGenerator primeGenerator;
 
+    // We mask the top bit of the default hashCode() to filter away negative values.
+    // Have to copy over the implementation from OpenlyAddressedHashTable; no biggie.
     private int hash(String key){
         return (key.hashCode() & 0x7fffffff) % table.length;
     }
 
-    /* ******************/
-    /*  PUBLIC METHODS: */
-    /* ******************/
+    /* **************************************** */
+    /*  IMPLEMENT THE FOLLOWING PUBLIC METHODS:  */
+    /* **************************************** */
     /**
      *  Default constructor. Initializes the internal storage with a size equal to the default of {@link PrimeGenerator}.
      */
     public SeparateChainingHashTable(){
-        primeGenerator = new PrimeGenerator();
-        table = new KVPairList[primeGenerator.getCurrPrime()];
-        for(int i = 0; i < table.length; i++){
-            table[i] = new KVPairList();
-        }
-        count = 0;
+        throw new UnimplementedMethodException(); // ERASE THIS LINE AFTER IMPLEMENTING THIS METHOD!
     }
 
     @Override
     public Probes put(String key, String value) {
-        table[hash(key)].addFront(key, value); // For efficient insertions, just drop at front. We have unordered lists.
-        count++;
-        return new Probes(value, 1);
+        throw new UnimplementedMethodException(); // ERASE THIS LINE AFTER IMPLEMENTING THIS METHOD!
     }
 
     @Override
     public Probes get(String key) {
-        return table[hash(key)].getValue(key);
+        throw new UnimplementedMethodException(); // ERASE THIS LINE AFTER IMPLEMENTING THIS METHOD!
     }
 
     @Override
     public Probes remove(String key) {
-        KVPairList targetList = table[hash(key)];
-        Probes temp = targetList.removeByKey(key);
-        if (temp.getValue() != null)
-            count--;
-        return temp;
+        throw new UnimplementedMethodException(); // ERASE THIS LINE AFTER IMPLEMENTING THIS METHOD!
     }
 
     @Override
     public boolean containsKey(String key) {
-        return table[hash(key)].containsKey(key);
+        throw new UnimplementedMethodException(); // ERASE THIS LINE AFTER IMPLEMENTING THIS METHOD!
     }
 
     @Override
     public boolean containsValue(String value) {
-        for(int i = 0; i < table.length; i++){ // hash function can't help us here!
-            if(table[i] != null && table[i].containsValue(value)){
-                return true;
-            }
-        }
-        return false;
+        throw new UnimplementedMethodException(); // ERASE THIS LINE AFTER IMPLEMENTING THIS METHOD!
     }
 
     @Override
     public int size() {
-        return count;
+        throw new UnimplementedMethodException(); // ERASE THIS LINE AFTER IMPLEMENTING THIS METHOD!
     }
 
     @Override
     public int capacity() {
         return table.length; // Or the value of the current prime.
     }
+
     /**
      * Enlarges this hash table. At the very minimum, this method should increase the <b>capacity</b> of the hash table and ensure
      * that the new size is prime. The class {@link PrimeGenerator} implements the enlargement heuristic that
@@ -99,12 +85,7 @@ public class SeparateChainingHashTable implements HashTable{
      * @see PrimeGenerator#getNextPrime()
      */
     public void enlarge() {
-        int newSize = primeGenerator.getNextPrime();
-        KVPairList[] newTable = new KVPairList[newSize], oldTable = table;
-        for(int i = 0; i < newTable.length; i++)
-            newTable[i] = new KVPairList();
-        table = newTable;
-        reinsertAll(oldTable);
+        throw new UnimplementedMethodException(); // ERASE THIS LINE AFTER IMPLEMENTING THIS METHOD!
     }
 
     /**
@@ -115,42 +96,11 @@ public class SeparateChainingHashTable implements HashTable{
      * @see PrimeGenerator#getPreviousPrime()
      */
     public void shrink(){
-        int newSize = primeGenerator.getPreviousPrime();
-        KVPairList[] newTable = new KVPairList[newSize], oldTable = table;
-        for(int i = 0; i < newTable.length; i++)
-            newTable[i] = new KVPairList();
-        table = newTable;
-        reinsertAll(oldTable);
+        throw new UnimplementedMethodException(); // ERASE THIS LINE AFTER IMPLEMENTING THIS METHOD!
     }
-
-
-    private void reinsertAll(KVPairList[] oldTable){
-        for(KVPairList kvpairlist : oldTable) {
-            for (KVPair kvpair : kvpairlist) {
-                count--; // To counter-act the fact that put() will increase it.
-                put(kvpair.getKey(), kvpair.getValue());
-            }
-        }
-    }
-
-//    @Override
-//    public void printTable() {
-//        System.out.println("***---***");
-//        for (int i = 0; i < table.length; i++) {
-//            table[i].print();
-//        }
-//        System.out.println("***---***");
-//    }
-
 
     @Override
     public String toString() {
-        StringBuilder ret = new StringBuilder();
-        ret.append("***---***\n");
-        for (int i = 0; i < table.length; i++) {
-            ret.append(i + " " + table[i].toString());
-        }
-        ret.append("***---***");
-        return ret.toString();
+        throw new UnimplementedMethodException(); // ERASE THIS LINE AFTER IMPLEMENTING THIS METHOD!
     }
 }

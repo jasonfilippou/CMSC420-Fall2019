@@ -45,7 +45,7 @@ public class StaticArrayList<T> implements List<T> {
 		T[] newStore = (T[])(new Object[newCapacity]);
 		for(int i = 0; i < data.length; i++)
 			newStore[i] = data[i];
-		// Nullify the rest of the elements
+		// {@code null}ify the rest of the elements
 		for(int i = data.length; i < newCapacity; i++)
 			newStore[i] = null;
 		data = newStore;
@@ -56,7 +56,7 @@ public class StaticArrayList<T> implements List<T> {
 	 * Constructor. Initializes the list with a default capacity.
 	 */
 	public StaticArrayList(){
-		data = (T[])(new Object[INIT_CAPACITY]); // References are nullified when declaring new arrays.
+		data = (T[])(new Object[INIT_CAPACITY]); // References are {@code null}ified when declaring new arrays.
 		lastIndex = -1;
 		modificationFlag = false;
 	}
