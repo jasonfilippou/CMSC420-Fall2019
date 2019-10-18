@@ -98,9 +98,4 @@ public class SeparateChainingHashTable implements HashTable{
     public void shrink(){
         throw new UnimplementedMethodException(); // ERASE THIS LINE AFTER IMPLEMENTING THIS METHOD!
     }
-
-    @Override
-    public String toString() {
-        throw new UnimplementedMethodException(); // ERASE THIS LINE AFTER IMPLEMENTING THIS METHOD!
-    }
 }
