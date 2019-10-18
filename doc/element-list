@@ -8,6 +8,9 @@ homeworks.hw1
 projects
 projects.avlg
 projects.avlg.exceptions
+projects.phonebook
+projects.phonebook.hashes
+projects.phonebook.utils
 projects.pqueue
 projects.pqueue.exceptions
 projects.pqueue.fifoqueues
