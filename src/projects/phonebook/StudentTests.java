@@ -159,26 +159,26 @@ public class StudentTests {
     public void testSCProbes() {
         SeparateChainingHashTable sc = new SeparateChainingHashTable();
 
-        assertEquals(1, sc.put("Arnold", "894-59-0011").probes);
-        assertEquals(1, sc.put("Tiffany", "894-59-0011").probes);
-        assertEquals(1, sc.put("Jessie", "705-12-7500").probes);
-        assertEquals(1, sc.put("Mary", "888-1212-3340").probes);
+        assertEquals(1, sc.put("Arnold", "894-59-0011").getProbes());
+        assertEquals(1, sc.put("Tiffany", "894-59-0011").getProbes());
+        assertEquals(1, sc.put("Jessie", "705-12-7500").getProbes());
+        assertEquals(1, sc.put("Mary", "888-1212-3340").getProbes());
 
-        assertEquals(2, sc.get("Arnold").probes);
-        assertEquals("894-59-0011", sc.get("Arnold").value);
-        assertEquals(1, sc.get("Tiffany").probes);
-        assertEquals(1, sc.get("Jessie").probes);
-        assertEquals(1, sc.get("Mary").probes);
+        assertEquals(2, sc.get("Arnold").getProbes());
+        assertEquals("894-59-0011", sc.get("Arnold").getValue());
+        assertEquals(1, sc.get("Tiffany").getProbes());
+        assertEquals(1, sc.get("Jessie").getProbes());
+        assertEquals(1, sc.get("Mary").getProbes());
 
         // Search fail
-        assertEquals(2, sc.get("Jerry").probes);
-        assertEquals(2, sc.remove("Jerry").probes);
-        assertEquals(null, sc.remove("Jerry").value);
+        assertEquals(2, sc.get("Jerry").getProbes());
+        assertEquals(2, sc.remove("Jerry").getProbes());
+        assertNull(sc.remove("Jerry").getValue());
 
-        assertEquals(2, sc.remove("Arnold").probes);
-        assertEquals(1, sc.remove("Tiffany").probes);
-        assertEquals(1, sc.remove("Jessie").probes);
-        assertEquals(1, sc.remove("Mary").probes);
+        assertEquals(2, sc.remove("Arnold").getProbes());
+        assertEquals(1, sc.remove("Tiffany").getProbes());
+        assertEquals(1, sc.remove("Jessie").getProbes());
+        assertEquals(1, sc.remove("Mary").getProbes());
 
     }
 
@@ -188,27 +188,27 @@ public class StudentTests {
 
         LinearProbingHashTable lp = new LinearProbingHashTable();
 
-        assertEquals(1, lp.put("Arnold", "894-59-0011").probes);
-        assertEquals(1, lp.put("Tiffany", "894-59-0011").probes);
-        assertEquals(2, lp.put("Jessie", "705-12-7500").probes);
-        assertEquals(1, lp.put("Mary", "888-1212-3340").probes);
+        assertEquals(1, lp.put("Arnold", "894-59-0011").getProbes());
+        assertEquals(1, lp.put("Tiffany", "894-59-0011").getProbes());
+        assertEquals(2, lp.put("Jessie", "705-12-7500").getProbes());
+        assertEquals(1, lp.put("Mary", "888-1212-3340").getProbes());
 
 
-        assertEquals(1, lp.get("Arnold").probes);
-        assertEquals("894-59-0011", lp.get("Arnold").value);
-        assertEquals(1, lp.get("Tiffany").probes);
-        assertEquals(2, lp.get("Jessie").probes);
-        assertEquals(1, lp.get("Mary").probes);
+        assertEquals(1, lp.get("Arnold").getProbes());
+        assertEquals("894-59-0011", lp.get("Arnold").getValue());
+        assertEquals(1, lp.get("Tiffany").getProbes());
+        assertEquals(2, lp.get("Jessie").getProbes());
+        assertEquals(1, lp.get("Mary").getProbes());
 
         // Search fail
-        assertEquals(2, lp.get("Jerry").probes);
-        assertEquals(2, lp.remove("Jerry").probes);
-        assertEquals(null, lp.remove("Jerry").value);
+        assertEquals(2, lp.get("Jerry").getProbes());
+        assertEquals(2, lp.remove("Jerry").getProbes());
+        assertEquals(null, lp.remove("Jerry").getValue());
 
-        assertEquals(2, lp.remove("Jessie").probes);
-        assertEquals(1, lp.remove("Arnold").probes);
-        assertEquals(1, lp.remove("Tiffany").probes);
-        assertEquals(1, lp.remove("Mary").probes);
+        assertEquals(2, lp.remove("Jessie").getProbes());
+        assertEquals(1, lp.remove("Arnold").getProbes());
+        assertEquals(1, lp.remove("Tiffany").getProbes());
+        assertEquals(1, lp.remove("Mary").getProbes());
 
 
 

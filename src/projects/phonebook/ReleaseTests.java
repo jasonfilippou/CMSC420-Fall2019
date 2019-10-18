@@ -356,7 +356,7 @@ public class ReleaseTests {
         int count = 0;
         for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
             Probes temp = sc.put(entry.getKey(), entry.getValue());
-            assertEquals("Unexpected number of probes in Seperate chaining", (int)probesNameIn.get(SEPARATE_CHAINING)[count], temp.probes);
+            assertEquals("Unexpected number of probes in Seperate chaining", (int)probesNameIn.get(SEPARATE_CHAINING)[count], temp.getProbes());
             count++;
         }
 
@@ -364,7 +364,7 @@ public class ReleaseTests {
         count = 0;
         for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
             Probes temp = sc.put(entry.getValue(), entry.getKey());
-            assertEquals("Unexpected number of probes in Seperate chaining", (int)probesNumberIn.get(SEPARATE_CHAINING)[count], temp.probes);
+            assertEquals("Unexpected number of probes in Seperate chaining", (int)probesNumberIn.get(SEPARATE_CHAINING)[count], temp.getProbes());
             count++;
         }
     }
@@ -376,7 +376,7 @@ public class ReleaseTests {
         int count = 0;
         for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
             Probes temp = lp.put(entry.getKey(), entry.getValue());
-            assertEquals("Unexpected number of probes in Linear probing", (int)probesNameIn.get(LINEAR_PROBING)[count], temp.probes);
+            assertEquals("Unexpected number of probes in Linear probing", (int)probesNameIn.get(LINEAR_PROBING)[count], temp.getProbes());
             count++;
         }
 
@@ -384,7 +384,7 @@ public class ReleaseTests {
         count = 0;
         for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
             Probes temp = lp.put(entry.getValue(), entry.getKey());
-            assertEquals("Unexpected number of probes in Linear probing", (int)probesNumberIn.get(LINEAR_PROBING)[count], temp.probes);
+            assertEquals("Unexpected number of probes in Linear probing", (int)probesNumberIn.get(LINEAR_PROBING)[count], temp.getProbes());
             count++;
         }
     }
@@ -396,7 +396,7 @@ public class ReleaseTests {
         int count = 0;
         for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
             Probes temp = olp.put(entry.getKey(), entry.getValue());
-            assertEquals("Unexpected number of probes in Ordered Linear probing", (int)probesNameIn.get(ORDERED_LINEAR_PROBING)[count], temp.probes);
+            assertEquals("Unexpected number of probes in Ordered Linear probing", (int)probesNameIn.get(ORDERED_LINEAR_PROBING)[count], temp.getProbes());
             count++;
         }
 
@@ -404,7 +404,7 @@ public class ReleaseTests {
         count = 0;
         for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
             Probes temp = olp.put(entry.getValue(), entry.getKey());
-            assertEquals("Unexpected number of probes in Ordered Linear probing", (int)probesNumberIn.get(ORDERED_LINEAR_PROBING)[count], temp.probes);
+            assertEquals("Unexpected number of probes in Ordered Linear probing", (int)probesNumberIn.get(ORDERED_LINEAR_PROBING)[count], temp.getProbes());
             count++;
         }
 
@@ -417,7 +417,7 @@ public class ReleaseTests {
         int count = 0;
         for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
             Probes temp = qp.put(entry.getKey(), entry.getValue());
-            assertEquals("Unexpected number of probes in Quadratic probing", (int)probesNameIn.get(QUADRATIC_PROBING)[count], temp.probes);
+            assertEquals("Unexpected number of probes in Quadratic probing", (int)probesNameIn.get(QUADRATIC_PROBING)[count], temp.getProbes());
             count++;
         }
 
@@ -425,7 +425,7 @@ public class ReleaseTests {
         count = 0;
         for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
             Probes temp = qp.put(entry.getValue(), entry.getKey());
-            assertEquals("Unexpected number of probes in Quadratic probing", (int)probesNumberIn.get(QUADRATIC_PROBING)[count], temp.probes);
+            assertEquals("Unexpected number of probes in Quadratic probing", (int)probesNumberIn.get(QUADRATIC_PROBING)[count], temp.getProbes());
             count++;
         }
     }
@@ -440,7 +440,7 @@ public class ReleaseTests {
 
         for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
             Probes temp = sc.remove(entry.getKey());
-            assertEquals("Unexpected number of probes in Seperate chaining", (int)probesNameOut.get(SEPARATE_CHAINING)[count], temp.probes);
+            assertEquals("Unexpected number of probes in Seperate chaining", (int)probesNameOut.get(SEPARATE_CHAINING)[count], temp.getProbes());
             count++;
         }
 
@@ -451,7 +451,7 @@ public class ReleaseTests {
         count = 0;
         for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
             Probes temp = sc.remove(entry.getValue());
-            assertEquals("Unexpected number of probes in Seperate chaining", (int)probesNumberOut.get(SEPARATE_CHAINING)[count], temp.probes);
+            assertEquals("Unexpected number of probes in Seperate chaining", (int)probesNumberOut.get(SEPARATE_CHAINING)[count], temp.getProbes());
             count++;
         }
     }
@@ -466,7 +466,7 @@ public class ReleaseTests {
 
         for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
             Probes temp = lp.remove(entry.getKey());
-            assertEquals("Unexpected number of probes in Linear probing", (int)probesNameOut.get(LINEAR_PROBING)[count], temp.probes);
+            assertEquals("Unexpected number of probes in Linear probing", (int)probesNameOut.get(LINEAR_PROBING)[count], temp.getProbes());
             count++;
         }
 
@@ -478,7 +478,7 @@ public class ReleaseTests {
 
         for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
             Probes temp = lp.remove(entry.getValue());
-            assertEquals("Unexpected number of probes in Linear probing", (int)probesNumberOut.get(LINEAR_PROBING)[count], temp.probes);
+            assertEquals("Unexpected number of probes in Linear probing", (int)probesNumberOut.get(LINEAR_PROBING)[count], temp.getProbes());
             count++;
         }
     }
@@ -494,7 +494,7 @@ public class ReleaseTests {
 
         for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
             Probes temp = olp.remove(entry.getKey());
-            assertEquals("Unexpected number of probes in Ordered Linear probing", (int)probesNameOut.get(ORDERED_LINEAR_PROBING)[count], temp.probes);
+            assertEquals("Unexpected number of probes in Ordered Linear probing", (int)probesNameOut.get(ORDERED_LINEAR_PROBING)[count], temp.getProbes());
             count++;
         }
 
@@ -506,7 +506,7 @@ public class ReleaseTests {
 
         for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
             Probes temp = olp.remove(entry.getValue());
-            assertEquals("Unexpected number of probes in Ordered Linear probing", (int)probesNumberOut.get(ORDERED_LINEAR_PROBING)[count], temp.probes);
+            assertEquals("Unexpected number of probes in Ordered Linear probing", (int)probesNumberOut.get(ORDERED_LINEAR_PROBING)[count], temp.getProbes());
             count++;
         }
     }
@@ -522,7 +522,7 @@ public class ReleaseTests {
 
         for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
             Probes temp = qp.remove(entry.getKey());
-            assertEquals("Unexpected number of probes in Quadratic probing", (int)probesNameOut.get(QUADRATIC_PROBING)[count], temp.probes);
+            assertEquals("Unexpected number of probes in Quadratic probing", (int)probesNameOut.get(QUADRATIC_PROBING)[count], temp.getProbes());
             count++;
         }
 
@@ -534,7 +534,7 @@ public class ReleaseTests {
 
         for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
             Probes temp = qp.remove(entry.getValue());
-            assertEquals("Unexpected number of probes in Quadratic probing", (int)probesNumberOut.get(QUADRATIC_PROBING)[count], temp.probes);
+            assertEquals("Unexpected number of probes in Quadratic probing", (int)probesNumberOut.get(QUADRATIC_PROBING)[count], temp.getProbes());
             count++;
         }
     }
@@ -549,7 +549,7 @@ public class ReleaseTests {
 
         for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
             Probes temp = sc.get(entry.getKey());
-            assertEquals("Unexpected number of probes in Seperate chaining", (int)probesNameFind.get(SEPARATE_CHAINING)[count], temp.probes);
+            assertEquals("Unexpected number of probes in Seperate chaining", (int)probesNameFind.get(SEPARATE_CHAINING)[count], temp.getProbes());
             count++;
         }
 
@@ -561,7 +561,7 @@ public class ReleaseTests {
         count = 0;
         for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
             Probes temp = sc.get(entry.getValue());
-            assertEquals("Unexpected number of probes in Seperate chaining", (int)probesNumberFind.get(SEPARATE_CHAINING)[count], temp.probes);
+            assertEquals("Unexpected number of probes in Seperate chaining", (int)probesNumberFind.get(SEPARATE_CHAINING)[count], temp.getProbes());
             count++;
         }
     }
@@ -576,7 +576,7 @@ public class ReleaseTests {
 
         for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
             Probes temp = lp.get(entry.getKey());
-            assertEquals("Unexpected number of probes in Linear probing", (int)probesNameFind.get(LINEAR_PROBING)[count], temp.probes);
+            assertEquals("Unexpected number of probes in Linear probing", (int)probesNameFind.get(LINEAR_PROBING)[count], temp.getProbes());
             count++;
         }
 
@@ -588,7 +588,7 @@ public class ReleaseTests {
 
         for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
             Probes temp = lp.get(entry.getValue());
-            assertEquals("Unexpected number of probes in Linear probing", (int)probesNumberFind.get(LINEAR_PROBING)[count], temp.probes);
+            assertEquals("Unexpected number of probes in Linear probing", (int)probesNumberFind.get(LINEAR_PROBING)[count], temp.getProbes());
             count++;
         }
     }
@@ -604,7 +604,7 @@ public class ReleaseTests {
 
         for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
             Probes temp = olp.remove(entry.getKey());
-            assertEquals("Unexpected number of probes in Ordered Linear probing", (int)probesNameFind.get(ORDERED_LINEAR_PROBING)[count], temp.probes);
+            assertEquals("Unexpected number of probes in Ordered Linear probing", (int)probesNameFind.get(ORDERED_LINEAR_PROBING)[count], temp.getProbes());
             count++;
         }
 
@@ -616,7 +616,7 @@ public class ReleaseTests {
 
         for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
             Probes temp = olp.remove(entry.getValue());
-            assertEquals("Unexpected number of probes in Ordered Linear probing", (int)probesNumberFind.get(ORDERED_LINEAR_PROBING)[count], temp.probes);
+            assertEquals("Unexpected number of probes in Ordered Linear probing", (int)probesNumberFind.get(ORDERED_LINEAR_PROBING)[count], temp.getProbes());
             count++;
         }
     }
@@ -632,7 +632,7 @@ public class ReleaseTests {
 
         for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
             Probes temp = qp.get(entry.getKey());
-            assertEquals("Unexpected number of probes in Quadratic probing", (int)probesNameFind.get(QUADRATIC_PROBING)[count], temp.probes);
+            assertEquals("Unexpected number of probes in Quadratic probing", (int)probesNameFind.get(QUADRATIC_PROBING)[count], temp.getProbes());
             count++;
         }
 
@@ -644,7 +644,7 @@ public class ReleaseTests {
 
         for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
             Probes temp = qp.get(entry.getValue());
-            assertEquals("Unexpected number of probes in Quadratic probing", (int)probesNumberFind.get(QUADRATIC_PROBING)[count], temp.probes);
+            assertEquals("Unexpected number of probes in Quadratic probing", (int)probesNumberFind.get(QUADRATIC_PROBING)[count], temp.getProbes());
             count++;
         }
     }
@@ -851,7 +851,7 @@ public class ReleaseTests {
 
         for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
             Probes temp = lp.remove(entry.getKey());
-            assertEquals("Unexpected number of probes in Linear probing with soft deletion", (int)softprobesNameOut.get(LINEAR_PROBING)[count], temp.probes);
+            assertEquals("Unexpected number of probes in Linear probing with soft deletion", (int)softprobesNameOut.get(LINEAR_PROBING)[count], temp.getProbes());
             count++;
         }
 
@@ -864,7 +864,7 @@ public class ReleaseTests {
 
         for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
             Probes temp = lp.remove(entry.getValue());
-            assertEquals("Unexpected number of probes in Linear probing with soft deletion", (int)softprobesNumberOut.get(LINEAR_PROBING)[count], temp.probes);
+            assertEquals("Unexpected number of probes in Linear probing with soft deletion", (int)softprobesNumberOut.get(LINEAR_PROBING)[count], temp.getProbes());
             count++;
         }
 
@@ -881,7 +881,7 @@ public class ReleaseTests {
 
         for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
             Probes temp = olp.remove(entry.getKey());
-            assertEquals("Unexpected number of probes in Ordered Linear probing with soft deletion", (int)softprobesNameOut.get(ORDERED_LINEAR_PROBING)[count], temp.probes);
+            assertEquals("Unexpected number of probes in Ordered Linear probing with soft deletion", (int)softprobesNameOut.get(ORDERED_LINEAR_PROBING)[count], temp.getProbes());
             count++;
         }
 
@@ -894,7 +894,7 @@ public class ReleaseTests {
 
         for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
             Probes temp = olp.remove(entry.getValue());
-            assertEquals("Unexpected number of probes in Ordered Linear probing with soft deletion", (int)softprobesNumberOut.get(ORDERED_LINEAR_PROBING)[count], temp.probes);
+            assertEquals("Unexpected number of probes in Ordered Linear probing with soft deletion", (int)softprobesNumberOut.get(ORDERED_LINEAR_PROBING)[count], temp.getProbes());
             count++;
         }
 
@@ -911,7 +911,7 @@ public class ReleaseTests {
 
         for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
             Probes temp = qp.remove(entry.getKey());
-            assertEquals("Unexpected number of probes in Quadratic probing with soft deletion", (int)softprobesNameOut.get(QUADRATIC_PROBING)[count], temp.probes);
+            assertEquals("Unexpected number of probes in Quadratic probing with soft deletion", (int)softprobesNameOut.get(QUADRATIC_PROBING)[count], temp.getProbes());
             count++;
         }
 
@@ -923,7 +923,7 @@ public class ReleaseTests {
 
         for (Map.Entry<String, String> entry : testingPhoneBook.entrySet()) { // https://docs.oracle.com/javase/10/docs/api/java/util/Map.Entry.html
             Probes temp = qp.remove(entry.getValue());
-            assertEquals("Unexpected number of probes in Quadratic probing with soft deletion", (int)softprobesNumberOut.get(QUADRATIC_PROBING)[count], temp.probes);
+            assertEquals("Unexpected number of probes in Quadratic probing with soft deletion", (int)softprobesNumberOut.get(QUADRATIC_PROBING)[count], temp.getProbes());
             count++;
         }
     }
@@ -951,7 +951,7 @@ public class ReleaseTests {
 
         assertEquals("After additions and deletions, and additions again, the capacity should be 23, but get " + olp.capacity() + ".", 23, olp.capacity());
 
-        assertEquals("After resizing, you my have not deleted the tombstone.", 1, olp.put("Terry", "new").probes);
+        assertEquals("After resizing, you my have not deleted the tombstone.", 1, olp.put("Terry", "new").getProbes());
 
         assertEquals("After additions and deletions, and additions again, resize should be triggered and the capacity should be shrink to 7, but get " + olp.capacity() + ".", 7, olp.capacity());
 
@@ -979,7 +979,7 @@ public class ReleaseTests {
 
         assertEquals("After additions and deletions, and additions again, the capacity should be 23, but get " + qp.capacity() + ".", 23, qp.capacity());
 
-        assertEquals("After resizing, you my have not deleted the tombstone.", 1, qp.put("Terry", "new").probes);
+        assertEquals("After resizing, you my have not deleted the tombstone.", 1, qp.put("Terry", "new").getProbes());
 
         assertEquals("After additions and deletions, and additions again, resize should be triggered and the capacity should be shrink to 7, but get " + qp.capacity() + ".", 7, qp.capacity());
 

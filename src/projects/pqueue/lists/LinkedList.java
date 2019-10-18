@@ -276,7 +276,7 @@ public class LinkedList<T> implements List<T> {
 	 * contract! We are interested in ADT comparison, not 1-1 memory allocation comparison.
 	 * 
 	 * @param other The Object reference to compare to
-	 * @return true if the two objects are considered "equal", with equality defined above.
+	 * @return {@code true} if the two objects are considered "equal", with equality defined above.
 	 */
 	@Override 
 	public boolean equals(Object other){

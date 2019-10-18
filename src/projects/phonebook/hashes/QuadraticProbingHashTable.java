@@ -32,7 +32,6 @@ public class QuadraticProbingHashTable implements HashTable{
     /* ***** PRIVATE FIELDS / METHODS PROVIDED TO YOU: DO NOT EDIT! ******/
     /* ****************************************************** ***********/
 
-    private static final RuntimeException UNIMPL_METHOD = new RuntimeException("Implement this method!");
     private KVPair[] table;
     private PrimeGenerator primeGenerator;
     private int count;
@@ -46,8 +45,8 @@ public class QuadraticProbingHashTable implements HashTable{
 
     private int getUsedSpace() {
         int count = 0;
-        for (int i = 0; i < table.length; i++) {
-            if (table[i] != null)
+        for (KVPair kvPair : table) {
+            if (kvPair != null)
                 count++;
         }
         return count;
@@ -65,10 +64,10 @@ public class QuadraticProbingHashTable implements HashTable{
     }
 
     private void reinsertAll(KVPair[] oldTable){
-        for(int i = 0; i < oldTable.length; i++){
-            if(oldTable[i] != null && !oldTable[i].equals(DELETE)){
+        for (KVPair kvPair : oldTable) {
+            if (kvPair != null && !kvPair.equals(DELETE)) {
                 count--; // Because the call to put() will artificially increase the table's count.
-                put(oldTable[i].getKey(), oldTable[i].getValue());
+                put(kvPair.getKey(), kvPair.getValue());
             }
         }
     }
@@ -88,6 +87,11 @@ public class QuadraticProbingHashTable implements HashTable{
         softFlag = false;
     }
 
+    /**
+     * Constructor with soft deletion option. Initializes the internal storage with a size equal to the default of {@link PrimeGenerator}.
+     * @param soft A boolean indicator of whether we want to use soft deletion or not. {@code true} if and only if
+     *               we want soft deletion, {@code false} otherwise.
+     */
     public QuadraticProbingHashTable(boolean soft) {
         primeGenerator = new PrimeGenerator();
         table = new KVPair[primeGenerator.getCurrPrime()];
@@ -117,7 +121,7 @@ public class QuadraticProbingHashTable implements HashTable{
             enlarge();
         }
         Probes temp = get(key);
-        if (temp.value != null) {
+        if (temp.getValue() != null) {
             return temp;
         }
         temp = putHelper(key, value);
@@ -204,8 +208,8 @@ public class QuadraticProbingHashTable implements HashTable{
 
     @Override
     public boolean containsValue(String value) {
-        for(int i = 0; i < table.length; i++){
-            if(table[i] != null && table[i].getValue().equals(value)) {
+        for (KVPair kvPair : table) {
+            if (kvPair != null && kvPair.getValue().equals(value)) {
                 return true;
             }
         }
@@ -222,34 +226,33 @@ public class QuadraticProbingHashTable implements HashTable{
         return  table.length;
     }
 
-//    @Override
-//    public void printTable() {
-//        System.out.println("***---***");
-//        for (int i = 0; i < table.length; i++) {
-//            if (table[i] == null)
-//                System.out.println(i + " NULL");
-//            else if (table[i].equals(DELETE))
-//                System.out.println(i + " TOMBSTONE");
-//            else
-//                System.out.println(i + " " + table[i].getKey());
-//        }
-//        System.out.println("***---***");
-//    }
-
     @Override
     public String toString() {
         StringBuilder ret = new StringBuilder();
         ret.append("***---***\n");
         for (int i = 0; i < table.length; i++) {
             if (table[i] == null)
-                ret.append(i + " NULL\n");
+                ret.append(i).append(" NULL\n");
             else if (table[i].equals(DELETE))
-                ret.append(i + " TOMBSTONE\n");
+                ret.append(i).append(" TOMBSTONE\n");
             else
-                ret.append(i + " " + table[i].getKey() + "\n");
+                ret.append(i).append(" ").append(table[i].getKey()).append("\n");
         }
         ret.append("***---***");
         return ret.toString();
+    }
+
+    public void printTable() {
+        System.out.println("***---***");
+        for (int i = 0; i < table.length; i++) {
+            if (table[i] == null)
+                System.out.println(i + " NULL");
+            else if (table[i].equals(DELETE))
+                System.out.println(i + " TOMBSTONE");
+            else
+                System.out.println(i + " " + table[i].getKey());
+        }
+        System.out.println("***---***");
     }
 
 

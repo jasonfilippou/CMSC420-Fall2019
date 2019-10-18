@@ -49,7 +49,7 @@ package projects.pqueue.fifoqueues;
 	
 	/**
 	 * Queries the queue for emptiness.
-	 * @return true if the queue is empty.
+	 * @return {@code true} if the queue is empty.
 	 */
 	 boolean isEmpty();
 	

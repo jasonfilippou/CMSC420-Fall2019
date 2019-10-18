@@ -6,9 +6,10 @@ package projects.pqueue.priorityqueues; // ******* <---  DO NOT ERASE THIS LINE!
  * ANY ONE OF YOUR EXISTING MINHEAP IMPLEMENTATIONS TO IMPLEMENT THIS CLASS. TO ACCESS
  * YOUR MINHEAP'S METHODS YOU NEED THEIR SIGNATURES, WHICH ARE DECLARED IN THE MINHEAP
  * INTERFACE. ALSO, SINCE THE PRIORITYQUEUE INTERFACE THAT YOU EXTEND IS ITERABLE, THE IMPORT OF ITERATOR
- * IS NEEDED IN ORDER TO MAKE YOUR CODE COMPILABLE.
- ** ********************************************************************************** */
-
+ * IS NEEDED IN ORDER TO MAKE YOUR CODE COMPILABLE. THE IMPLEMENTATIONS OF CHECKED EXCEPTIONS
+ * ARE ALSO MADE VISIBLE BY VIRTUE OF THESE IMPORTS.
+ ** ********************************************************************************* */
+import projects.UnimplementedMethodException;
 import projects.pqueue.exceptions.InvalidPriorityException;
 import projects.pqueue.heaps.MinHeap;
 import java.util.Iterator;
@@ -16,11 +17,10 @@ import projects.pqueue.heaps.EmptyHeapException;
 import projects.pqueue.heaps.LinkedMinHeap;
 import java.util.ConcurrentModificationException;
 import java.util.NoSuchElementException;
-
 /**
- * <p>MinHeapPriorityQueue is a {@link PriorityQueue} implemented using a {@link MinHeap}.</p>
+ * <p>{@link MinHeapPriorityQueue} is a {@link PriorityQueue} implemented using a {@link MinHeap}.</p>
  *
- * <p>You  <b>must</b> implement the methods in this file! To receive <b>any credit</b> for the unit tests
+ * <p>You  <b>must</b> implement the methods of this class! To receive <b>any credit</b> for the unit tests
  * related to this class, your implementation <b>must</b> use <b>whichever</b> {@link MinHeap} implementation
  * among the two that you should have implemented you choose!</p>
  *
@@ -30,123 +30,57 @@ import java.util.NoSuchElementException;
  *
  * @see LinearPriorityQueue
  * @see MinHeap
+ * @see PriorityQueue
  */
 public class MinHeapPriorityQueue<T> implements PriorityQueue<T>{
 
-	private MinHeap<PriorityQueueNode> dataHeap;
+	/* ***********************************************************************************
+	 * Write any private data elements or private methods for MinHeapPriorityQueue here...*
+	 * ***********************************************************************************/
 
-	/**
+
+
+
+
+	/* *********************************************************************************************************
+	 * Implement the following public methods. You should erase the throwings of UnimplementedMethodExceptions.*
+	 ***********************************************************************************************************/
+		/**
 	 * Simple default constructor.
 	 */
 	public MinHeapPriorityQueue(){
-		dataHeap = new LinkedMinHeap<>(); // Any MinHeap can be used.
+		throw new UnimplementedMethodException();
 	}
 
 	@Override
-	public void enqueue(T element, int priority) throws InvalidPriorityException {
-		if(priority < 1)
-			throw new InvalidPriorityException("priorty cannot be smaller than 1");
-		dataHeap.insert(new PriorityQueueNode(element, priority));
+	public void enqueue(T element, int priority) throws InvalidPriorityException {	// DO *NOT* ERASE THE "THROWS" DECLARATION!
+		throw new UnimplementedMethodException();
 	}
 
 	@Override
-	public T dequeue() throws EmptyPriorityQueueException {
-		try {
-			return dataHeap.deleteMin().element;
-		} catch (EmptyHeapException e) {
-			throw new EmptyPriorityQueueException("dequeue(): FIFOQueue is empty!");
-		}
+	public T dequeue() throws EmptyPriorityQueueException {		// DO *NOT* ERASE THE "THROWS" DECLARATION!
+		throw new UnimplementedMethodException();
 	}
 
 	@Override
-	public T getFirst() throws EmptyPriorityQueueException {
-		try {
-			return dataHeap.getMin().element;
-		}catch(EmptyHeapException e){
-			throw new EmptyPriorityQueueException("getFirst(): FIFOQueue is empty!");
-		}
+	public T getFirst() throws EmptyPriorityQueueException {	// DO *NOT* ERASE THE "THROWS" DECLARATION!
+		throw new UnimplementedMethodException();
 	}
 
 	@Override
 	public int size() {
-		return dataHeap.size();
+		throw new UnimplementedMethodException();
 	}
 
 	@Override
 	public boolean isEmpty() {
-		return dataHeap.size() == 0;
+		throw new UnimplementedMethodException();
 	}
 
 
 	@Override
 	public Iterator<T> iterator() {
-		return new MinHeapPriorityQueueIterator();
+		throw new UnimplementedMethodException();
 	}
 
-	class MinHeapPriorityQueueIterator implements Iterator<T> {
-		private Iterator<PriorityQueueNode> dataHeapItr;
-
-		MinHeapPriorityQueueIterator(){
-			dataHeapItr = dataHeap.iterator();
-		}
-
-		@Override
-		public boolean hasNext() {
-			return dataHeapItr.hasNext();
-		}
-
-		@Override
-		public T next() throws ConcurrentModificationException, NoSuchElementException {
-			try {
-				return dataHeapItr.next().element;
-			} catch (NoSuchElementException e){
-				throw new NoSuchElementException("next(): queue is empty.");
-			} catch (ConcurrentModificationException e) {
-				throw new ConcurrentModificationException("next(): Attempted to traverse a modified priority queue.");
-			}
-		}
-
-		@Override
-		public void remove() throws IllegalStateException, UnsupportedOperationException {
-			try {
-				dataHeapItr.remove();
-			} catch (IllegalStateException e) {
-				throw new IllegalStateException("Need at least one call to next() prior to removal.");
-			} catch (UnsupportedOperationException e) {
-				throw new UnsupportedOperationException("Arbitrary data removal is not allowed for a priority queue.");
-			}
-		}
-	}
-
-	/**
-	 * A PriorityQueueNode is a Comparable type which is used to wrap around
-	 * the (element, priority) pairs. Its overriding of the compareTo() method
-	 * allows the contained MinHeap in the priority queue to disambiguate between
-	 * the same priority elements, thus establishing a strict ordering in the heap,
-	 * such that the root is always uniquely defined.
-	 * 
-	 * @author Jason Filippou (jasonfil@cs.umd.edu)
-	 */
-	private class PriorityQueueNode implements Comparable<PriorityQueueNode>{
-		private T element;
-		private int priority;
-		private long timeCreated;
-
-		PriorityQueueNode(T element, int priority){
-			this.element = element;
-			this.priority = priority;
-			timeCreated = System.nanoTime();
-		}
-
-		@Override
-		public int compareTo(PriorityQueueNode o) {
-			// Remember that a numerically smaller priority
-			// is actually considered larger in priority
-			// queue terms. Also recall that we are using a 
-			// MinHeap, so the smallest elements ascend to the top,
-			// not the largest.
-			boolean flag = priority < o.priority || (priority == o.priority && timeCreated < o.timeCreated);
-			return flag ? -1 : 1;
-		}
-	}
 }

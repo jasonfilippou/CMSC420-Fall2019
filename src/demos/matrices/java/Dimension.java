@@ -1,6 +1,6 @@
 package demos.matrices.java;
 
-/** <p> A simple abstraction of the dimension to sum along a 2D matrix: sums or columns.</p>
+/** <p> {@link Dimension} is a simple abstraction of the dimension to sum along a 2D matrix: sums or columns.</p>
  * @author <a href="https://github.com/JasonFil">Jason Filippou</a>
  * @see MajorOrderTest
  */

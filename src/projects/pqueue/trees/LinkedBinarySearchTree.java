@@ -47,12 +47,12 @@ public class LinkedBinarySearchTree<T extends Comparable<T>>  implements BinaryS
 	}
 	
 	/**
-	 * Standard equals() method. Returns true if the parameter object
+	 * Standard equals() method. Returns {@code true} if the parameter object
 	 * is a carbon copy of the current object.
 	 * 
 	 * @param other the Object to compare with this.
 	 * 
-	 * @return true if other and this
+	 * @return {@code true} if other and this
 	 * are carbon copies of one another.
 	 */
 	@Override

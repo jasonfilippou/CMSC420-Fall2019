@@ -69,7 +69,9 @@ public class OrderLinearProbingHashTable implements HashTable{
     }
 
     /**
-     *  Constructor for soft deletion option. Initializes the internal storage with a size equal to the default of {@link PrimeGenerator}.
+     *  Constructor with soft deletion option. Initializes the internal storage with a size equal to the default of {@link PrimeGenerator}.
+     * @param soft A boolean indicator of whether we want to use soft deletion or not. {@code true} if and only if
+     *             we want soft deletion, {@code false} otherwise.
      */
     public OrderLinearProbingHashTable(boolean soft){
         primeGenerator = new PrimeGenerator();
@@ -109,7 +111,7 @@ public class OrderLinearProbingHashTable implements HashTable{
         }
 
         Probes temp = get(key);
-        if (temp.value != null) {
+        if (temp.getValue() != null) {
             return temp;
         }
         temp = putHelper(key, value);

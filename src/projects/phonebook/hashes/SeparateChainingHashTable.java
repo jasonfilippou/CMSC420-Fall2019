@@ -63,7 +63,7 @@ public class SeparateChainingHashTable implements HashTable{
     public Probes remove(String key) {
         KVPairList targetList = table[hash(key)];
         Probes temp = targetList.removeByKey(key);
-        if (temp.value != null)
+        if (temp.getValue() != null)
             count--;
         return temp;
     }

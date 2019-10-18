@@ -179,9 +179,11 @@ public class BagTests {
      because Bags are Iterables, but Bags can take any Object. I don't want to be doing downcasts if I can.
      Let the equals() chips fall where they may.
       */
-    private boolean found(Bag b, Object o){
-        for(Object ob: b)
-            if(ob.equals(o))
+    private boolean found(Bag<Integer> b, Integer i){
+        for(Integer ob:b)
+            System.out.println("Derp");
+        for(Integer ob: b)
+            if(ob != null && ob.equals(i))
                 return true;
         return false;
     }

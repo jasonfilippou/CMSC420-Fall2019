@@ -49,8 +49,7 @@ public class StaticallyPerturbedBag<Item> implements Bag<Item>{
     private void expand() {
         int currCap = capacity();
         Item[] newArr = (Item[])new Object[2*currCap]; // Double it
-        for(int i = 0; i < currCap; i ++)
-            newArr[i] = storage[i];
+        System.arraycopy(storage, 0, newArr, 0, currCap);
         storage = newArr; // current already points where we want it to
     }
 
@@ -58,8 +57,8 @@ public class StaticallyPerturbedBag<Item> implements Bag<Item>{
         return storage.length;
     }
 
-    /**Returns true if there are no elements in the bag.
-     * @return True if and only if the Bag is empty, False otherwise.
+    /**Returns {@code true} if there are no elements in the bag.
+     * @return {@code true} if and only if the Bag is empty, False otherwise.
      *
      */
     @Override
@@ -96,8 +95,8 @@ public class StaticallyPerturbedBag<Item> implements Bag<Item>{
 
 
     @Override
-    public Iterator iterator() {
-        return new Iterator() {
+    public Iterator<Item> iterator() {
+        return new Iterator<>() {
             private int index = -1;
             private int initSize = size();
             @Override

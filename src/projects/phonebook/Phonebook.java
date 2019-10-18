@@ -89,7 +89,7 @@ public class Phonebook {
      * is not in the {@link Phonebook}.
      */
     public String getNumberOf(String name) {
-        return (name == null) ? null : namesToNumbers.get(name).value;
+        return (name == null) ? null : namesToNumbers.get(name).getValue();
     }
 
     /** Retrieves the full name of the owner of the provided phone number. If the phone number is not in the database,
@@ -99,7 +99,7 @@ public class Phonebook {
      * is not in the {@link Phonebook}.
      */
     public String getOwnerOf(String number) {
-        return (number == null) ? null : numbersToNames.get(number).value;
+        return (number == null) ? null : numbersToNames.get(number).getValue();
     }
 
     /** Adds the tuple &lt; name, number &gt; in the {@link Phonebook}. If either name or

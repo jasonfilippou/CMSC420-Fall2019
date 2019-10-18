@@ -18,7 +18,6 @@ public class MyStack<T> implements Iterable<T> {
     // will be used by the current MyStack instance.
     private List<T> data;
     private int maxCapacity;
-    private boolean modifiedOutsideIterator;
 
     /**
      * Creates an instance of {@link MyStack} with a provided maximum capacity.
@@ -31,7 +30,6 @@ public class MyStack<T> implements Iterable<T> {
         if(maxCapacity <= 0)
             throw new InvalidCapacityException("Invalid capacity provided: " + maxCapacity + ".");
         this.maxCapacity = maxCapacity;
-        modifiedOutsideIterator = false;
         switch(expectedSize){
             case SMALL:
                 data = new ArrayList<>(maxCapacity);        // Note the constructor argument; why do we provide it?
@@ -51,7 +49,6 @@ public class MyStack<T> implements Iterable<T> {
      * @throws StackOverflowError If we attempt to push into a stack that is at capacity.
      */
     public void push(T element) throws StackOverflowError {
-        modifiedOutsideIterator = true;
         if (data.size() == maxCapacity)
             throw new StackOverflowError("Overflowed maximum stack capacity of: " + maxCapacity + ".");
         data.add(element);
@@ -64,7 +61,6 @@ public class MyStack<T> implements Iterable<T> {
     public T pop(){
         if(data.isEmpty())
             throw new EmptyStackException(); // Why do we not need to check this Exception?
-        modifiedOutsideIterator = true;
         final int LASTELEMENTIDX = data.size() - 1;
         T retVal = data.get(LASTELEMENTIDX);
         data.remove(LASTELEMENTIDX);    // This can throw; why do we not need to wrap it in a try-block or check the Exception?
@@ -120,18 +116,18 @@ public class MyStack<T> implements Iterable<T> {
      * @see IllegalStateException
      * @see NoSuchElementException
      */
-    @Override
     public Iterator<T> iterator() {
         return new MyStackIterator();
     }
 
+    // The inner class that implements the Iterator interface. Instances of this class
+    // are returned by iterator().
     private class MyStackIterator implements Iterator<T>{
 
-        private int currIdx;
         public MyStackIterator(){
-            modifiedOutsideIterator = false;            // When Iterator reset, no modifications yet.
-            currIdx = data.size() - 1;                  // Index of first element, in proper order.
+            // Currently does nothing.
         }
+
         /**
          * Returns {@code true} if the iteration has more elements.
          * (In other words, returns {@code true} if {@link #next} would
@@ -141,7 +137,7 @@ public class MyStack<T> implements Iterable<T> {
          */
         @Override
         public boolean hasNext() {
-            return currIdx > -1;
+            return false;
         }
 
         /**
@@ -152,15 +148,14 @@ public class MyStack<T> implements Iterable<T> {
          */
         @Override
         public T next() {
-            if(modifiedOutsideIterator)
-                throw new ConcurrentModificationException("Object was mutated outside the Iterator before this call to next().");
-            else if(currIdx == -1)
-                throw new NoSuchElementException("Exhausted elements of MyStack instance.");
-            else
-                return data.get(currIdx--);
+            // To make this Iterator fail-fast, this method should throw
+            // an instance of ConcurrentModificationException if there has been
+            // a modification of the structure *outside* the Iterator *before* it was called.
+            // How can you achieve this?
+            return null;
         }
 
-        /**
+     /**
          * Removes from the underlying collection the last element returned
          * by this iterator (optional operation).  This method can be called
          * only once per call to {@link #next}.
@@ -184,16 +179,7 @@ public class MyStack<T> implements Iterable<T> {
          */
         @Override
         public void remove() {
-            if(modifiedOutsideIterator)
-                throw new ConcurrentModificationException("Object was mutated outside the Iterator before this call to remove().");
-            else if(currIdx == data.size() - 1)
-                throw new IllegalStateException("next() has not been called before this call to remove().");
-            else
-                data.remove(currIdx--);       // Details about how List::remove(int) works heree: https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/util/List.html#remove(int
+            throw new UnsupportedOperationException("This Iterator does not support remove().");
         }
-       /* @Override
-        public void remove(){
-            throw new UnsupportedOperationException("remove() is unsupported by this Iterator.");
-        }*/
     }
 }
