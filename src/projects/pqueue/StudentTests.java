@@ -13,9 +13,9 @@ import projects.pqueue.priorityqueues.MinHeapPriorityQueue;
 import projects.pqueue.priorityqueues.PriorityQueue;
 
 /**
- * {@link StudentTests} is a Junit testing library which you should extend with your own tests.
+ * {@link StudentTests} is a {@code jUnit} testing library which you should extend with your own tests.
  *
- * @author --- YOUR NAME HERE! ----
+ * @author  <a href="https://github.com/JasonFil">Jason Filippou</a> and --- YOUR NAME HERE! ----
  */
 public class StudentTests {
 

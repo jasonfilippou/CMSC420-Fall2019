@@ -53,7 +53,7 @@ public class LinkedFIFOQueue<T> implements FIFOQueue<T> {
 	 * Standard equals() method. Checks whether two Queues have the exact same elements
 	 * at the same order.
 	 * @param other The Object to compare this queue to.
-	 * @return true If the two projects.pqueue.fifoqueues are equal as per the contract established above.
+	 * @return {@code true} If the two projects.pqueue.fifoqueues are equal as per the contract established above.
 	 */
 	@Override
 	public boolean equals(Object other){

@@ -27,7 +27,7 @@ public interface Tree<T> extends Iterable<T> {
     /**
      * Queries the tree for emptiness.
      *
-     * @return true if the tree contains no elements, false otherwise.
+     * @return {@code true} if the tree contains no elements, false otherwise.
      */
     boolean isEmpty();
 

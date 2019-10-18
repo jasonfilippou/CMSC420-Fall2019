@@ -136,6 +136,7 @@ public class MyStackClient {
             System.out.println(throwableInfo(thrown));
         }
 
+
          /* TRY BLOCK 10: For *either* a fail-safe *or* a fail-fast Iterator, what should
           * the output of the following code be?  */
         printTryBlockHeader();

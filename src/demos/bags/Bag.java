@@ -27,8 +27,8 @@ public interface Bag<Item> extends Iterable<Item>{ // So classes implementing it
      */
     void add(Item item);
 
-    /** Returns true if there are no elements in the bag.
-     * @return true if and only if the Bag is empty, false otherwise.
+    /** Returns {@code true} if there are no elements in the bag.
+     * @return {@code true} if and only if the Bag is empty, false otherwise.
      *
      */
     boolean isEmpty();

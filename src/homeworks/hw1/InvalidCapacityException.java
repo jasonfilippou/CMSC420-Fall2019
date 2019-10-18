@@ -7,7 +7,12 @@ package homeworks.hw1;
  * @see MyStack
  * @see Exception
  */
-public class InvalidCapacityException extends Exception {
+public class InvalidCapacityException extends RuntimeException {
+    /**
+     * Simple constructor which stores the provided message.
+     * @param msg A descriptive message.
+     * @see RuntimeException#RuntimeException(String)
+     */
     public InvalidCapacityException(String msg){
         super(msg);
     }

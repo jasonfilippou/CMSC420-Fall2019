@@ -50,7 +50,7 @@ public interface PriorityQueue<T> extends Iterable<T> {
 
 	/**
 	 * Queries the PriorityQueue for emptiness.
-	 * @return true if the PriorityQueue is empty, false otherwise.
+	 * @return {@code true} if the PriorityQueue is empty, false otherwise.
 	 */
 	public boolean isEmpty();
 }
