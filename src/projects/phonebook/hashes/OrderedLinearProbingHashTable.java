@@ -1,6 +1,6 @@
 package projects.phonebook.hashes;
+
 import projects.UnimplementedMethodException;
-import projects.phonebook.utils.KVPair;
 import projects.phonebook.utils.PrimeGenerator;
 import projects.phonebook.utils.Probes;
 

@@ -1,5 +1,9 @@
 package projects.pqueue.fifoqueues;
-import projects.pqueue.lists.*;
+
+import projects.pqueue.lists.DoublyLinkedList;
+import projects.pqueue.lists.EmptyListException;
+import projects.pqueue.lists.IllegalListAccessException;
+import projects.pqueue.lists.LinkedList;
 
 import java.util.Iterator;
 

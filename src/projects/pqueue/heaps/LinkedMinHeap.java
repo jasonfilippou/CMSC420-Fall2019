@@ -4,8 +4,10 @@ package projects.pqueue.heaps; // ******* <---  DO NOT ERASE THIS LINE!!!! *****
  * THE FOLLOWING IMPORT IS NECESSARY FOR THE ITERATOR() METHOD'S SIGNATURE. FOR THIS
  * REASON, YOU SHOULD NOT ERASE IT! YOUR CODE WILL BE UNCOMPILABLE IF YOU DO!
  * ********************************************************************************** */
+
 import projects.UnimplementedMethodException;
-import java.util.*;
+
+import java.util.Iterator;
 
 /**
  * <p>A {@link LinkedMinHeap} is a tree (specifically, a <b>complete</b> binary tree) where every node is

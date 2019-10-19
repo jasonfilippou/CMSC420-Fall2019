@@ -9,14 +9,12 @@ package projects.pqueue.priorityqueues; // ******* <---  DO NOT ERASE THIS LINE!
  * IS NEEDED IN ORDER TO MAKE YOUR CODE COMPILABLE. THE IMPLEMENTATIONS OF CHECKED EXCEPTIONS
  * ARE ALSO MADE VISIBLE BY VIRTUE OF THESE IMPORTS.
  ** ********************************************************************************* */
+
 import projects.UnimplementedMethodException;
 import projects.pqueue.exceptions.InvalidPriorityException;
 import projects.pqueue.heaps.MinHeap;
+
 import java.util.Iterator;
-import projects.pqueue.heaps.EmptyHeapException;
-import projects.pqueue.heaps.LinkedMinHeap;
-import java.util.ConcurrentModificationException;
-import java.util.NoSuchElementException;
 /**
  * <p>{@link MinHeapPriorityQueue} is a {@link PriorityQueue} implemented using a {@link MinHeap}.</p>
  *

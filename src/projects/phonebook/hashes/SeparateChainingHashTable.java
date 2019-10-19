@@ -1,7 +1,9 @@
 package projects.phonebook.hashes;
 
 import projects.UnimplementedMethodException;
-import projects.phonebook.utils.*;
+import projects.phonebook.utils.KVPairList;
+import projects.phonebook.utils.PrimeGenerator;
+import projects.phonebook.utils.Probes;
 
 /**<p>{@link SeparateChainingHashTable} is a {@link HashTable} that implements <b>Separate Chaining</b>
  * as its collision resolution strategy, i.e the collision chains are implemented as actual

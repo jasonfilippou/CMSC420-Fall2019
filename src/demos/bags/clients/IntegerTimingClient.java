@@ -1,9 +1,11 @@
 package demos.bags.clients;
 
-import demos.bags.*;
+import demos.bags.Bag;
+import demos.bags.DynamicallyShuffledBag;
+import demos.bags.RandomAccessBag;
+import demos.bags.StaticallyPerturbedBag;
 
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.stream.IntStream;
 
 /** <p>{@link IntegerTimingClient} tests all implementations of {@link Bag} in the task of retrieving all

@@ -1,7 +1,9 @@
 package demos.matrices.java;
 
 import java.util.Random;
-import static demos.matrices.java.Dimension.*;
+
+import static demos.matrices.java.Dimension.COLUMNS;
+import static demos.matrices.java.Dimension.ROWS;
 
 /**<p>{@link MajorOrderTest} is a simple app that tests the efficiency
  * of performing operations across rows and columns in Java.</p>

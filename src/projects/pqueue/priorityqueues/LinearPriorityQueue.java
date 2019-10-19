@@ -5,13 +5,15 @@ package projects.pqueue.priorityqueues; // ******* <---  DO NOT ERASE THIS LINE!
  * "SEE" THE RELEVANT CLASSES. SOME OF THOSE IMPORTS MIGHT *NOT* BE NEEDED BY YOUR OWN
  * IMPLEMENTATION, AND IT IS COMPLETELY FINE TO ERASE THEM. THE CHOICE IS YOURS.
  * ********************************************************************************** */
+
+import demos.GenericArrays;
 import projects.UnimplementedMethodException;
-import projects.pqueue.exceptions.*;
+import projects.pqueue.exceptions.InvalidCapacityException;
+import projects.pqueue.exceptions.InvalidPriorityException;
 import projects.pqueue.fifoqueues.FIFOQueue;
 import projects.pqueue.heaps.ArrayMinHeap;
-import java.util.Iterator;
+
 import java.util.*;
-import demos.GenericArrays;
 /**
  * <p>{@link LinearPriorityQueue} is a {@link PriorityQueue} implemented as a linear {@link java.util.Collection}
  * of common {@link FIFOQueue}s, where the {@link FIFOQueue}s themselves hold objects

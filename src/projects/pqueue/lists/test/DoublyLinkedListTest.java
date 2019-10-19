@@ -1,7 +1,7 @@
 package projects.pqueue.lists.test;
 
-import projects.pqueue.lists.*;
 import org.junit.Test;
+import projects.pqueue.lists.*;
 
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;

@@ -1,7 +1,6 @@
 package projects.phonebook;
 
 import projects.phonebook.hashes.*;
-import projects.phonebook.utils.Probes;
 
 /**
  * <p>{@link Phonebook} is an abstraction over phonebooks: databases of &lt; Full Name,

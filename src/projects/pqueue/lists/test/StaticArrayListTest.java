@@ -1,7 +1,10 @@
 package projects.pqueue.lists.test;
 
-import projects.pqueue.lists.*;
 import org.junit.Test;
+import projects.pqueue.lists.EmptyListException;
+import projects.pqueue.lists.IllegalListAccessException;
+import projects.pqueue.lists.List;
+import projects.pqueue.lists.StaticArrayList;
 
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;

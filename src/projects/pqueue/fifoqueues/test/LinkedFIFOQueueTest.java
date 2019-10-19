@@ -1,9 +1,10 @@
 package projects.pqueue.fifoqueues.test;
 
-import projects.pqueue.fifoqueues.*;
 import org.junit.Test;
-import projects.pqueue.fifoqueues.LinearArrayFIFOQueue;
+import projects.pqueue.fifoqueues.EmptyFIFOQueueException;
 import projects.pqueue.fifoqueues.FIFOQueue;
+import projects.pqueue.fifoqueues.LinearArrayFIFOQueue;
+import projects.pqueue.fifoqueues.LinkedFIFOQueue;
 
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;

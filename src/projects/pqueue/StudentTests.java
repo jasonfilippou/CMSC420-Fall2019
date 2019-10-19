@@ -1,8 +1,6 @@
 package projects.pqueue;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
-
 import projects.pqueue.exceptions.InvalidCapacityException;
 import projects.pqueue.exceptions.InvalidPriorityException;
 import projects.pqueue.heaps.ArrayMinHeap;
@@ -11,6 +9,8 @@ import projects.pqueue.priorityqueues.EmptyPriorityQueueException;
 import projects.pqueue.priorityqueues.LinearPriorityQueue;
 import projects.pqueue.priorityqueues.MinHeapPriorityQueue;
 import projects.pqueue.priorityqueues.PriorityQueue;
+
+import static org.junit.Assert.*;
 
 /**
  * {@link StudentTests} is a {@code jUnit} testing library which you should extend with your own tests.

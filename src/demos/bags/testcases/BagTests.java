@@ -1,13 +1,18 @@
 package demos.bags.testcases;
 
-import demos.bags.*;
+import demos.bags.Bag;
+import demos.bags.DynamicallyShuffledBag;
+import demos.bags.RandomAccessBag;
+import demos.bags.StaticallyPerturbedBag;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.stream.IntStream;
+
 import static org.junit.Assert.*;
 
 /**
