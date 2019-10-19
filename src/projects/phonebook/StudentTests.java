@@ -13,8 +13,6 @@ import java.util.Random;
 import static org.junit.Assert.*;
 import static projects.phonebook.hashes.CollisionResolver.*;
 
-//import sun.plugin.perf.PluginRollup;
-
 /**
  * <p> {@code StudentTests} is a place for you to write your tests for {@link Phonebook} and all the various
  * {@link HashTable} instances.</p>
@@ -23,6 +21,7 @@ import static projects.phonebook.hashes.CollisionResolver.*;
  * @see Phonebook
  * @see HashTable
  * @see SeparateChainingHashTable
+ * @see OrderedLinearProbingHashTable
  * @see LinearProbingHashTable
  * @see QuadraticProbingHashTable
  */
