@@ -4,9 +4,9 @@ import projects.phonebook.utils.KVPair;
 import projects.phonebook.utils.PrimeGenerator;
 
 /**
- * <p>{@code OpenlyAddressedHashTable} is an {@code abstract} class that models <b>openly addressed hash tables</b>, i.e
+ * <p>{@code OpenAddressingHashTable} is an {@code abstract} class that models <b>openly addressed hash tables</b>, i.e
  * hash tables which store the key-value pairs within the table itself instead of using
- * the table to store pointers to separate buckets. A {@code OpenlyAddressedHashTable} instance
+ * the table to store pointers to separate buckets. A {@code OpenAddressingHashTable} instance
  * needs to provide <i>amortized constant time</i> for searches, insertions and deletions&quot; soft &quot;
  * or &quot; hard &quot;). It also needs to resize the table when it's getting full or empty, otherwise
  * keys will not be able to be inserted or we will be wasting a lot of memory respectively. This is
@@ -32,7 +32,7 @@ import projects.phonebook.utils.PrimeGenerator;
  * @see OrderedLinearProbingHashTable
  * @see QuadraticProbingHashTable
  */
-public abstract class OpenlyAddressedHashTable  implements HashTable{
+public abstract class OpenAddressingHashTable implements HashTable{
 
     /* *************************************************************** */
     /* *** DO NOT EDIT THE FOLLOWING PROTECTED FIELDS AND METHODS! *** */

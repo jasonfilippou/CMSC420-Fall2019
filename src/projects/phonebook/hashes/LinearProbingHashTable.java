@@ -17,10 +17,11 @@ import projects.phonebook.utils.Probes;
  *
  * @see HashTable
  * @see SeparateChainingHashTable
+ * @see OrderedLinearProbingHashTable
  * @see QuadraticProbingHashTable
  * @see CollisionResolver
  */
-public class LinearProbingHashTable extends OpenlyAddressedHashTable {
+public class LinearProbingHashTable extends OpenAddressingHashTable {
 
     /* ********************************************************************/
     /* ** INSERT ANY PRIVATE METHODS OR FIELDS YOU WANT TO USE HERE: ******/

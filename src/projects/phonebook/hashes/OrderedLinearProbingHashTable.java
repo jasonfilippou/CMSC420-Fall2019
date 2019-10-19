@@ -20,7 +20,7 @@ import projects.phonebook.utils.Probes;
  * @see QuadraticProbingHashTable
  * @see CollisionResolver
  */
-public class OrderedLinearProbingHashTable extends OpenlyAddressedHashTable{
+public class OrderedLinearProbingHashTable extends OpenAddressingHashTable {
 
     /* ********************************************************************/
     /* ** INSERT ANY PRIVATE METHODS OR FIELDS YOU WANT TO USE HERE: ******/

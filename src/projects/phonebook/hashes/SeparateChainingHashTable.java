@@ -17,6 +17,7 @@ import projects.phonebook.utils.Probes;
  * @see HashTable
  * @see SeparateChainingHashTable
  * @see LinearProbingHashTable
+ * @see OrderedLinearProbingHashTable
  * @see CollisionResolver
  */
 public class SeparateChainingHashTable implements HashTable{
@@ -30,7 +31,7 @@ public class SeparateChainingHashTable implements HashTable{
     private PrimeGenerator primeGenerator;
 
     // We mask the top bit of the default hashCode() to filter away negative values.
-    // Have to copy over the implementation from OpenlyAddressedHashTable; no biggie.
+    // Have to copy over the implementation from OpenAddressingHashTable; no biggie.
     private int hash(String key){
         return (key.hashCode() & 0x7fffffff) % table.length;
     }
