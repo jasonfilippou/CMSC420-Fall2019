@@ -49,13 +49,13 @@ public class Phonebook {
                 namesToNumbers = new SeparateChainingHashTable();
                 break;
             case LINEAR_PROBING:
-                namesToNumbers = new LinearProbingHashTable();
+                namesToNumbers = new LinearProbingHashTable(false);
                 break;
             case ORDERED_LINEAR_PROBING:
-                namesToNumbers = new OrderedLinearProbingHashTable();
+                namesToNumbers = new OrderedLinearProbingHashTable(false);
                 break;
             case QUADRATIC_PROBING:
-                namesToNumbers = new QuadraticProbingHashTable();
+                namesToNumbers = new QuadraticProbingHashTable(false);
                 break;
             default:
                 throw new RuntimeException("Encountered unsupported CollisionResolver argument: " + namesToNumbersHash  + "." );
@@ -66,13 +66,13 @@ public class Phonebook {
                 numbersToNames = new SeparateChainingHashTable();
                 break;
             case LINEAR_PROBING:
-                numbersToNames = new LinearProbingHashTable();
+                numbersToNames = new LinearProbingHashTable(false);
                 break;
             case ORDERED_LINEAR_PROBING:
-                numbersToNames = new OrderedLinearProbingHashTable();
+                numbersToNames = new OrderedLinearProbingHashTable(false);
                 break;
             case QUADRATIC_PROBING:
-                numbersToNames = new QuadraticProbingHashTable();
+                numbersToNames = new QuadraticProbingHashTable(false);
                 break;
             default:
                 throw new RuntimeException("Encountered unsupported Collision Resolver " + numbersToNamesHash + ".");

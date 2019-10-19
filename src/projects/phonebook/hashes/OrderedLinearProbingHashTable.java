@@ -30,14 +30,6 @@ public class OrderedLinearProbingHashTable extends OpenAddressingHashTable {
     /*  IMPLEMENT THE FOLLOWING PUBLIC METHODS: */
     /* **************************************** */
 
-
-    /**
-     *  Default constructor with hard deletion. Initializes the internal storage with a size equal to the default of {@link PrimeGenerator}.
-     */
-    public OrderedLinearProbingHashTable(){
-        throw new UnimplementedMethodException(); // ERASE THIS LINE AFTER IMPLEMENTING THIS METHOD!
-    }
-
     /**
      * Constructor with soft deletion option. Initializes the internal storage with a size equal to the starting value of  {@link PrimeGenerator}.
      * @param soft A boolean indicator of whether we want to use soft deletion or not. {@code true} if and only if

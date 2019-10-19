@@ -74,8 +74,8 @@ public class StudentTests {
     @Test
     public void testOpenAddressingResizeWhenInsert() {
         SeparateChainingHashTable sc = new SeparateChainingHashTable();
-        LinearProbingHashTable lp = new LinearProbingHashTable();
-        QuadraticProbingHashTable qp = new QuadraticProbingHashTable();
+        LinearProbingHashTable lp = new LinearProbingHashTable(false);
+        QuadraticProbingHashTable qp = new QuadraticProbingHashTable(false);
         assertEquals("Separate Chaining hash should have a capacity of 7 at startup.", 7, sc.capacity());
         assertEquals("Linear Probing hash should have a capacity of 7 at startup.", 7, lp.capacity());
         assertEquals("Quadratic Probing hash should have a capacity of 7 at startup.", 7, qp.capacity());
@@ -121,8 +121,8 @@ public class StudentTests {
     @Test
     public void insertionStressTest() {
         HashTable sc = new SeparateChainingHashTable();
-        HashTable lp = new LinearProbingHashTable();
-        HashTable qp = new QuadraticProbingHashTable();
+        HashTable lp = new LinearProbingHashTable(false);
+        HashTable qp = new QuadraticProbingHashTable(false);
         for (int i = 0; i < NUMS; i++) {
             String randomNumber = Integer.toString(RNG.nextInt(UPPER_BOUND));
             String randomNumber2 = Integer.toString(RNG.nextInt(UPPER_BOUND));
@@ -185,7 +185,7 @@ public class StudentTests {
     @Test
     public void testLProbes() {
 
-        LinearProbingHashTable lp = new LinearProbingHashTable();
+        LinearProbingHashTable lp = new LinearProbingHashTable(false);
 
         assertEquals(1, lp.put("Arnold", "894-59-0011").getProbes());
         assertEquals(1, lp.put("Tiffany", "894-59-0011").getProbes());
