@@ -3,6 +3,7 @@ demos
 demos.bags
 demos.bags.clients
 demos.bags.testcases
+demos.hashing
 demos.matrices.java
 homeworks.hw1
 projects
