@@ -13,20 +13,22 @@ import java.util.Random;
 import static org.junit.Assert.*;
 import static projects.phonebook.hashes.CollisionResolver.*;
 
+//import sun.plugin.perf.PluginRollup;
+
 /**
- * <p> {@code StudentTests} is a place for you to write your tests for {@link Phonebook} and all the various
+ * <p> {@link StudentTests} is a place for you to write your tests for {@link Phonebook} and all the various
  * {@link HashTable} instances.</p>
  *
  * @author YOUR NAME HERE!
  * @see Phonebook
  * @see HashTable
  * @see SeparateChainingHashTable
- * @see OrderedLinearProbingHashTable
  * @see LinearProbingHashTable
  * @see QuadraticProbingHashTable
  */
 public class StudentTests {
 
+    private Phonebook pb;
     private CollisionResolver[] resolvers = {SEPARATE_CHAINING, LINEAR_PROBING, ORDERED_LINEAR_PROBING, QUADRATIC_PROBING};
     private HashMap<String, String> testingPhoneBook;
     private static final long SEED = 47;
@@ -63,7 +65,7 @@ public class StudentTests {
     public void testBehaviorWhenEmpty() {
         for (CollisionResolver namesToPhones : resolvers) {
             for (CollisionResolver phonesToNames : resolvers) {
-                Phonebook pb = new Phonebook(namesToPhones, phonesToNames);
+                pb = new Phonebook(namesToPhones, phonesToNames);
                 assertTrue(format("Phonebook should be empty", namesToPhones, phonesToNames), pb.isEmpty());
             }
         }
@@ -162,10 +164,10 @@ public class StudentTests {
         assertEquals(1, sc.put("Jessie", "705-12-7500").getProbes());
         assertEquals(1, sc.put("Mary", "888-1212-3340").getProbes());
 
-        assertEquals(2, sc.get("Arnold").getProbes());
+        assertEquals(1, sc.get("Arnold").getProbes());
         assertEquals("894-59-0011", sc.get("Arnold").getValue());
         assertEquals(1, sc.get("Tiffany").getProbes());
-        assertEquals(1, sc.get("Jessie").getProbes());
+        assertEquals(2, sc.get("Jessie").getProbes());
         assertEquals(1, sc.get("Mary").getProbes());
 
         // Search fail
@@ -173,7 +175,7 @@ public class StudentTests {
         assertEquals(2, sc.remove("Jerry").getProbes());
         assertNull(sc.remove("Jerry").getValue());
 
-        assertEquals(2, sc.remove("Arnold").getProbes());
+        assertEquals(1, sc.remove("Arnold").getProbes());
         assertEquals(1, sc.remove("Tiffany").getProbes());
         assertEquals(1, sc.remove("Jessie").getProbes());
         assertEquals(1, sc.remove("Mary").getProbes());
@@ -235,7 +237,7 @@ public class StudentTests {
         assertEquals("After additions and deletions, and additions again, the capacity should be 23, but get " + lp.capacity() + ".", 23, lp.capacity());
 
         lp.put("Terry", "new");
-        assertEquals("After additions and deletions, and additions again, resize should be triggered and the capacity should be shrink to 7, but get " + lp.capacity() + ".", 7, lp.capacity());
+        assertEquals("After additions and deletions, and additions again, resize should be triggered and the capacity should be 43, but get " + lp.capacity() + ".", 43, lp.capacity());
 
     }
 

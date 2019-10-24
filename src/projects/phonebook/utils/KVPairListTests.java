@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 /**
  * <p>{@link KVPairList} is a small jUnit - based test suite for {@link KVPairList}.</p>
  *
- *  @author <a href="https://github.com/JasonFil">Jason Filippou</a>
+ *  @author <a href="mailto:jason.filippou@gmail.com">Jason Filippou</a>
  *
  * @see KVPairList
  */
@@ -75,9 +75,9 @@ public class KVPairListTests {
     @Test
     public void testHeadInsertions() {
         try {
-            list.addFront("Joseph", "890-567-9002");
-            list.addFront("Adam", "707-890-3568");
-            list.addFront("Rayeesha", "403-111-2000");
+            list.addBack("Joseph", "890-567-9002");
+            list.addBack("Adam", "707-890-3568");
+            list.addBack("Rayeesha", "403-111-2000");
         } catch(Throwable t){
             fail(format(t));
         }
@@ -96,8 +96,8 @@ public class KVPairListTests {
 
     @Test
     public void testDeletions(){
-        list.addFront("Joseph", "890-567-9002");
-        list.addFront("Adam", "707-890-3568");
+        list.addBack("Joseph", "890-567-9002");
+        list.addBack("Adam", "707-890-3568");
         list.addBack("Rayeesha", "403-111-2000");
 
         // First, a deletion of an element that does not exist in the list.
@@ -169,7 +169,7 @@ public class KVPairListTests {
         }
 
         // Make sure duplicates are not simultaneously deleted.
-        list.addFront("Karthik", "303-678-900");
+        list.addBack("Karthik", "303-678-900");
         list.addBack("Karthik", "303-678-900");
 
         try {

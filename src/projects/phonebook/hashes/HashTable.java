@@ -35,8 +35,7 @@ public interface HashTable {
     Probes put(String key, String value);
 
     /**
-     * Get the value associated with key in the {@link HashTable}. If key does not exist in the database
-     * or if key = {@code null}, this method returns {@code null}. This method is expected to run in <em>amortized constant time</em>.
+     * Get the value associated with key in the {@link HashTable}. This method is expected to run in <em>amortized constant time</em>.
      * @param key The key to search for.
      * @return The {@link projects.phonebook.utils.Probes} with associated value and the number of probe used. If the key is {@code null}, return value {@code null}
      * and 0 as number of probes; if the key dones't exists in the database, return {@code null} and the number of probes used.
@@ -44,8 +43,7 @@ public interface HashTable {
     Probes get(String key);
 
     /**
-     * <b>Return</b> and <b>remove</b> the value associated with key in the {@link HashTable}. If key does not exist in the database
-     * or if key = {@code null}, this method returns {@code null}. This method is expected to run in <em>amortized constant time</em>.
+     * <b>Return</b> and <b>remove</b> the value associated with key in the {@link HashTable}. This method is expected to run in <em>amortized constant time</em>.
      * @param key The key to search for.
      * @return The {@link projects.phonebook.utils.Probes} with associated value and the number of probe used. If the key is {@code null}, return value {@code null}
      * and 0 as number of probes; if the key dones't exists in the database, return {@code null} and the number of probes used.

@@ -11,14 +11,14 @@ import java.util.Iterator;
  * <p>Duplicate entries <b>are</b> possible in {@link KVPairList}. Additionally, {@link KVPairList}s are
  * <b>not</b> sorted.</p>
  *
- * @author <a href="https://github.com/JasonFil">Jason Filippou</a>
+ * @author <a href="mailto:jason.filippou@gmail.com">Jason Filippou</a>
  *
  * @see KVPair
  * @see KVPairListTests
  */
 public class KVPairList implements Iterable<KVPair>{
 
-    private static class Node {
+    private class Node {
         KVPair pair;
         Node next;
 
@@ -71,20 +71,6 @@ public class KVPairList implements Iterable<KVPair>{
         count++;
     }
 
-    /**
-     *
-     * @param key The &quot;key&quot; {@link String} in the pair.
-     * @param value The &quot;value&quot; {@link String} in the pair.
-     */
-    public void addFront(String key, String value){
-        if(head == null){
-            assert tail == null : "Head and tail can only be null together";
-            head = tail = new Node(key, value);
-        } else {
-            head = new Node(key, value, head);
-        }
-        count++;
-    }
 
     /**
      * Updates the value of the pair &lt; key, value &gt; based on the provided key. If key does not exist
