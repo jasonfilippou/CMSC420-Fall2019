@@ -2,9 +2,7 @@ package projects.bpt;
 
 import projects.UnimplementedMethodException;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * <p>{@code BinaryPatriciaTrie} is a Patricia Trie over the binary alphabet &#123;	 0, 1 &#125;. By restricting themselves
@@ -39,6 +37,8 @@ public class BinaryPatriciaTrie {
         }
     }
 
+    private TrieNode root;
+
     /**
      * Simple constructor that will initialize the internals of {@code this}.
      */
@@ -50,7 +50,7 @@ public class BinaryPatriciaTrie {
      * Searches the trie for a given key.
      *
      * @param key The input {@link String} key.
-     * @return true if and only if key is in the trie, false otherwise.
+     * @return {@code true} if and only if key is in the trie, {@code false} otherwise.
      */
     public boolean search(String key) {
         throw new UnimplementedMethodException(); // ERASE THIS LINE AFTER YOU IMPLEMENT THE METHOD!
@@ -60,7 +60,7 @@ public class BinaryPatriciaTrie {
      * Inserts key into the trie.
      *
      * @param key The input {@link String}  key.
-     * @return true if and only if the key was not already in the trie, false otherwise.
+     * @return {@code true} if and only if the key was not already in the trie, {@code false} otherwise.
      */
     public boolean insert(String key) {
         throw new UnimplementedMethodException(); // ERASE THIS LINE AFTER YOU IMPLEMENT THE METHOD!
@@ -71,7 +71,7 @@ public class BinaryPatriciaTrie {
      * Deletes key from the trie.
      *
      * @param key The {@link String}  key to be deleted.
-     * @return True if and only if key was contained by the trie before we attempted deletion, false otherwise.
+     * @return {@code true} if and only if key was contained by the trie before we attempted deletion, {@code false} otherwise.
      */
     public boolean delete(String key) {
         throw new UnimplementedMethodException(); // ERASE THIS LINE AFTER YOU IMPLEMENT THE METHOD!
@@ -80,7 +80,7 @@ public class BinaryPatriciaTrie {
     /**
      * Queries the trie for emptiness.
      *
-     * @return true if and only if {@link #getSize()} == 0, false otherwise.
+     * @return {@code true} if and only if {@link #getSize()} == 0, {@code false} otherwise.
      */
     public boolean isEmpty() {
         throw new UnimplementedMethodException(); // ERASE THIS LINE AFTER YOU IMPLEMENT THE METHOD!
@@ -133,13 +133,21 @@ public class BinaryPatriciaTrie {
 
     /**
      * Makes sure that your trie doesn't have splitter nodes with a single child. In a Patricia trie, those nodes should
-     * be pruned. Be careful with the implementation of this method, since our tests call it to make sure your deletions work
-     * correctly! That is to say, if your deletions work well, but you have made an error in this (far easier) method,
-     * you will <b>still</b> not be passing our tests!
-     *
-     * @return true iff all nodes in the trie either denote stored strings or split into two subtrees, false otherwise.
+     * be pruned.
+     * @return {@code true} iff all nodes in the trie either denote stored strings or split into two subtrees, {@code false} otherwise.
      */
     public boolean isJunkFree(){
-        throw new UnimplementedMethodException(); // ERASE THIS LINE AFTER YOU IMPLEMENT THE METHOD!return isEmpty() || (isJunkFree(root.left) && isJunkFree(root.right));
+        return isEmpty() || (isJunkFree(root.left) && isJunkFree(root.right));
+    }
+
+    private boolean isJunkFree(TrieNode n){
+        if(n == null){   // Null subtrees trivially junk-free
+            return true;
+        }
+        if(!n.isKey){   // Non-key nodes need to be strict splitter nodes
+            return ( (n.left != null) && (n.right != null) && isJunkFree(n.left) && isJunkFree(n.right) );
+        } else {
+            return ( isJunkFree(n.left) && isJunkFree(n.right) ); // But key-containing nodes need not.
+        }
     }
 }
