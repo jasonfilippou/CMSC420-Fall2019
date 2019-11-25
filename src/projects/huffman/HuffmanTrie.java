@@ -6,10 +6,10 @@ import java.util.Hashtable;
 
 /**
  * <p>{@code HuffmanTrie} is a binary trie that implements huffman coding. Through the use of a priority
- * queue to maintain the order of the character according to their frequency in string, HuffmanTrie is
+ * queue to maintain the order of the character according to their occurrence in string, HuffmanTrie is
  * able to provide an encoding that requires a lot less space than as if ASCII is used. </p>
  *
- * @author YOUR NAME HERE!
+ * @author Yige Feng 115674202
  */
 
 public class HuffmanTrie {
@@ -17,30 +17,30 @@ public class HuffmanTrie {
     // helper class for easy Enque/Deque in the priority queue.
     private static class CharPair {
         private char chr;
-        private int frequency;
+        private int occurrence;
 
-        CharPair(char chr, int frequency) {
+        CharPair(char chr, int occurrence) {
             this.chr = chr;
-            this.frequency = frequency;
+            this.occurrence = occurrence;
         }
     }
 
     private static class TrieNode {
         private TrieNode left, right;
         private char chr;
-        private int frequency;
+        private int occurrence;
 
         // Default constructor
         TrieNode() {
             this.chr = (char)0; // ASCII code for null
-            this.frequency = 0;
+            this.occurrence = 0;
             left = right = null;
         }
 
         // Non-default constructor
-        TrieNode(char chr, int frequency) {
+        TrieNode(char chr, int occurrence) {
             this.chr = chr;
-            this.frequency = frequency;
+            this.occurrence = occurrence;
             left = right = null;
         }
     }
@@ -66,13 +66,13 @@ public class HuffmanTrie {
     }
 
     /**
-     * Returns the frequency table.
+     * Returns the occurrence table.
      *
      * @return null if HuffmanTrie is empty, a hashtable otherwise:
-     * {key = ascii character, value = frequency of the character in the string}.
+     * {key = ascii character, value = occurrence of the character in the string}.
      * E.g. "good noon" --> {'g': 1, 'o': 4, 'n': 2, 'd': 1, ' ': 1}
      */
-    public Hashtable getFrequencyTable() {
+    public Hashtable getOccurrenceTable() {
         throw new UnimplementedMethodException(); // ERASE THIS LINE AFTER YOU IMPLEMENT THE METHOD!
     }
 
@@ -90,7 +90,7 @@ public class HuffmanTrie {
      * Searches the trie for a given key (an ascii character).
      *
      * @param key The input {@link char} key.
-     * @return frequency of the key if and only if key is in the trie, {@code 0} otherwise.
+     * @return occurrence of the key if and only if key is in the trie, {@code 0} otherwise.
      */
     public int search(char key) {
         throw new UnimplementedMethodException(); // ERASE THIS LINE AFTER YOU IMPLEMENT THE METHOD!
@@ -119,7 +119,7 @@ public class HuffmanTrie {
      *
      * @return The number of characters in the tree.
      */
-    public int getTotalFreq() {
+    public int getTotalOccurrence() {
         throw new UnimplementedMethodException(); // ERASE THIS LINE AFTER YOU IMPLEMENT THE METHOD!
     }
 
@@ -142,7 +142,7 @@ public class HuffmanTrie {
      * if both 'e' with encoding "010" and 'f' with encoding '101' has the highest frequency 4, 'e'
      * should be returned.
      */
-    public char getMostFrequent() {
+    public char getMostFrequentChar() {
         throw new UnimplementedMethodException(); // ERASE THIS LINE AFTER YOU IMPLEMENT THE METHOD!
     }
 }

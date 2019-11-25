@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 /**
  * A jUnit test suite for {@link HuffmanTrie}.
  *
- * @author --- YOUR NAME HERE! ----.
+ * @author Yige Feng 115674202
  */
 public class StudentTests {
     private HuffmanTrie trie1 = new HuffmanTrie("good noon");
@@ -30,20 +30,20 @@ public class StudentTests {
         assertEquals("A HuffmanTrie with empty inputString should return 0 for getCount()", 0, trie2.getCount());
     }
 
-    @Test public void testGetTotalFreq() {
-        assertEquals("A HuffmanTrie with inputString 'good noon' should return 9 for getTotalFreq()", 9, trie1.getTotalFreq());
-        assertEquals("A HuffmanTrie with empty inputString should return 0 for getTotalFreq()", 0, trie2.getTotalFreq());
+    @Test public void testGetTotalOccurrence() {
+        assertEquals("A HuffmanTrie with inputString 'good noon' should return 9 for getTotalOccurrence()", 9, trie1.getTotalOccurrence());
+        assertEquals("A HuffmanTrie with empty inputString should return 0 for getTotalOccurrence()", 0, trie2.getTotalOccurrence());
     }
 
-    @Test public void testFrequencyTable() {
-        Hashtable table1 = trie1.getFrequencyTable();
-        Hashtable table2 = trie2.getFrequencyTable();
+    @Test public void testOccurrenceTable() {
+        Hashtable table1 = trie1.getOccurrenceTable();
+        Hashtable table2 = trie2.getOccurrenceTable();
         assertEquals("A HuffmanTrie with empty inputString should return null", null, table2);
-        assertEquals("Frequency of 'o' should be ", 4, table1.get('o'));
-        assertEquals("Frequency of 'n' should be ", 2, table1.get('b'));
-        assertEquals("Frequency of 'g' should be ", 1, table1.get('g'));
-        assertEquals("Frequency of ' ' should be ", 1, table1.get(' '));
-        assertEquals("Frequency of 'd' should be ", 1, table1.get('d'));
+        assertEquals("Occurrences of 'o' should be ", 4, table1.get('o'));
+        assertEquals("Occurrences of 'n' should be ", 2, table1.get('b'));
+        assertEquals("Occurrences of 'g' should be ", 1, table1.get('g'));
+        assertEquals("Occurrences of ' ' should be ", 1, table1.get(' '));
+        assertEquals("Occurrences of 'd' should be ", 1, table1.get('d'));
     }
 
     @Test public void testGetEncoding() {
@@ -58,7 +58,7 @@ public class StudentTests {
     }
 
     @Test public void testGetMostFrequent() {
-        assertEquals("A HuffmanTrie with inputString 'good noon' should return 'o' for getMostFrequent()", 'o', trie1.getMostFrequent());
-        assertEquals("A HuffmanTrie with empty inputString should return null for getMostFrequent()", null, trie2.getMostFrequent());
+        assertEquals("A HuffmanTrie with inputString 'good noon' should return 'o' for getMostFrequentChar()", 'o', trie1.getMostFrequentChar());
+        assertEquals("A HuffmanTrie with empty inputString should return null for getMostFrequentChar()", null, trie2.getMostFrequentChar());
     }
 }
