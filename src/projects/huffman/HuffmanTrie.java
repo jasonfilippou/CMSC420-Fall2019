@@ -68,7 +68,7 @@ public class HuffmanTrie {
     /**
      * Returns the occurrence table.
      *
-     * @return null if HuffmanTrie is empty, a hashtable otherwise:
+     * @return empty hashtable if HuffmanTrie is empty, a hashtable otherwise:
      * {key = ascii character, value = occurrence of the character in the string}.
      * E.g. "good noon" --> {'g': 1, 'o': 4, 'n': 2, 'd': 1, ' ': 1}
      */
@@ -79,7 +79,7 @@ public class HuffmanTrie {
     /**
      * Returns the encoding.
      *
-     * @return null if HuffmanTrie is empty, a hashtable otherwise:
+     * @return empty hashtable if HuffmanTrie is empty, a hashtable otherwise:
      * {key = ascii character, value = encoding as a string of 0, 1}.
      */
     public Hashtable getEncoding() {

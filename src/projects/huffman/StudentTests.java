@@ -38,7 +38,7 @@ public class StudentTests {
     @Test public void testOccurrenceTable() {
         Hashtable table1 = trie1.getOccurrenceTable();
         Hashtable table2 = trie2.getOccurrenceTable();
-        assertEquals("A HuffmanTrie with empty inputString should return null", null, table2);
+        assertTrue("A HuffmanTrie with empty inputString should return empty hashtable", table2.isEmpty());
         assertEquals("Occurrences of 'o' should be ", 4, table1.get('o'));
         assertEquals("Occurrences of 'n' should be ", 2, table1.get('b'));
         assertEquals("Occurrences of 'g' should be ", 1, table1.get('g'));
@@ -49,7 +49,7 @@ public class StudentTests {
     @Test public void testGetEncoding() {
         Hashtable encoding1 = trie1.getEncoding();
         Hashtable encoding2 = trie2.getEncoding();
-        assertEquals("A HuffmanTrie with empty inputString should return null", null, encoding2);
+        assertTrue("A HuffmanTrie with empty inputString should return empty hashtable", encoding2.isEmpty());
         assertEquals("Encoding of 'o' should be ", "0", encoding1.get('o'));
         assertEquals("Encoding of 'n' should be ", "10", encoding1.get('n'));
         assertEquals("Encoding of 'g' should be ", "110", encoding1.get('g'));
