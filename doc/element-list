@@ -23,3 +23,9 @@ projects.pqueue.lists.test
 projects.pqueue.priorityqueues
 projects.pqueue.trees
 projects.pqueue.trees.test
+projects.spatial
+projects.spatial.kdpoint
+projects.spatial.knnutils
+projects.spatial.nodes
+projects.spatial.trees
+projects.visualization
