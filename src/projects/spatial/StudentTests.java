@@ -85,11 +85,6 @@ public class StudentTests {
         System.gc();
     }
 
-    /* A rule to help us with tests that expect a certain Exception to be thrown. */
-
-    @Rule
-    public ExpectedException thrown= ExpectedException.none();
-
     /* ******************************************************************************************************** */
     /* ******************************************************************************************************** */
     /* ***************************************** BPQ Tests ************************************************* */
@@ -97,16 +92,24 @@ public class StudentTests {
     /* ******************************************************************************************************** */
 
     @Test
-    public void testBPQZeroCapacityProvided(){
-        thrown.expect(IllegalArgumentException.class);
-        new BoundedPriorityQueue<>(0);
-    }
+    public void testBPQInvalidCapacities(){
+        IllegalArgumentException exc = null;
+        try {
+            new BoundedPriorityQueue<>(0);
+        } catch(IllegalArgumentException excThrown){
+            exc = excThrown;
+        }
+        assertNotNull("Creating a BPQ with a capacity of 0 should throw an IllegalArgumentException.", exc);
 
-    @Test
-    public void testBPQNegativeCapacityProvided(){
-        thrown.expect(IllegalArgumentException.class);
-        new BoundedPriorityQueue<>(-1);
+        exc = null;
+        try {
+            new BoundedPriorityQueue<>(-1);
+        } catch(IllegalArgumentException excThrown){
+            exc = excThrown;
+        }
+        assertNotNull("Creating a BPQ with a capacity of -1 should throw an IllegalArgumentException.", exc);
     }
+    
 
     @Test
     public void testBPQBasicEnqueueDequeueFirstAndLast(){
