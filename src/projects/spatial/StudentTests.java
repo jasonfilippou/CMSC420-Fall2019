@@ -45,16 +45,28 @@ public class StudentTests {
         return 2 * r.nextInt(2) - 1;
     }
 
-    private double[] getRandomDoubleCoords(int num){
-        double[] coords = new double[num];
+    private double[] getRandomDoubleCoords(int dim){
+        double[] coords = new double[dim];
         int SCALE = 10;
-        for(int i = 0; i < num; i++)
+        for(int i = 0; i < dim; i++)
             coords[i] = getRandomSign() * SCALE * r.nextDouble();
         return coords;
     }
 
     private KDPoint getRandomPoint(int dim){
-        return new KDPoint(getRandomDoubleCoords(dim));
+        return new KDPoint(getRandomDoubleCoords(dim)); // This will trigger KDPoint(double[]...) constructor
+    }
+
+    private KDPoint getRandomIntegerCoordPoint(int dim){
+        return new KDPoint(getRandomIntegerCoords(dim));    // Will trigger KDPoint(BigDecimal[] ...) constructor
+    }
+
+
+    private BigDecimal[] getRandomIntegerCoords(int dim){
+        BigDecimal[] coords = new BigDecimal[dim];
+        for(int i = 0; i < coords.length; i++)
+            coords[i] = new BigDecimal(r.nextInt(1000)); // Or 10,000, 100,000, whatever you want. Make it a constant if you must.
+        return coords; // So this will be an Array of ostensibly BigDecimals, only the actual numbers are ints, drawn from U[0,999]
     }
 
     private boolean checkRangeQuery(KDTree tree, KDPoint origin, BigDecimal range, KDPoint... candidates){
@@ -85,6 +97,11 @@ public class StudentTests {
         System.gc();
     }
 
+    /* A rule to help us with tests that expect a certain Exception to be thrown. */
+
+    @Rule
+    public ExpectedException thrown= ExpectedException.none();
+
     /* ******************************************************************************************************** */
     /* ******************************************************************************************************** */
     /* ***************************************** BPQ Tests ************************************************* */
@@ -92,24 +109,16 @@ public class StudentTests {
     /* ******************************************************************************************************** */
 
     @Test
-    public void testBPQInvalidCapacities(){
-        IllegalArgumentException exc = null;
-        try {
-            new BoundedPriorityQueue<>(0);
-        } catch(IllegalArgumentException excThrown){
-            exc = excThrown;
-        }
-        assertNotNull("Creating a BPQ with a capacity of 0 should throw an IllegalArgumentException.", exc);
-
-        exc = null;
-        try {
-            new BoundedPriorityQueue<>(-1);
-        } catch(IllegalArgumentException excThrown){
-            exc = excThrown;
-        }
-        assertNotNull("Creating a BPQ with a capacity of -1 should throw an IllegalArgumentException.", exc);
+    public void testBPQZeroCapacityProvided(){
+        thrown.expect(IllegalArgumentException.class);
+        new BoundedPriorityQueue<>(0);
     }
-    
+
+    @Test
+    public void testBPQNegativeCapacityProvided(){
+        thrown.expect(IllegalArgumentException.class);
+        new BoundedPriorityQueue<>(-1);
+    }
 
     @Test
     public void testBPQBasicEnqueueDequeueFirstAndLast(){
