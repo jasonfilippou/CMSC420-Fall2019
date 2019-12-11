@@ -76,7 +76,7 @@ public class StudentTests {
     }
 
     private BigDecimal rootOfBigDecimal(BigDecimal bd){
-        return new BigDecimal(Math.sqrt(bd.doubleValue()));
+        return BigDecimal.valueOf(Math.sqrt(bd.doubleValue()));
     }
 
 
@@ -97,10 +97,6 @@ public class StudentTests {
         System.gc();
     }
 
-    /* A rule to help us with tests that expect a certain Exception to be thrown. */
-
-    @Rule
-    public ExpectedException thrown= ExpectedException.none();
 
     /* ******************************************************************************************************** */
     /* ******************************************************************************************************** */
@@ -108,17 +104,6 @@ public class StudentTests {
     /* ******************************************************************************************************** */
     /* ******************************************************************************************************** */
 
-    @Test
-    public void testBPQZeroCapacityProvided(){
-        thrown.expect(IllegalArgumentException.class);
-        new BoundedPriorityQueue<>(0);
-    }
-
-    @Test
-    public void testBPQNegativeCapacityProvided(){
-        thrown.expect(IllegalArgumentException.class);
-        new BoundedPriorityQueue<>(-1);
-    }
 
     @Test
     public void testBPQBasicEnqueueDequeueFirstAndLast(){
