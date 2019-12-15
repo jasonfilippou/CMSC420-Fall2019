@@ -15,6 +15,12 @@ public class StudentTests {
     private HuffmanTrie trie1 = new HuffmanTrie("good noon");
     private HuffmanTrie trie2 = new HuffmanTrie("");
 
+    private void createVisualization(HuffmanTrie trie, String fileName) {
+        ArrayList<String> trieDescription = trie.treeDescription(false);
+        CompactVizTree visualizer = new CompactVizTree(120,40,10);
+        visualizer.drawBinaryTreeToFile(trieDescription,path + fileName);
+    }
+
     @Test public void testEmptiness() {
         assertFalse("A HuffmanTrie with non-empty inputString should not be empty", trie1.isEmpty());
         assertTrue("A HuffmanTrie with empty inputString should be empty", trie2.isEmpty());
@@ -56,13 +62,8 @@ public class StudentTests {
     }
 
     @Test public void testHuffmanTrie() {
-        ArrayList<String> trieDescription1 = trie1.treeDescription(false);
-        CompactVizTree visualizer1 = new CompactVizTree(120,40,10);
-        visualizer1.drawBinaryTreeToFile(trieDescription1,path + "HuffmanTrie1");
-
-        ArrayList<String> trieDescription2 = trie2.treeDescription(false);
-        CompactVizTree visualizer2 = new CompactVizTree(120,40,10);
-        visualizer2.drawBinaryTreeToFile(trieDescription2,path + "HuffmanTrie2");
+        createVisualization(trie1, "HuffmanTrie1");
+        createVisualization(trie2, "HuffmanTrie2");
     }
 
     @Test public void testGetMostFrequent() {
@@ -81,9 +82,7 @@ public class StudentTests {
 
     @Test public void testOneChar() {
         HuffmanTrie trie3 = new HuffmanTrie("g");
-        ArrayList<String> trieDescription3 = trie3.treeDescription(false);
-        CompactVizTree visualizer3 = new CompactVizTree(120,40,10);
-        visualizer3.drawBinaryTreeToFile(trieDescription3,path + "HuffmanTrie3");
+        createVisualization(trie3, "HuffmanTrie3");
 
         assertFalse("A HuffmanTrie with non-empty inputString should not be empty", trie3.isEmpty());
         assertEquals("A HuffmanTrie with inputString 'g' should return 1 for getCount()", 1, trie3.getCount());
@@ -102,9 +101,7 @@ public class StudentTests {
 
     @Test public void testTwoChar() {
         HuffmanTrie trie4 = new HuffmanTrie("gg");
-        ArrayList<String> trieDescription4 = trie4.treeDescription(false);
-        CompactVizTree visualizer4 = new CompactVizTree(120,40,10);
-        visualizer4.drawBinaryTreeToFile(trieDescription4,path + "HuffmanTrie4");
+        createVisualization(trie4, "HuffmanTrie4");
 
         assertFalse("A HuffmanTrie with non-empty inputString should not be empty", trie4.isEmpty());
         assertEquals("A HuffmanTrie with inputString 'gg' should return 1 for getCount()", 1, trie4.getCount());

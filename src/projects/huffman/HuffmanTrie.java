@@ -263,7 +263,7 @@ public class HuffmanTrie {
     {
         if(root == null || root.getCharPair() == null)
         {
-            tree.add(space+"*");
+            tree.add(space + "*");
             return;
         }
         if (verbose) System.out.println(space + root.getCharPair().compactToString());
