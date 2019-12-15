@@ -1,8 +1,8 @@
 package projects.huffman;
 import projects.UnimplementedMethodException;
+import sun.text.normalizer.Trie;
 
-import java.util.Iterator;
-import java.util.Hashtable;
+import java.util.*;
 
 /**
  * <p>{@code HuffmanTrie} is a binary trie that implements huffman coding. Through the use of a priority
@@ -13,77 +13,113 @@ import java.util.Hashtable;
  */
 
 public class HuffmanTrie {
-
-    // helper class for easy Enque/Deque in the priority queue.
-    private static class CharPair {
-        private char chr;
-        private int occurrence;
-
-        CharPair(char chr, int occurrence) {
-            this.chr = chr;
-            this.occurrence = occurrence;
-        }
-    }
-
-    private static class TrieNode {
-        private TrieNode left, right;
-        private char chr;
-        private int occurrence;
-
-        // Default constructor
-        TrieNode() {
-            this.chr = (char)0; // ASCII code for null
-            this.occurrence = 0;
-            left = right = null;
-        }
-
-        // Non-default constructor
-        TrieNode(char chr, int occurrence) {
-            this.chr = chr;
-            this.occurrence = occurrence;
-            left = right = null;
-        }
-    }
+    /* ******************************************************** *
+     * **************** PRIVATE DATA ELEMENTS ***************** *
+     * ******************************************************** */
 
     private TrieNode root;
-    private Hashtable encoding; // result of huffman encoding as a hashtable
+    private String inputString;
+    private int count;
+    private int height;
+    private int gTimestamp;
+    private Hashtable<Character, Integer> occurrenceTable;
+    private Hashtable<Character, String> encodingTable; // result of huffman encoding as a hashtable
+    private PriorityQueue<TrieNode> pairPriorityQueue;
 
-    /* ********************************************************* *
-     * Write any private data elements or private methods here...*
-     * ********************************************************* */
+    /* ******************************************************** *
+     * ******************* PRIVATE METHODS ******************** *
+     * ******************************************************** */
+
+    private int getTimestamp() {
+        gTimestamp++;
+        return gTimestamp;
+    }
+
+    private void buildOccurrenceTable() {
+        for (int i = 0; i < inputString.length(); i++) {
+            char c = inputString.charAt(i);
+            if (occurrenceTable.containsKey(c)) {
+                int occ = occurrenceTable.remove(c);
+                occurrenceTable.put(c, occ + 1);
+            }
+            else {
+                occurrenceTable.put(c, 0);
+                count++;
+            }
+        }
+    }
+
+    private void buildPriorityQueue() {
+        if (!occurrenceTable.isEmpty()) {
+            Enumeration<Character> enu = occurrenceTable.keys();
+            while (enu.hasMoreElements()) {
+                char c = enu.nextElement();
+                int occ = occurrenceTable.get(c);
+                CharPair cp = new CharPair(c, occ, getTimestamp());
+                TrieNode node = new TrieNode(cp);
+                pairPriorityQueue.add(node);
+            }
+        }
+    }
+
+    private void buildHuffmanTrie() {
+        while (!pairPriorityQueue.isEmpty()) {
+            TrieNode left = pairPriorityQueue.poll();
+            left.setIsLeft(true);
+            TrieNode right = pairPriorityQueue.poll();
+            right.setIsLeft(false);
+
+            int parOcc = left.getCharPair().getOccurrence() + right.getCharPair().getOccurrence();
+            CharPair parent = new CharPair(parOcc, getTimestamp());
+            TrieNode newNode = new TrieNode(parent, left, right);
+
+            pairPriorityQueue.add(newNode);
+            root = newNode;
+        }
+
+    }
 
 
 
     /* ******************************************************** *
-     * ************************ PUBLIC METHODS **************** *
+     * ******************** PUBLIC METHODS ******************** *
      * ******************************************************** */
     /**
      * Constructor that takes in the inputString and initializes the HuffmanTrie.
      * @param inputString the string to encode
      */
     public HuffmanTrie(String inputString) {
-        throw new UnimplementedMethodException(); // ERASE THIS LINE AFTER YOU IMPLEMENT THE METHOD!
+        this.count = 0;
+        this.gTimestamp = 0;
+        this.inputString = inputString;
+        this.encodingTable = new Hashtable<>();
+        this.occurrenceTable = new Hashtable<>();
+        this.pairPriorityQueue = new PriorityQueue<>();
+        buildOccurrenceTable();
+        buildPriorityQueue();
+        buildHuffmanTrie();
     }
 
     /**
      * Returns the occurrence table.
      *
-     * @return empty hashtable if HuffmanTrie is empty, a hashtable otherwise:
+     * @return empty hashtable iff inputString is empty, a hashtable otherwise:
      * {key = ascii character, value = occurrence of the character in the string}.
      * E.g. "good noon" --> {'g': 1, 'o': 4, 'n': 2, 'd': 1, ' ': 1}
      */
     public Hashtable getOccurrenceTable() {
-        throw new UnimplementedMethodException(); // ERASE THIS LINE AFTER YOU IMPLEMENT THE METHOD!
+        return occurrenceTable;
     }
 
     /**
      * Returns the encoding.
      *
-     * @return empty hashtable if HuffmanTrie is empty, a hashtable otherwise:
+     * @return empty hashtable iff inputString is empty, a hashtable otherwise:
      * {key = ascii character, value = encoding as a string of 0, 1}.
+     * E.g. "good noon" --> {'g': "110", 'o': "0", 'n': "10", 'd': "1111", ' ': "1110"}
      */
     public Hashtable getEncoding() {
-        throw new UnimplementedMethodException(); // ERASE THIS LINE AFTER YOU IMPLEMENT THE METHOD!
+        return this.encodingTable;
     }
 
     /**
@@ -93,7 +129,7 @@ public class HuffmanTrie {
      * @return occurrence of the key if and only if key is in the trie, {@code 0} otherwise.
      */
     public int search(char key) {
-        throw new UnimplementedMethodException(); // ERASE THIS LINE AFTER YOU IMPLEMENT THE METHOD!
+        return this.occurrenceTable.get(key);
     }
 
     /**
@@ -101,7 +137,7 @@ public class HuffmanTrie {
      * @return {@code true} if the tree is empty, {@code false} otherwise.
      */
     public boolean isEmpty() {
-        throw new UnimplementedMethodException();       // ERASE THIS LINE AFTER YOU IMPLEMENT THIS METHOD!
+        return this.count == 0;
     }
 
     /**
@@ -109,18 +145,18 @@ public class HuffmanTrie {
      * @return The number of different characters in the tree.
      */
     public int getCount() {
-        throw new UnimplementedMethodException(); // ERASE THIS LINE AFTER YOU IMPLEMENT THE METHOD!
+        return this.count;
     }
 
     /**
      * Returns the number of characters in the tree. Note that this is different from getCount().
      * For example, suppose the HuffmanTrie stores "good noon", it should return 5 for getCount(),
-     * but 9 for getTotalFreq().
+     * but 9 for getTotalOccurrence().
      *
      * @return The number of characters in the tree.
      */
-    public int getTotalOccurrence() {
-        throw new UnimplementedMethodException(); // ERASE THIS LINE AFTER YOU IMPLEMENT THE METHOD!
+    public int getTotalOccurrences() {
+        return this.inputString.length();
     }
 
     /**

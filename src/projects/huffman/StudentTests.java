@@ -31,8 +31,8 @@ public class StudentTests {
     }
 
     @Test public void testGetTotalOccurrence() {
-        assertEquals("A HuffmanTrie with inputString 'good noon' should return 9 for getTotalOccurrence()", 9, trie1.getTotalOccurrence());
-        assertEquals("A HuffmanTrie with empty inputString should return 0 for getTotalOccurrence()", 0, trie2.getTotalOccurrence());
+        assertEquals("A HuffmanTrie with inputString 'good noon' should return 9 for getTotalOccurrence()", 9, trie1.getTotalOccurrences());
+        assertEquals("A HuffmanTrie with empty inputString should return 0 for getTotalOccurrence()", 0, trie2.getTotalOccurrences());
     }
 
     @Test public void testOccurrenceTable() {
