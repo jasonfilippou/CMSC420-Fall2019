@@ -1,7 +1,4 @@
 package projects.huffman;
-import projects.UnimplementedMethodException;
-import sun.text.normalizer.Trie;
-
 import java.util.*;
 
 /**
@@ -10,6 +7,7 @@ import java.util.*;
  * able to provide an encoding that requires a lot less space than as if ASCII is used. </p>
  *
  * @author Yige Feng 115674202
+ * Credit: Tree visualizer from <a href ="https://github.com/JasonFil">Jason Filippou</a>
  */
 
 public class HuffmanTrie {
@@ -20,7 +18,6 @@ public class HuffmanTrie {
     private TrieNode root;
     private String inputString;
     private int count;
-    private int height;
     private int gTimestamp;
     private Hashtable<Character, Integer> occurrenceTable;
     private Hashtable<Character, String> encodingTable; // result of huffman encoding as a hashtable
@@ -43,7 +40,7 @@ public class HuffmanTrie {
                 occurrenceTable.put(c, occ + 1);
             }
             else {
-                occurrenceTable.put(c, 0);
+                occurrenceTable.put(c, 1);
                 count++;
             }
         }
@@ -51,11 +48,8 @@ public class HuffmanTrie {
 
     private void buildPriorityQueue() {
         if (!occurrenceTable.isEmpty()) {
-            Enumeration<Character> enu = occurrenceTable.keys();
-            while (enu.hasMoreElements()) {
-                char c = enu.nextElement();
-                int occ = occurrenceTable.get(c);
-                CharPair cp = new CharPair(c, occ, getTimestamp());
+            for (Map.Entry<Character, Integer> entry : occurrenceTable.entrySet()) {
+                CharPair cp = new CharPair(entry.getKey(), entry.getValue(), getTimestamp());
                 TrieNode node = new TrieNode(cp);
                 pairPriorityQueue.add(node);
             }
@@ -63,7 +57,14 @@ public class HuffmanTrie {
     }
 
     private void buildHuffmanTrie() {
-        while (!pairPriorityQueue.isEmpty()) {
+        if (pairPriorityQueue.size() == 1) {
+            TrieNode left = pairPriorityQueue.poll();
+            left.setIsLeft(true);
+            CharPair parent = new CharPair(left.getCharPair().getOccurrence(), getTimestamp());
+            root = new TrieNode(parent, left, null);
+            return;
+        }
+        while (pairPriorityQueue.size() > 1) {
             TrieNode left = pairPriorityQueue.poll();
             left.setIsLeft(true);
             TrieNode right = pairPriorityQueue.poll();
@@ -74,12 +75,28 @@ public class HuffmanTrie {
             TrieNode newNode = new TrieNode(parent, left, right);
 
             pairPriorityQueue.add(newNode);
-            root = newNode;
         }
-
+        root = pairPriorityQueue.poll();
     }
 
+    private void buildEncodingTable() {
+        Stack<TrieNode> st = new Stack<>();
+        StringBuilder str = new StringBuilder();
+        st.push(root);
 
+        while (!st.isEmpty()) {
+            TrieNode node = st.pop();
+            if (node != null) {
+                st.add(node.getRight());
+                st.add(node.getLeft());
+                if (node != root) str.append(node.isLeft() ? "0" : "1");
+                if (node.isLeaf()) {
+                    encodingTable.put(node.getCharPair().getChr(), str.toString());
+                    str.deleteCharAt(str.length() - 1);
+                }
+            }
+        }
+    }
 
     /* ******************************************************** *
      * ******************** PUBLIC METHODS ******************** *
@@ -94,42 +111,43 @@ public class HuffmanTrie {
         this.inputString = inputString;
         this.encodingTable = new Hashtable<>();
         this.occurrenceTable = new Hashtable<>();
-        this.pairPriorityQueue = new PriorityQueue<>();
+        this.pairPriorityQueue = new PriorityQueue<>(new TrieNodeComparator());
         buildOccurrenceTable();
         buildPriorityQueue();
         buildHuffmanTrie();
+        buildEncodingTable();
     }
 
     /**
-     * Returns the occurrence table.
+     * Returns the occurrence of that character.
+     * [Note: Changed this method from returning the occurrence table to returning the occurrence of the character
+     * I think there's more freedom in dealing with if user asks for occurrence of non-existing character in this way.]
      *
-     * @return empty hashtable iff inputString is empty, a hashtable otherwise:
-     * {key = ascii character, value = occurrence of the character in the string}.
-     * E.g. "good noon" --> {'g': 1, 'o': 4, 'n': 2, 'd': 1, ' ': 1}
+     * @return 0 if key doesn't exist, occurrence as an integer o.w.
      */
-    public Hashtable getOccurrenceTable() {
-        return occurrenceTable;
+    public int getOccurrence(char key) {
+        return this.occurrenceTable.containsKey(key) ? this.occurrenceTable.get(key) : 0;
     }
 
     /**
-     * Returns the encoding.
+     * Returns the encoding of that character.
+     * [Note: Changed this method from returning the encoding table to returning the encoding of the character
+     * I think there's more freedom in dealing with if user asks for encoding of non-existing character in this way.]
      *
-     * @return empty hashtable iff inputString is empty, a hashtable otherwise:
-     * {key = ascii character, value = encoding as a string of 0, 1}.
-     * E.g. "good noon" --> {'g': "110", 'o': "0", 'n': "10", 'd': "1111", ' ': "1110"}
+     * @return null if key doesn't exist, encoding as a string o.w.
      */
-    public Hashtable getEncoding() {
-        return this.encodingTable;
+    public String getEncoding(char key) {
+        return this.encodingTable.containsKey(key) ? this.encodingTable.get(key) : null;
     }
 
     /**
      * Searches the trie for a given key (an ascii character).
      *
      * @param key The input {@link char} key.
-     * @return occurrence of the key if and only if key is in the trie, {@code 0} otherwise.
+     * @return true iff key is in the trie, false otherwise.
      */
-    public int search(char key) {
-        return this.occurrenceTable.get(key);
+    public boolean search(char key) {
+        return this.getOccurrence(key) != 0;
     }
 
     /**
@@ -166,12 +184,41 @@ public class HuffmanTrie {
      * order</i>.
      */
     public Iterator<CharPair> inorderTraversal() {
-        throw new UnimplementedMethodException(); // ERASE THIS LINE AFTER YOU IMPLEMENT THE METHOD!
+        return new TrieIterator();
+    }
+
+    private class TrieIterator implements Iterator<CharPair> {
+        private Stack<TrieNode> stack;
+
+        public TrieIterator() {
+            stack = new Stack<>();
+            TrieNode curr = root;
+            if (!isEmpty()) pushByCurr(curr);
+        }
+
+        @Override
+        public boolean hasNext() {
+            return !stack.isEmpty();
+        }
+
+        @Override
+        public CharPair next() {
+            TrieNode node = stack.pop();
+            if (node != null && node.getRight() != null) pushByCurr(node.getRight());
+            return node.getCharPair();
+        }
+
+        private void pushByCurr(TrieNode node) {
+            while (node != null) {
+                stack.push(node);
+                node = node.getLeft();
+            }
+        }
     }
 
     /**
      * Finds the most frequent {@link char} stored in the HuffmanTrie.
-     * @return <p>The most frequent {@link char} stored in this. If the trie is empty, null should be
+     * @return <p>The most frequent {@link char} stored in this. If the trie is empty, null char should be
      * returned.
      *
      * <p>Ties should be broken in terms of <b>lexicographical order</b> of the character. For example,
@@ -179,6 +226,50 @@ public class HuffmanTrie {
      * should be returned.
      */
     public char getMostFrequentChar() {
-        throw new UnimplementedMethodException(); // ERASE THIS LINE AFTER YOU IMPLEMENT THE METHOD!
+        if (encodingTable.isEmpty()) {
+            return (char) 0;
+        }
+        Map.Entry<Character, String> minSoFar = null;
+        for (Map.Entry<Character, String> entry : encodingTable.entrySet()) {
+            if (minSoFar == null || entry.getValue().compareTo(minSoFar.getValue()) < 0) {
+                minSoFar = entry;
+            }
+        }
+        return minSoFar.getKey();
+    }
+
+    /**
+     * A simple tree description generator for VizTree/CompactVizTree. It returns a string representation for the Huffman Trie.
+     * This tree representation follows jimblackler style(http://jimblackler.net/treefun/index.html).
+     * To identify child-index (left/right), I use "*" as special character to indicate null leaves.
+     * DO NOT EDIT!
+     * @param verbose whether to print the tree description to stdout or not
+     * @return An {@link ArrayList} that gives a string-fied representation of the KD-Tree.
+     */
+    public ArrayList<String> treeDescription(boolean verbose)
+    {
+        ArrayList<String> tree = new ArrayList<String>();
+        this.treeDescription(root,"", tree, verbose);
+        return tree;
+    }
+    /**
+     * Private <b>recursive</b> help for treeDescription. DO NOT EDIT!
+     * @param root the current subtree root
+     * @param space tracks parent-child relationship
+     * @param tree Arraylist containing the tree description
+     * @param verbose whether to print the tree description to stdout or not
+     */
+    private void treeDescription(TrieNode root, String space, ArrayList<String> tree, boolean verbose)
+    {
+        if(root == null || root.getCharPair() == null)
+        {
+            tree.add(space+"*");
+            return;
+        }
+        if (verbose) System.out.println(space + root.getCharPair().compactToString());
+
+        tree.add(space + root.getCharPair().compactToString());
+        treeDescription(root.getLeft(), space + " ", tree, verbose);
+        treeDescription(root.getRight(), space + " ", tree, verbose);
     }
 }
