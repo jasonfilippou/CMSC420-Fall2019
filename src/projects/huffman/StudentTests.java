@@ -11,6 +11,7 @@ import projects.visualization.CompactVizTree;
  * @author Yige Feng 115674202
  */
 public class StudentTests {
+    private String path = "src/projects/huffman/";
     private HuffmanTrie trie1 = new HuffmanTrie("good noon");
     private HuffmanTrie trie2 = new HuffmanTrie("");
 
@@ -57,11 +58,11 @@ public class StudentTests {
     @Test public void testHuffmanTrie() {
         ArrayList<String> trieDescription1 = trie1.treeDescription(false);
         CompactVizTree visualizer1 = new CompactVizTree(120,40,10);
-        visualizer1.drawBinaryTreeToFile(trieDescription1,"HuffmanTrie1");
+        visualizer1.drawBinaryTreeToFile(trieDescription1,path + "HuffmanTrie1");
 
         ArrayList<String> trieDescription2 = trie2.treeDescription(false);
         CompactVizTree visualizer2 = new CompactVizTree(120,40,10);
-        visualizer2.drawBinaryTreeToFile(trieDescription2,"HuffmanTrie2");
+        visualizer2.drawBinaryTreeToFile(trieDescription2,path + "HuffmanTrie2");
     }
 
     @Test public void testGetMostFrequent() {
@@ -82,7 +83,7 @@ public class StudentTests {
         HuffmanTrie trie3 = new HuffmanTrie("g");
         ArrayList<String> trieDescription3 = trie3.treeDescription(false);
         CompactVizTree visualizer3 = new CompactVizTree(120,40,10);
-        visualizer3.drawBinaryTreeToFile(trieDescription3,"HuffmanTrie3");
+        visualizer3.drawBinaryTreeToFile(trieDescription3,path + "HuffmanTrie3");
 
         assertFalse("A HuffmanTrie with non-empty inputString should not be empty", trie3.isEmpty());
         assertEquals("A HuffmanTrie with inputString 'g' should return 1 for getCount()", 1, trie3.getCount());
@@ -103,7 +104,7 @@ public class StudentTests {
         HuffmanTrie trie4 = new HuffmanTrie("gg");
         ArrayList<String> trieDescription4 = trie4.treeDescription(false);
         CompactVizTree visualizer4 = new CompactVizTree(120,40,10);
-        visualizer4.drawBinaryTreeToFile(trieDescription4,"HuffmanTrie4");
+        visualizer4.drawBinaryTreeToFile(trieDescription4,path + "HuffmanTrie4");
 
         assertFalse("A HuffmanTrie with non-empty inputString should not be empty", trie4.isEmpty());
         assertEquals("A HuffmanTrie with inputString 'gg' should return 1 for getCount()", 1, trie4.getCount());
