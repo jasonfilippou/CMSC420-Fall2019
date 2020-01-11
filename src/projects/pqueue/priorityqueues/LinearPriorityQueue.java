@@ -6,6 +6,7 @@ package projects.pqueue.priorityqueues; // ******* <---  DO NOT ERASE THIS LINE!
  * IMPLEMENTATION, AND IT IS COMPLETELY FINE TO ERASE THEM. THE CHOICE IS YOURS.
  * ********************************************************************************** */
 
+import demos.GenericArrays;
 import projects.UnimplementedMethodException;
 import projects.pqueue.exceptions.InvalidCapacityException;
 import projects.pqueue.exceptions.InvalidPriorityException;
